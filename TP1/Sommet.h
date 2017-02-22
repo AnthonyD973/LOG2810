@@ -10,7 +10,7 @@ public:
     virtual void diminuerDistanceAvantActif(int distance) = 0;
 
 private:
-    virtual bool _estActif();
+    virtual bool _estActif() = 0;
 
 private:
     std::map<Sommet, int> _distances;
