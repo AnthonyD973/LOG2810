@@ -8,5 +8,5 @@ public:
     Chemin gainMaximal(string, int);
     
 private:
-    std::vector<Sommet>_sommets;
+    std::vector<Sommet*>_sommets;
 };
