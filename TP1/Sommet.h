@@ -2,12 +2,12 @@
 
 class Sommet {
 public:
-    Sommet();
+    Sommet(const std::map<Sommet, int>& distances);
     virtual ~Sommet();
-    
+
     int distanceA(Sommet s);
     virtual void visiter() = 0;
-    void diminuerDistanceAvantActif(int distance);
+    virtual void diminuerDistanceAvantActif(int distance) = 0;
 
 private:
     virtual bool _estActif();
