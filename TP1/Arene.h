@@ -13,5 +13,4 @@ private:
 
 private:
     bool _estDejaVisite;
-
 };
