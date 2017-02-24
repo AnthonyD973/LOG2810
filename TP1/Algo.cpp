@@ -10,16 +10,32 @@ Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
 
 Chemin Algo::meilleurCheminPourGainDe(
     int gain,
-    Graphe graphe,
-    Sommet* sDepart) const
+    const Graphe& graphe,
+    int indiceDuSommetDeDepart) const
 {
+    Graphe copieDuGraphe = graphe;
+    Sommet* sDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
+
+    // D'abord, faire visiter le point courant pour modifier la copie du graphe.
+    sDepart->visiter();
+
+    // Ensuite, trouver récursivement le meilleur chemin à partir de la
+    // position courante.
     Chemin meilleurCheminTrouve;
+    int meilleurGainParMetre = 0;
+
     const std::vector<Sommet*> MEILLEURS_SOMMETS =
         _trouverMeilleursSommets(sDepart);
 
     for(Sommet* s : MEILLEURS_SOMMETS) {
-        Chemin chemin = meilleurCheminPourGainDe(gain - s->obtenirGain());
-        chemin.distance += sDepart->distanceA(s);
+        Chemin chemin = meilleurCheminPourGainDe(gain - s->getGain(), graphe, s);
+
+        int gainParMetreCourant = chemin.gain / chemin.distance;
+
+        if (gainParMetreCourant >= meilleurGainparMetre) {
+            meilleurCheminTrouve = chemin;
+            meilleurGainParMetre = gainParMetreCourant;
+        }
     }
 
 
@@ -28,8 +44,8 @@ Chemin Algo::meilleurCheminPourGainDe(
 
 Chemin Algo::meilleurCheminPourDistanceDe(
     int distance,
-    Graphe graphe,
-    Sommet* sDepart) const
+    const Graphe& graphe,
+    int indiceDuSommetDeDepart) const
 {
     Chemin meilleurCheminTrouve;
     const std::vector<Sommet*> MEILLEURS_SOMMETS =

@@ -11,13 +11,13 @@ public:
     
     Chemin meilleurCheminPourGainDe(
         int gain,
-        Graphe graphe, // Oui, c'est bien une copie du graphe qui est mise sur la pile! :)
-        const Sommet* sDepart) const;
+        const Graphe& graphe,
+        int indiceDuSommetDeDepart) const;
 
     Chemin meilleurCheminPourDistanceDe(
         int distance,
-        Graphe graphe, // Oui, c'est bien une copie du graphe qui est mise sur la pile! :)
-        const Sommet* sDepart) const;
+        const Graphe& graphe,
+        int indiceDuSommetDeDepart) const;
 
 private:
     std::vector<Sommet*> _trouverMeilleursSommets(const Sommet* s) const;
