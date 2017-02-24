@@ -6,13 +6,14 @@ public:
     Sommet(int gain, const std::map<Sommet*, int>& distances);
     virtual ~Sommet();
 
-    int distanceA(const Sommet* s);
+    int distanceA(const Sommet* s) const;
+    inline int getGain() const { return _gain; }
     virtual void visiter() = 0;
     virtual void diminuerDistanceAvantActif(int distance) = 0;
 
 private:
-    virtual bool _estActif() = 0;
-    virtual int _obtenirDistanceAvantActif() = 0;
+    virtual bool _estActif() const = 0;
+    virtual int _obtenirDistanceAvantActif() const = 0;
 
 private:
     int _gain;

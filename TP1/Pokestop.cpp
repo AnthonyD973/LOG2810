@@ -19,6 +19,6 @@ void diminuerDistanceAvantActif(int distance) {
     }
 }
 
-bool Pokestop::_estActif() {
+bool Pokestop::_estActif() const {
     return _distAvantActif <= 0;
 }

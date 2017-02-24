@@ -36,6 +36,6 @@ void diminuerDistanceAvantActif(int distance) {
     }
 }
 
-bool Pokemon::_estActif() {
+bool Pokemon::_estActif() const {
     return _distAvantActif <= 0;
 }

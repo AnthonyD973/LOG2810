@@ -6,7 +6,7 @@ Sommet::Sommet(int gain, const std::map<Sommet*, int>& distances)
 
 Sommet::~Sommet() {}
 
-int Sommet::distanceA(const Sommet* s) {
+int Sommet::distanceA(const Sommet* s) const {
     int ret;
 
     if (s.estActif()) {

@@ -20,6 +20,6 @@ void Arene::visiter() {
 
 void diminuerDistanceAvantActif(int distance) {}
 
-bool Arene::_estActif() {
+bool Arene::_estActif() const {
     return !_estDejaVisite;
 }
