@@ -1,19 +1,27 @@
 #include "Sommet.h"
 
-Sommet::Sommet(const std::map<Sommet, int>& distances) :
-    _distances(distances)
+Sommet::Sommet(int gain, const std::map<Sommet*, int>& distances)
+    : _gain(gain), _distances(distances)
 { }
 
-Sommet::~Sommet() { }
+Sommet::~Sommet() {}
 
-int  Sommet::distanceA(Sommet s) {
+int Sommet::distanceA(const Sommet* s) {
+    int ret;
 
-}
-
-void Sommet::diminuerDistanceAvantActif(int distance) {
-    
-}
-
-bool Sommet::_estActif() {
-
+    if (s.estActif()) {
+        ret = _distances[s];
+    }
+    else {
+        int daa = s->_obtenirDistanceAvantActif();
+        
+        bool distEstInfinie = (daa <= INT_MAX - 1);
+        if (!distEstInfinie) {
+            ret = daa + _distances[s];
+        }
+        else {
+            ret = daa;
+        }
+    }
+    return ret;
 }

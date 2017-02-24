@@ -1,17 +1,20 @@
 #include <map>
+#include <limits.h>
 
 class Sommet {
 public:
-    Sommet(const std::map<Sommet, int>& distances);
+    Sommet(int gain, const std::map<Sommet*, int>& distances);
     virtual ~Sommet();
 
-    int distanceA(Sommet s);
+    int distanceA(const Sommet* s);
     virtual void visiter() = 0;
     virtual void diminuerDistanceAvantActif(int distance) = 0;
 
 private:
     virtual bool _estActif() = 0;
+    virtual int _obtenirDistanceAvantActif() = 0;
 
 private:
-    std::map<Sommet, int> _distances;
+    int _gain;
+    std::map<Sommet*, int> _distances;
 };
