@@ -2,8 +2,8 @@
 
 class Chemin {
 public:
-    Chemin(vector<Sommet*>pointsVisites);
+    Chemin(vector<Sommet*> pointsVisites);
     int distance;
     int gain;
-    std::vector<Sommet*>_pointsVisites;
+    std::vector<Sommet*> _pointsVisites;
 };
