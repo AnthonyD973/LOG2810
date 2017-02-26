@@ -7,9 +7,9 @@
 // TODO : BESOIN D'UN CONSTRUCTEUR PAR COPIE POUR LA CLASSE GRAPHE
 
 
-Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
+Algo::Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
 
-~Algo() {}
+Algo::~Algo() {}
 
 Chemin Algo::meilleurCheminPourGainDe(
     int gain,
@@ -29,7 +29,7 @@ Chemin Algo::meilleurCheminPourGainDe(
         double meilleurGainParMetre = 0.0;
 
         const std::vector<int> MEILLEURS_SOMMETS =
-            _trouverMeilleursSommets(sommetDeDepart);
+            _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
 
         for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
@@ -80,7 +80,7 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     double meilleurGainParMetre = 0.0;
 
     const std::vector<int> MEILLEURS_SOMMETS =
-        _trouverMeilleursSommets(sommetDeDepart);
+        _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
 
     for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
         Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
@@ -112,7 +112,7 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     return meilleurCheminTrouve;
 }
 
-std::vector<int> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const {
+std::vector<Sommet*> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const {
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
     int indiceDuSommet = 0;
@@ -125,15 +125,15 @@ std::vector<int> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& g
             gainsParMetre.push_back((double)gain/distance);
         }
     }
-    catch(const std::out_out_range& e) {}
+    catch(const std::out_of_range& e) {}
 
     // Ensuite, déterminer les meilleurs sommets à partir des gains par mètre.
-    std::vector<int> meilleursSommets;
+    std::vector<Sommet*> meilleursSommets;
     for(int i = 0; i < _N_SOMMETS_A_ESSAYER; ++i) {
         double meilleurGain = -1.0;
         int indiceDuMeilleurGain;
         
-        for (int j = 0; j < gainsParMetre.size(); ++j) {
+        for (int j = 0; j < (int)gainsParMetre.size(); ++j) {
             if (gainsParMetre[j] > meilleurGain) {
                 meilleurGain = gainsParMetre[j];
                 indiceDuMeilleurGain = j;
@@ -141,7 +141,7 @@ std::vector<int> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& g
         }
 
         meilleursSommets.push_back(graphe.getSommet(indiceDuMeilleurGain));
-        gainsParMetre[indiceDuMeilleurSommet] = -1.0;
+        gainsParMetre[indiceDuMeilleurGain] = -1.0;
     }
 
     return meilleursSommets;

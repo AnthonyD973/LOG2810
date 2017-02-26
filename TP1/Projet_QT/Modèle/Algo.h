@@ -1,5 +1,7 @@
 #include <vector>
 
+#include "Sommet.h"
+
 #include "Chemin.h"
 #include "Graphe.h"
 
