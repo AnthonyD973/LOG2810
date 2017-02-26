@@ -9,7 +9,7 @@ public:
     virtual void diminuerDistanceAvantActif(int distance);
 
 private:
-    virtual bool _estActif();
+    virtual bool _estActif() const;
 
 private:
     bool _estDejaVisite;
