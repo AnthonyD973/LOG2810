@@ -1,6 +1,7 @@
 #include "Graphe.h"
 #include <fstream>
 #include <string>
+#include <sstream>
 using namespace std;
 
 void Graphe::Graphe(string nomFichier): _sommets
@@ -12,7 +13,15 @@ void Graphe::Graphe(string nomFichier): _sommets
     int i=0;
     if (monFichier.is_open())
     {
-        while ( getline(monFichier,dataPoint, ';') )
+        string ligne;
+        getline(monFichier, ligne);
+        stringstream sLigne(ligne);
+        
+        string ligne2;
+        getline(monFichier, ligne2);
+        stringstream sLigne2(ligne2);
+        
+        while ( getline(sLigne,dataPoint, ';') )
         {
             String[] point = dataPoint.split(",");
 
@@ -35,11 +44,37 @@ void Graphe::Graphe(string nomFichier): _sommets
                 _sommets[i].setNom(point[0]);
                 _sommets[i].setGain(point[2]);
             }
-            else //veut dire qu'on a finit de creer les sommets et qu'on commence maintenant a enregistrer les distances
             {
-                _sommets[i].addDistance(point[1], point[2]);
-            }
+                            }
             i++;
+        }
+        
+        while(getline(sLigne2,dataPoint, ';')) //on a finit de creer les sommets et qu'on commence maintenant a enregistrer les distances
+        {
+            //trouver l'objet sommet* correspondant a point[1]
+            //pour ce, boucler a travers le vecteur de sommets pour trouver l'objet sommet qui correspond au string deuxiemePoint
+            String[] point = dataPoint.split(",");
+            int indiceDeuxiemePoint;
+            for(int i = 0; i<_sommets.size(); i++)
+            {
+                if(_sommets[i].getNom()==point[1])
+                {
+                    indiceDeuxiemePoint=i;
+                }
+            }
+            
+            //trouver l'objet sommet* correspondant a point[0]
+            //pour ce, boucler a travers le vecteur de sommets pour trouver l'objet sommet qui correspond au string premierPoint
+            int indicePremierPoint;
+            for(int i = 0; i<_sommets.size(); i++)
+            {
+                if(_sommets[i].getNom()==point[0])
+                {
+                    indicePremierPoint=i;
+                }
+            }
+            _sommets[indicePremierPoint].addDistance(_sommets[indiceDeuxiemePoint], point[2]);
+
         }
         monFichier.close();
     }
