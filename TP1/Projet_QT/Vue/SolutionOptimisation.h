@@ -2,9 +2,10 @@
 #define SOLUTIONOPTIMISATION_H
 
 #include <QWidget>
+#include <QLabel>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLabel>
+#include <QLineEdit>
 
 class SolutionOptimisation : public QWidget
 {
@@ -17,7 +18,7 @@ private:
     QVBoxLayout*    _dispositionHorizontale;
 
     QHBoxLayout*    _trouveeEn;
-    QHBoxLayout*    _solutionTrouvee;
+    QVBoxLayout*    _solutionTrouvee;
     QHBoxLayout*    _distanceTotale;
     QHBoxLayout*    _gainTotal;
 
