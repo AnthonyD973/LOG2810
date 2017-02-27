@@ -14,17 +14,32 @@ class SolutionOptimisation : public QWidget
 public:
     explicit SolutionOptimisation(QWidget* parent = Q_NULLPTR);
 
+    // =================
+    // =   ATTRIBUTS   =
+    // =================
+
 private:
-    QVBoxLayout*    _dispositionHorizontale;
+    QVBoxLayout*    _disposition;
 
     QHBoxLayout*    _trouveeEn;
     QVBoxLayout*    _solutionTrouvee;
     QHBoxLayout*    _distanceTotale;
     QHBoxLayout*    _gainTotal;
 
+
+    // =================
+    // =    SIGNAUX    =
+    // =================
+
 signals:
 
+
+    // =================
+    // =     SLOTS     =
+    // =================
+
 public slots:
+
 };
 
 #endif // SOLUTIONOPTIMISATION_H

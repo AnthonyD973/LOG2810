@@ -41,12 +41,12 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
     _gainTotal->addWidget(valeurGainTotal);
 
 
-    _dispositionHorizontale = new QVBoxLayout(parent);
-    _dispositionHorizontale->addLayout(_trouveeEn);
-    _dispositionHorizontale->addLayout(_solutionTrouvee);
-    _dispositionHorizontale->addLayout(_distanceTotale);
-    _dispositionHorizontale->addLayout(_gainTotal);
+    _disposition = new QVBoxLayout(parent);
+    _disposition->addLayout(_trouveeEn);
+    _disposition->addLayout(_solutionTrouvee);
+    _disposition->addLayout(_distanceTotale);
+    _disposition->addLayout(_gainTotal);
 
 
-    setLayout(_dispositionHorizontale);
+    setLayout(_disposition);
 }
