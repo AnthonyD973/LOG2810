@@ -15,7 +15,7 @@ Chemin::Chemin(vector<Sommet*> pointsVisites)
     gain = 0;
     for(int j=0; j<pointsVisites.size();j++)
     {
-        gain += *pointsVisites[j];
+        gain += *pointsVisites[j].getGain();
     }
     
 }

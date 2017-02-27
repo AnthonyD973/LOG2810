@@ -3,6 +3,7 @@
 
 class Sommet {
 public:
+    Sommet();
     Sommet(int gain, const std::map<Sommet*, int>& distances);
     virtual ~Sommet();
 
