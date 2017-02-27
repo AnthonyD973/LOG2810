@@ -1,7 +1,6 @@
 #include "SelectionOptimisation.h"
 
 #include <QDebug>
-#include <cstdlib>
 
 SelectionOptimisation::SelectionOptimisation(QWidget* parent)
     : QWidget(parent)
@@ -87,8 +86,8 @@ void SelectionOptimisation::commencerOptimisation(bool) {
     if (!_fichierCarte.isNull()) {
         if (_valeurCible >= 0) {
             switch(_typeOptimisation) {
-            case _DISTANCE_MAX: qDebug() << "Optimisation distance max."; break;
-            case _GAIN_MIN    : qDebug() << "Optimisation gain min."; break;
+            case _DISTANCE_MAX: std::time tempsDebut = std::time(); qDebug() << "Optimisation distance max."; emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut); break;
+            case _GAIN_MIN    : std::time tempsDebut = std::time(); qDebug() << "Optimisation gain min.";     emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut); break;
             default           : qDebug() << "Type d'optimisation non spécifié."; break;
             }
         }

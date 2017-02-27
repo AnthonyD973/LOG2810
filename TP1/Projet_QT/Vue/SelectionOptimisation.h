@@ -12,6 +12,11 @@
 #include <QRadioButton>
 #include <QLineEdit>
 
+#include <ctime>
+
+#include "Modèle/Algo.h"
+#include "Modèle/Chemin.h"
+
 class SelectionOptimisation : public QWidget
 {
     enum _TypeOptimisation : char {
@@ -38,7 +43,7 @@ private:
     QPushButton*    _boutonOptimiser;
 
     QString         _fichierCarte;
-    int             _valeurCible;
+    int             _valeurCible = -1;
 
     _TypeOptimisation _typeOptimisation = _NUM_TYPES_OPTIMISATION;
 
@@ -47,7 +52,7 @@ private:
     // =================
 
 signals:
-    void optimisationTerminee(/*Chemin cheminOptimal*/);
+    void optimisationTerminee(const Chemin& cheminOptimal, std::time_t tempsPris);
 
     // =================
     // =     SLOTS     =

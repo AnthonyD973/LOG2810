@@ -7,6 +7,10 @@
 #include <QHBoxLayout>
 #include <QLineEdit>
 
+#include <ctime>
+
+#include "Modèle/Chemin.h"
+
 class SolutionOptimisation : public QWidget
 {
     Q_OBJECT
@@ -21,10 +25,10 @@ public:
 private:
     QVBoxLayout*    _disposition;
 
-    QHBoxLayout*    _trouveeEn;
-    QVBoxLayout*    _solutionTrouvee;
-    QHBoxLayout*    _distanceTotale;
-    QHBoxLayout*    _gainTotal;
+    QLabel*    _trouveeEn;
+    QLineEdit* _solutionTrouvee;
+    QLabel*    _distanceTotale;
+    QLabel*    _gainTotal;
 
 
     // =================
@@ -39,7 +43,7 @@ signals:
     // =================
 
 public slots:
-
+    void afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time tempsPris);
 };
 
 #endif // SOLUTIONOPTIMISATION_H

@@ -14,10 +14,16 @@ MainWindow::MainWindow(QWidget *parent) :
     _ligneHorizontale->setFrameStyle(QFrame::HLine | QFrame::Sunken);
     _ligneHorizontale->setLineWidth(2);
 
+    SelectionOptimisation* selectionOptimisation = new SelectionOptimisation();
+    SolutionOptimisation*  solutionOptimisation  = new SolutionOptimisation();
+
     _boitePrincipale = new QVBoxLayout();
-    _boitePrincipale->addWidget(new SelectionOptimisation());
+    _boitePrincipale->addWidget(selectionOptimisation);
     _boitePrincipale->addWidget(_ligneHorizontale);
-    _boitePrincipale->addWidget(new SolutionOptimisation());
+    _boitePrincipale->addWidget(solutionOptimisation);
+
+    connect(selectionOptimisation,SIGNAL(optimisationTerminee(const Chemin&, std::time_t)),
+            solutionOptimisation, SLOT(afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time tempsPris)));
 
     QWidget* fenetre = new QWidget(this);
     fenetre->setLayout(_boitePrincipale);
