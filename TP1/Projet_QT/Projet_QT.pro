@@ -23,23 +23,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    Modèle/Algo.cpp \
-    Modèle/Arene.cpp \
-    Modèle/Chemin.cpp \
-    Modèle/Graphe.cpp \
-    Modèle/Pokemon.cpp \
-    Modèle/Pokestop.cpp \
-    Modèle/Sommet.cpp
+SOURCES += \
+    Vue/main.cpp \
+    Vue/SelectionOptimisation.cpp \
+    Vue/SolutionOptimisation.cpp \
+    Vue/MainWindow.cpp
 
 HEADERS  += mainwindow.h \
-    Modèle/Algo.h \
-    Modèle/Arene.h \
-    Modèle/Chemin.h \
-    Modèle/Graphe.h \
-    Modèle/Pokemon.h \
-    Modèle/Pokestop.h \
-    Modèle/Sommet.h
+    Vue/SelectionOptimisation.h \
+    Vue/SolutionOptimisation.h \
+    Vue/MainWindow.h
 
 FORMS    += mainwindow.ui

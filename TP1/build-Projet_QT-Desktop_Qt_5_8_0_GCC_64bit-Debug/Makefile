@@ -48,25 +48,19 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Projet_QT/main.cpp \
-		../Projet_QT/mainwindow.cpp \
-		../Projet_QT/Modèle/Algo.cpp \
-		../Projet_QT/Modèle/Arene.cpp \
-		../Projet_QT/Modèle/Chemin.cpp \
-		../Projet_QT/Modèle/Graphe.cpp \
-		../Projet_QT/Modèle/Pokemon.cpp \
-		../Projet_QT/Modèle/Pokestop.cpp \
-		../Projet_QT/Modèle/Sommet.cpp moc_mainwindow.cpp
+SOURCES       = ../Projet_QT/Vue/main.cpp \
+		../Projet_QT/Vue/SelectionOptimisation.cpp \
+		../Projet_QT/Vue/SolutionOptimisation.cpp \
+		../Projet_QT/Vue/MainWindow.cpp moc_SelectionOptimisation.cpp \
+		moc_SolutionOptimisation.cpp \
+		moc_MainWindow.cpp
 OBJECTS       = main.o \
-		mainwindow.o \
-		Algo.o \
-		Arene.o \
-		Chemin.o \
-		Graphe.o \
-		Pokemon.o \
-		Pokestop.o \
-		Sommet.o \
-		moc_mainwindow.o
+		SelectionOptimisation.o \
+		SolutionOptimisation.o \
+		MainWindow.o \
+		moc_SelectionOptimisation.o \
+		moc_SolutionOptimisation.o \
+		moc_MainWindow.o
 DIST          = /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/common/unix.conf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/common/linux.conf \
@@ -217,6 +211,7 @@ DIST          = /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
+		../Projet_QT/.qmake.stash \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -236,22 +231,13 @@ DIST          = /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/exceptions.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/yacc.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/lex.prf \
-		../Projet_QT/Projet_QT.pro ../Projet_QT/mainwindow.h \
-		../Projet_QT/Modèle/Algo.h \
-		../Projet_QT/Modèle/Arene.h \
-		../Projet_QT/Modèle/Chemin.h \
-		../Projet_QT/Modèle/Graphe.h \
-		../Projet_QT/Modèle/Pokemon.h \
-		../Projet_QT/Modèle/Pokestop.h \
-		../Projet_QT/Modèle/Sommet.h ../Projet_QT/main.cpp \
-		../Projet_QT/mainwindow.cpp \
-		../Projet_QT/Modèle/Algo.cpp \
-		../Projet_QT/Modèle/Arene.cpp \
-		../Projet_QT/Modèle/Chemin.cpp \
-		../Projet_QT/Modèle/Graphe.cpp \
-		../Projet_QT/Modèle/Pokemon.cpp \
-		../Projet_QT/Modèle/Pokestop.cpp \
-		../Projet_QT/Modèle/Sommet.cpp
+		../Projet_QT/Projet_QT.pro mainwindow.h \
+		../Projet_QT/Vue/SelectionOptimisation.h \
+		../Projet_QT/Vue/SolutionOptimisation.h \
+		../Projet_QT/Vue/MainWindow.h ../Projet_QT/Vue/main.cpp \
+		../Projet_QT/Vue/SelectionOptimisation.cpp \
+		../Projet_QT/Vue/SolutionOptimisation.cpp \
+		../Projet_QT/Vue/MainWindow.cpp
 QMAKE_TARGET  = Projet_QT
 DESTDIR       = 
 TARGET        = Projet_QT
@@ -413,6 +399,7 @@ Makefile: ../Projet_QT/Projet_QT.pro /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/lin
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -587,6 +574,7 @@ Makefile: ../Projet_QT/Projet_QT.pro /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/lin
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf:
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf:
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf:
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf:
 /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf:
@@ -625,8 +613,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Projet_QT/mainwindow.h ../Projet_QT/Modèle/Algo.h ../Projet_QT/Modèle/Arene.h ../Projet_QT/Modèle/Chemin.h ../Projet_QT/Modèle/Graphe.h ../Projet_QT/Modèle/Pokemon.h ../Projet_QT/Modèle/Pokestop.h ../Projet_QT/Modèle/Sommet.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Projet_QT/main.cpp ../Projet_QT/mainwindow.cpp ../Projet_QT/Modèle/Algo.cpp ../Projet_QT/Modèle/Arene.cpp ../Projet_QT/Modèle/Chemin.cpp ../Projet_QT/Modèle/Graphe.cpp ../Projet_QT/Modèle/Pokemon.cpp ../Projet_QT/Modèle/Pokestop.cpp ../Projet_QT/Modèle/Sommet.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h ../Projet_QT/Vue/SelectionOptimisation.h ../Projet_QT/Vue/SolutionOptimisation.h ../Projet_QT/Vue/MainWindow.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Projet_QT/Vue/main.cpp ../Projet_QT/Vue/SelectionOptimisation.cpp ../Projet_QT/Vue/SolutionOptimisation.cpp ../Projet_QT/Vue/MainWindow.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Projet_QT/mainwindow.ui $(DISTDIR)/
 
 
@@ -659,10 +647,248 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -W -dM -E -o moc_predefs.h /home/anthonyd973/Qt/5.8/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_SelectionOptimisation.cpp moc_SolutionOptimisation.cpp moc_MainWindow.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
-moc_mainwindow.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
+	-$(DEL_FILE) moc_SelectionOptimisation.cpp moc_SolutionOptimisation.cpp moc_MainWindow.cpp
+moc_SelectionOptimisation.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qwidget.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtgui-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qalgorithms.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiterator.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpair.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qregexp.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmetatype.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmargins.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrect.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsize.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpoint.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpalette.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcolor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgb.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgba64.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qbrush.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvector.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qmatrix.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpolygon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qregion.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdatastream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiodevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qline.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtransform.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainterpath.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qimage.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixelformat.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qshareddata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhash.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfont.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcursor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qkeysequence.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvariant.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdebug.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtextstream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlocale.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qset.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurlquery.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfile.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfiledevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qvector2d.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Projet_QT/Vue/SelectionOptimisation.h \
+		moc_predefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/bin/moc
+	/home/anthonyd973/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/home/anthonyd973/Git/Git_Projects/LOG2810/TP1/Projet_QT -I/home/anthonyd973/Qt/5.8/gcc_64/include -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Projet_QT/Vue/SelectionOptimisation.h -o moc_SelectionOptimisation.cpp
+
+moc_SolutionOptimisation.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qwidget.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtgui-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qalgorithms.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiterator.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpair.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qregexp.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmetatype.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmargins.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrect.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsize.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpoint.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpalette.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcolor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgb.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgba64.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qbrush.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvector.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qmatrix.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpolygon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qregion.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdatastream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiodevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qline.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtransform.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainterpath.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qimage.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixelformat.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qshareddata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhash.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfont.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcursor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qkeysequence.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvariant.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdebug.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtextstream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlocale.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qset.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurlquery.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfile.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfiledevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qvector2d.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		../Projet_QT/Vue/SolutionOptimisation.h \
+		moc_predefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/bin/moc
+	/home/anthonyd973/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/home/anthonyd973/Git/Git_Projects/LOG2810/TP1/Projet_QT -I/home/anthonyd973/Qt/5.8/gcc_64/include -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Projet_QT/Vue/SolutionOptimisation.h -o moc_SolutionOptimisation.cpp
+
+moc_MainWindow.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
@@ -766,10 +992,20 @@ moc_mainwindow.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindo
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
-		../Projet_QT/mainwindow.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Projet_QT/Vue/MainWindow.h \
 		moc_predefs.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/bin/moc
-	/home/anthonyd973/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/home/anthonyd973/Git/Git_Projects/LOG2810/TP1/Projet_QT -I/home/anthonyd973/Qt/5.8/gcc_64/include -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Projet_QT/mainwindow.h -o moc_mainwindow.cpp
+	/home/anthonyd973/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/home/anthonyd973/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/home/anthonyd973/Git/Git_Projects/LOG2810/TP1/Projet_QT -I/home/anthonyd973/Qt/5.8/gcc_64/include -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui -I/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../Projet_QT/Vue/MainWindow.h -o moc_MainWindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -790,7 +1026,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-main.o: ../Projet_QT/main.cpp ../Projet_QT/mainwindow.h \
+main.o: ../Projet_QT/Vue/main.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -895,6 +1131,16 @@ main.o: ../Projet_QT/main.cpp ../Projet_QT/mainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
@@ -902,9 +1148,243 @@ main.o: ../Projet_QT/main.cpp ../Projet_QT/mainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qguiapplication.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qinputmethod.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Projet_QT/main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Projet_QT/Vue/main.cpp
 
-mainwindow.o: ../Projet_QT/mainwindow.cpp ../Projet_QT/mainwindow.h \
+SelectionOptimisation.o: ../Projet_QT/Vue/SelectionOptimisation.cpp ../Projet_QT/Vue/SelectionOptimisation.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qwidget.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtgui-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qalgorithms.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiterator.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpair.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qregexp.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmetatype.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmargins.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrect.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsize.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpoint.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpalette.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcolor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgb.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgba64.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qbrush.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvector.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qmatrix.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpolygon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qregion.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdatastream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiodevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qline.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtransform.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainterpath.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qimage.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixelformat.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qshareddata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhash.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfont.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcursor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qkeysequence.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvariant.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdebug.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtextstream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlocale.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qset.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurlquery.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfile.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfiledevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qvector2d.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SelectionOptimisation.o ../Projet_QT/Vue/SelectionOptimisation.cpp
+
+SolutionOptimisation.o: ../Projet_QT/Vue/SolutionOptimisation.cpp ../Projet_QT/Vue/SolutionOptimisation.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qwidget.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtguiglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobal.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qconfig.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtcore-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsystemdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qprocessordetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcompilerdetection.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypeinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsysinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlogging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qflags.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtypetraits.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbasicatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qgenericatomic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qatomic_msvc.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qglobalstatic.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmutex.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnumeric.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qversiontagging.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtgui-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qnamespace.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstring.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qchar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrefcount.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qarraydata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringbuilder.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qalgorithms.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiterator.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhashfunctions.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpair.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qbytearraylist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringlist.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qregexp.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qstringmatcher.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qscopedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmetatype.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvarlengtharray.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontainerfwd.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qobject_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmargins.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpaintdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qrect.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsize.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qpoint.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpalette.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcolor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgb.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qrgba64.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qbrush.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvector.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qmatrix.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpolygon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qregion.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdatastream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qiodevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qline.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtransform.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainterpath.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qimage.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixelformat.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpixmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qshareddata.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qhash.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfont.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontmetrics.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qfontinfo.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qcursor.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qkeysequence.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qevent.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qvariant.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qmap.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qdebug.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qtextstream.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qlocale.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qset.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcontiguouscache.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurl.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qurlquery.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfile.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qfiledevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qvector2d.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o SolutionOptimisation.o ../Projet_QT/Vue/SolutionOptimisation.cpp
+
+MainWindow.o: ../Projet_QT/Vue/MainWindow.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qmainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1009,37 +1489,68 @@ mainwindow.o: ../Projet_QT/mainwindow.cpp ../Projet_QT/mainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../Projet_QT/mainwindow.cpp
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		ui_mainwindow.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/QVariant \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QAction \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qaction.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qactiongroup.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qeventloop.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qguiapplication.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qinputmethod.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHeaderView \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qheaderview.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMenuBar \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qmenubar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qmenu.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QStatusBar \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o ../Projet_QT/Vue/MainWindow.cpp
 
-Algo.o: ../Projet_QT/Modèle/Algo.cpp ../Projet_QT/Modèle/Algo.h \
-		../Projet_QT/Modèle/Chemin.h \
-		../Projet_QT/Modèle/Graphe.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Algo.o ../Projet_QT/Modèle/Algo.cpp
+moc_SelectionOptimisation.o: moc_SelectionOptimisation.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SelectionOptimisation.o moc_SelectionOptimisation.cpp
 
-Arene.o: ../Projet_QT/Modèle/Arene.cpp ../Projet_QT/Modèle/Arene.h \
-		../Projet_QT/Modèle/Sommet.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Arene.o ../Projet_QT/Modèle/Arene.cpp
+moc_SolutionOptimisation.o: moc_SolutionOptimisation.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_SolutionOptimisation.o moc_SolutionOptimisation.cpp
 
-Chemin.o: ../Projet_QT/Modèle/Chemin.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Chemin.o ../Projet_QT/Modèle/Chemin.cpp
-
-Graphe.o: ../Projet_QT/Modèle/Graphe.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Graphe.o ../Projet_QT/Modèle/Graphe.cpp
-
-Pokemon.o: ../Projet_QT/Modèle/Pokemon.cpp ../Projet_QT/Modèle/Pokemon.h \
-		../Projet_QT/Modèle/Sommet.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Pokemon.o ../Projet_QT/Modèle/Pokemon.cpp
-
-Pokestop.o: ../Projet_QT/Modèle/Pokestop.cpp ../Projet_QT/Modèle/Pokestop.h \
-		../Projet_QT/Modèle/Sommet.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Pokestop.o ../Projet_QT/Modèle/Pokestop.cpp
-
-Sommet.o: ../Projet_QT/Modèle/Sommet.cpp ../Projet_QT/Modèle/Sommet.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Sommet.o ../Projet_QT/Modèle/Sommet.cpp
-
-moc_mainwindow.o: moc_mainwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+moc_MainWindow.o: moc_MainWindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_MainWindow.o moc_MainWindow.cpp
 
 ####### Install
 
