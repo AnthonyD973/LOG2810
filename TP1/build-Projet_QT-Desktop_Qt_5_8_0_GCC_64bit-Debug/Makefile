@@ -761,9 +761,11 @@ moc_SelectionOptimisation.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
@@ -992,16 +994,36 @@ moc_MainWindow.cpp: /home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QMainWindo
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainter.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtextoption.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpen.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QFrame \
+		../Projet_QT/Vue/SelectionOptimisation.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Projet_QT/Vue/SolutionOptimisation.h \
 		../Projet_QT/Vue/MainWindow.h \
 		moc_predefs.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/bin/moc
@@ -1131,16 +1153,36 @@ main.o: ../Projet_QT/Vue/main.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainter.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtextoption.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpen.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QFrame \
+		../Projet_QT/Vue/SelectionOptimisation.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Projet_QT/Vue/SolutionOptimisation.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1262,9 +1304,11 @@ SelectionOptimisation.o: ../Projet_QT/Vue/SelectionOptimisation.cpp ../Projet_QT
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
@@ -1489,16 +1533,36 @@ MainWindow.o: ../Projet_QT/Vue/MainWindow.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGraphicsView \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsview.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpainter.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qtextoption.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qpen.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsscene.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QFrame \
+		../Projet_QT/Vue/SelectionOptimisation.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGroupBox \
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgroupbox.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QRadioButton \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qradiobutton.h \
+		../Projet_QT/Vue/SolutionOptimisation.h \
 		ui_mainwindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/QVariant \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QAction \
@@ -1511,15 +1575,9 @@ MainWindow.o: ../Projet_QT/Vue/MainWindow.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qguiapplication.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtGui/qinputmethod.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QHeaderView \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qheaderview.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
@@ -1539,8 +1597,7 @@ MainWindow.o: ../Projet_QT/Vue/MainWindow.cpp ../Projet_QT/Vue/MainWindow.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
 		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
-		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QWidget
+		/home/anthonyd973/Qt/5.8/gcc_64/include/QtWidgets/QGraphicsScene
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o MainWindow.o ../Projet_QT/Vue/MainWindow.cpp
 
 moc_SelectionOptimisation.o: moc_SelectionOptimisation.cpp 

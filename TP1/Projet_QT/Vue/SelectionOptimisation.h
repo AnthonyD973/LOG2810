@@ -21,7 +21,7 @@ private:
     QVBoxLayout*    _dispositionHorizontale;
 
     QPushButton*    _boutonSelectionnerFichier;
-    QGroupBox*      _groupeOptimiserPour;
+    QGroupBox*      _groupeTypeOptimisation;
     QPushButton*    _boutonOptimiser;
 
 };

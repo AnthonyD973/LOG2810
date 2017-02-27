@@ -23,6 +23,9 @@ MainWindow::MainWindow(QWidget *parent) :
     fenetre->setLayout(_boitePrincipale);
     setCentralWidget(fenetre);
 
+
+    setWindowTitle((QString)"L'optimisateur Pokémon Go!");
+
     fenetre->show();
 }
 
