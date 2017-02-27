@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QFileDialog>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
@@ -25,6 +26,13 @@ private:
     QGroupBox*      _groupeTypeOptimisation;
     QLineEdit*      _valeurCherchee;
     QPushButton*    _boutonOptimiser;
+
+    QString         _fichierCarte;
+
+public slots:
+    void selectionFichierCarte(bool);
+
+signals:
 
 };
 

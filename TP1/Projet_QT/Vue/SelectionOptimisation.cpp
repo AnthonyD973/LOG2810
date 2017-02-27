@@ -10,6 +10,9 @@ SelectionOptimisation::SelectionOptimisation(QWidget* parent)
     _boutonOptimiser           = new QPushButton((QString)"OPTIMISER",               parent);
 
 
+    connect(_boutonSelectionnerFichier, SIGNAL(clicked(bool)), SLOT(selectionFichierCarte(bool)));
+
+
     QLabel* etiquetteTypeOptimisation = new QLabel((QString)"Optimiser pour:",       parent);
     QRadioButton* boutonDistMax = new QRadioButton((QString)"Une distance maximale", parent);
     QRadioButton* boutonGainMin = new QRadioButton((QString)"Un gain minimal",       parent);
@@ -31,4 +34,16 @@ SelectionOptimisation::SelectionOptimisation(QWidget* parent)
 
 
     setLayout(_disposition);
+}
+
+void SelectionOptimisation::selectionFichierCarte(bool) {
+    QString cheminFichier = QFileDialog::getOpenFileName(
+                this,
+                (QString)"Choisir Carte",
+                QDir::currentPath(),
+                "Fichiers texte (*.txt)");
+
+    if (!cheminFichier.isNull()) {
+        _fichierCarte = cheminFichier;
+    }
 }

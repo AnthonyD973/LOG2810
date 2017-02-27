@@ -7,7 +7,8 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
     QLabel* valeurTrouveeEn          = new QLabel(parent);
 
     QLabel* etiquetteSolutionTrouvee = new QLabel((QString)"Solution optimale trouvée:", parent);
-    QLabel* valeurSolutionTrouvee    = new QLabel(parent);
+    QLineEdit* valeurSolutionTrouvee = new QLineEdit(parent);
+    valeurSolutionTrouvee->setReadOnly(true);
 
     QLabel* etiquetteDistanceTotale  = new QLabel((QString)"Distance totale:", parent);
     QLabel* valeurDistanceTotale     = new QLabel(parent);
@@ -17,13 +18,12 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
 
 
     valeurTrouveeEn->hide();
-    valeurSolutionTrouvee->hide();
     valeurDistanceTotale->hide();
     valeurGainTotal->hide();
 
 
     _trouveeEn       = new QHBoxLayout();
-    _solutionTrouvee = new QHBoxLayout();
+    _solutionTrouvee = new QVBoxLayout();
     _distanceTotale  = new QHBoxLayout();
     _gainTotal       = new QHBoxLayout();
 
