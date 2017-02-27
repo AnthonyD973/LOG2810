@@ -5,6 +5,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QGroupBox>
 #include <QLabel>
 #include <QButtonGroup>
 #include <QRadioButton>
@@ -17,10 +18,10 @@ public:
     explicit SelectionOptimisation(QWidget* parent = Q_NULLPTR);
 
 private:
-    QVBoxLayout*    _dispotitionHorizontale;
+    QVBoxLayout*    _dispositionHorizontale;
+
     QPushButton*    _boutonSelectionnerFichier;
-    QLabel*         _etiquetteOptimiserPour;
-    QButtonGroup*   _groupeQuoiOptimiser;
+    QGroupBox*      _groupeOptimiserPour;
     QPushButton*    _boutonOptimiser;
 
 };

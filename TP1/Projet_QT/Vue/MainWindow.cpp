@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QGraphicsScene>
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -20,8 +21,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QWidget* fenetre = new QWidget(this);
     fenetre->setLayout(_boitePrincipale);
-    fenetre->setObjectName((QString)"Fenêtre");
     setCentralWidget(fenetre);
+
+    fenetre->show();
 }
 
 MainWindow::~MainWindow()

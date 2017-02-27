@@ -14,12 +14,12 @@ public:
     explicit SolutionOptimisation(QWidget* parent = Q_NULLPTR);
 
 private:
-    QVBoxLayout*    _dispotitionHorizontale;
+    QVBoxLayout*    _dispositionHorizontale;
 
-    QLabel*         _etiquetteSolutionTrouvee;
-    QLabel*         _etiquetteDistanceTotale;
-    QLabel*         _etiquetteGainTotal;
-    QLabel*         _etiquetteTrouveeEn;
+    QHBoxLayout*    _trouveeEn;
+    QHBoxLayout*    _solutionTrouvee;
+    QHBoxLayout*    _distanceTotale;
+    QHBoxLayout*    _gainTotal;
 
 signals:
 
