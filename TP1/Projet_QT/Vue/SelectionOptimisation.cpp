@@ -4,7 +4,7 @@
 
 SelectionOptimisation::SelectionOptimisation(QWidget* parent)
     : QWidget(parent),
-      _algo(3)
+      _algo(2)
 {
 
     _boutonSelectionnerFichier = new QPushButton((QString)"Sélectionner la carte.",  parent);
@@ -113,17 +113,8 @@ void SelectionOptimisation::commencerOptimisation(bool) {
         Chemin cheminOptimal = (_algo.*methodeOptimiser)(_valeurCible, graphe, 0);
 
         qDebug() << "Optimisation...";
-        emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
-        qDebug() << "Optimisation terminée. Chemin trouvé:";
-        qDebug() << "distance totale: " << cheminOptimal.distance;
-        qDebug() << "gain total     : " << cheminOptimal.gain;
-        std::string strChemin = "";
-        for (const Sommet* s : cheminOptimal.sommetsVisites) {
-            strChemin += s->getNom() + ", ";
-        }
-        strChemin = strChemin.substr(0, strChemin.size() - 2);
-        qDebug() << "solution       :" << (QString)strChemin.c_str();
-        qDebug() << "num sommets    :" << strChemin.size();
+        emit optimisationTerminee(cheminOptimal, graphe, std::time(nullptr) - tempsDebut);
+        qDebug() << "Optimisation terminée.";
     }
 }
 

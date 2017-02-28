@@ -7,7 +7,39 @@ Algo::Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
 
 Algo::~Algo() {}
 
-Chemin Algo::meilleurCheminPourDistanceDe(
+Chemin Algo::meilleurCheminPourDistanceDe (
+        int distance,
+        const Graphe &graphe,
+        int indiceDuSommetDeDepart) const {
+
+    Chemin meilleurChemin = _meilleurCheminPourDistanceDe(distance, graphe, indiceDuSommetDeDepart);
+
+    // Remettre les sommets dans le bon ordre.
+    std::vector<int> sommetsVisites;
+    for (int i = (int)sommetsVisites.size() - 1; i >= 0; --i) {
+        sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
+    }
+    meilleurChemin.sommetsVisites = sommetsVisites;
+}
+
+Chemin Algo::meilleurCheminPourGainDe (
+        int distance,
+        const Graphe &graphe,
+        int indiceDuSommetDeDepart) const {
+
+    Chemin meilleurChemin = _meilleurCheminPourGainDe(distance, graphe, indiceDuSommetDeDepart);
+
+    // Remettre les sommets dans le bon ordre.
+    std::vector<int> sommetsVisites;
+    for (int i = (int)sommetsVisites.size() - 1; i >= 0; --i) {
+        sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
+    }
+    meilleurChemin.sommetsVisites = sommetsVisites;
+}
+
+// PRIVATE:
+
+Chemin Algo::_meilleurCheminPourDistanceDe (
     int distance,
     const Graphe& graphe,
     int indiceDuSommetDeDepart) const
@@ -30,12 +62,12 @@ Chemin Algo::meilleurCheminPourDistanceDe(
         Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
         if (sommetDeDepart->distanceA(prochainSommet) <= distance) {
-            Chemin cheminCourant = meilleurCheminPourDistanceDe(
+            Chemin cheminCourant = _meilleurCheminPourDistanceDe(
                 distance - sommetDeDepart->distanceA(prochainSommet),
                 copieDuGraphe,
                 indiceDuProchainSommet);
 
-            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
+            cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 
@@ -58,7 +90,7 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     return meilleurCheminTrouve;
 }
 
-Chemin Algo::meilleurCheminPourGainDe(
+Chemin Algo::_meilleurCheminPourGainDe(
     int gain,
     const Graphe& graphe,
     int indiceDuSommetDeDepart) const
@@ -81,12 +113,12 @@ Chemin Algo::meilleurCheminPourGainDe(
         for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
-            Chemin cheminCourant = meilleurCheminPourGainDe(
+            Chemin cheminCourant = _meilleurCheminPourGainDe(
                 gain - sommetDeDepart->getGain(),
                 copieDuGraphe,
                 indiceDuProchainSommet);
 
-            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
+            cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 

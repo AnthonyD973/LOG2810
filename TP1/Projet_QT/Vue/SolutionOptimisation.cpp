@@ -1,5 +1,7 @@
 #include "SolutionOptimisation.h"
 
+#include "Modèle/Graphe.h"
+
 #include <string>
 
 SolutionOptimisation::SolutionOptimisation(QWidget* parent)
@@ -52,13 +54,16 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
 // =     SLOTS     =
 // =================
 
-void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time_t tempsPris) {
+void SolutionOptimisation::afficherResultatsOptimisation(
+    const Chemin& cheminOptimal,
+    const Graphe& graphe,
+    std::time_t tempsPris) {
 
     _trouveeEn->setText(QString::number(tempsPris) + (QString)" sec");
 
     std::string strChemin = "";
-    for (const Sommet* s : cheminOptimal.sommetsVisites) {
-        strChemin += s->getNom() + ", ";
+    for (int i = 0; i < cheminOptimal.sommetsVisites.size(); ++i) {
+        strChemin += graphe.getSommet(cheminOptimal.sommetsVisites[i])->getNom() + ", ";
     }
     strChemin = strChemin.substr(0, strChemin.size() - 2);
     _solutionTrouvee->setText((QString)strChemin.c_str());

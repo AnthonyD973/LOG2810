@@ -9,10 +9,11 @@ using namespace std;
 
 class Chemin {
 public:
-    Chemin();
+    Chemin() {}
+
     int distance;
     int gain;
-    std::vector<Sommet*> sommetsVisites;
+    std::vector<int> sommetsVisites;
 };
 
 #endif // !CHEMIN_H

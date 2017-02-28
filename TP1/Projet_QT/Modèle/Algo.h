@@ -22,6 +22,16 @@ public:
         int indiceDuSommetDeDepart) const;
 
 private:
+    Chemin _meilleurCheminPourDistanceDe(
+        int distance,
+        const Graphe& graphe,
+        int indiceDuSommetDeDepart) const;
+
+    Chemin _meilleurCheminPourGainDe(
+        int gain,
+        const Graphe& graphe,
+        int indiceDuSommetDeDepart) const;
+
     std::vector<int> _trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) const;
 
 private:

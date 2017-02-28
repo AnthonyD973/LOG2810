@@ -1,3 +1,6 @@
+#ifndef GRAPHE_H
+#define GRAPHE_H
+
 #include <string>
 #include <vector>
 
@@ -20,3 +23,5 @@ public:
 private:
     std::vector<Sommet*> _sommets;
 };
+
+#endif // !GRAPHE_H

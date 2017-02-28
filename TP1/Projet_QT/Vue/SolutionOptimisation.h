@@ -10,6 +10,7 @@
 #include <ctime>
 
 #include "Modèle/Chemin.h"
+#include "Modèle/Graphe.h"
 
 class SolutionOptimisation : public QWidget
 {
@@ -43,7 +44,7 @@ signals:
     // =================
 
 public slots:
-    void afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time_t tempsPris);
+    void afficherResultatsOptimisation(const Chemin& cheminOptimal, const Graphe& graphe, std::time_t tempsPris);
 };
 
 #endif // SOLUTIONOPTIMISATION_H

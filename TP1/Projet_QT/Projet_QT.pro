@@ -30,7 +30,6 @@ SOURCES += \
     Vue/MainWindow.cpp \
     Modèle/Algo.cpp \
     Modèle/Arene.cpp \
-    Modèle/Chemin.cpp \
     Modèle/Graphe.cpp \
     Modèle/Pokemon.cpp \
     Modèle/Pokestop.cpp \

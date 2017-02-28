@@ -54,7 +54,7 @@ private:
     // =================
 
 signals:
-    void optimisationTerminee(const Chemin& cheminOptimal, std::time_t tempsPris);
+    void optimisationTerminee(const Chemin& cheminOptimal, const Graphe& graphe, std::time_t tempsPris);
 
     // =================
     // =     SLOTS     =
