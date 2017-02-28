@@ -16,10 +16,12 @@ Chemin Algo::meilleurCheminPourDistanceDe (
 
     // Remettre les sommets dans le bon ordre.
     std::vector<int> sommetsVisites;
-    for (int i = (int)sommetsVisites.size() - 1; i >= 0; --i) {
+    for (int i = (int)meilleurChemin.sommetsVisites.size() - 1; i >= 0; --i) {
         sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
     }
     meilleurChemin.sommetsVisites = sommetsVisites;
+
+    return meilleurChemin;
 }
 
 Chemin Algo::meilleurCheminPourGainDe (
@@ -35,6 +37,8 @@ Chemin Algo::meilleurCheminPourGainDe (
         sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
     }
     meilleurChemin.sommetsVisites = sommetsVisites;
+
+    return meilleurChemin;
 }
 
 // PRIVATE:
