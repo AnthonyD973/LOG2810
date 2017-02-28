@@ -2,7 +2,7 @@
 
 class Pokestop : public Sommet {
 public:
-    Pokestop(const std::map<Sommet, int>& distances);
+    Pokestop();
     virtual ~Pokestop();
 
     virtual void visiter();
@@ -10,6 +10,7 @@ public:
 
 private:
     virtual bool _estActif() const;
+    virtual int _obtenirDistanceAvantActif() const;
 
 private:
     int _distAvantActif;

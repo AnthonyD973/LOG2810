@@ -1,6 +1,6 @@
 #include "Pokemon.h"
 
-Pokemon::Pokemon(const std::map<Sommet, int>& distances)
+Pokemon::Pokemon()
     : _distAvantActif(0), Sommet(distances)
 { }
 

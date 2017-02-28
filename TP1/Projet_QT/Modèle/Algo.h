@@ -22,7 +22,7 @@ public:
         int indiceDuSommetDeDepart) const;
 
 private:
-    std::vector<Sommet*> _trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const;
+    std::vector<int> _trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const;
 
 private:
     const int _N_SOMMETS_A_ESSAYER;

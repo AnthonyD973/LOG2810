@@ -43,7 +43,7 @@ signals:
     // =================
 
 public slots:
-    void afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time tempsPris);
+    void afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time_t tempsPris);
 };
 
 #endif // SOLUTIONOPTIMISATION_H

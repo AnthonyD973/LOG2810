@@ -52,16 +52,16 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
 // =     SLOTS     =
 // =================
 
-void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time tempsPris) {
+void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time_t tempsPris) {
 
-    _trouveeEn->setText(tempsPris);
+    _trouveeEn->setText((QString)(int)tempsPris);
 
     std::string strChemin = "";
-    for (const std::string nomSommet : cheminOptimal.pointsVisites) {
-        strChemin += nomSommet + ", ";
+    for (const Sommet* s : cheminOptimal.pointsVisites) {
+        strChemin += s->getNom() + ", ";
     }
     strChemin = strChemin.substr(0, strChemin.size() - 2);
-    _solutionTrouvee->setText((QString)strChemin);
+    _solutionTrouvee->setText((QString)strChemin.c_str());
 
     _distanceTotale->setText((QString)cheminOptimal.distance);
     _gainTotal->setText((QString)cheminOptimal.gain);

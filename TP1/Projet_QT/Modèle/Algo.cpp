@@ -35,9 +35,9 @@ Chemin Algo::meilleurCheminPourGainDe(
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
             Chemin cheminCourant = meilleurCheminPourGainDe(
-                gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
+                cheminCourant.gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
 
-            cheminCourant.sommetsVisites.push_back(indiceDuSommetCourant);
+            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 
@@ -87,9 +87,11 @@ Chemin Algo::meilleurCheminPourDistanceDe(
 
         if (sommetDeDepart->distanceA(prochainSommet) <= distance) {
             Chemin cheminCourant = meilleurCheminPourGainDe(
-                gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
+                cheminCourant.gain - sommetDeDepart->getGain(),
+                copieDuGraphe,
+                indiceDuProchainSommet);
 
-            cheminCourant.sommetsVisites.push_back(indiceDuSommetCourant);
+            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 
@@ -112,13 +114,13 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     return meilleurCheminTrouve;
 }
 
-std::vector<Sommet*> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const {
+std::vector<int> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const {
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
     int indiceDuSommet = 0;
     try {
         for EVER {
-            Sommet* sommet = graphe.getSommet(indiceDuSommet++);
+            const Sommet* sommet = graphe.getSommet(indiceDuSommet++);
 
             int gain     = sommet->getGain();
             int distance = sommet->distanceA(s);
@@ -128,7 +130,7 @@ std::vector<Sommet*> Algo::_trouverMeilleursSommets(const Sommet* s, const Graph
     catch(const std::out_of_range& e) {}
 
     // Ensuite, déterminer les meilleurs sommets à partir des gains par mètre.
-    std::vector<Sommet*> meilleursSommets;
+    std::vector<int> meilleursSommets;
     for(int i = 0; i < _N_SOMMETS_A_ESSAYER; ++i) {
         double meilleurGain = -1.0;
         int indiceDuMeilleurGain;
@@ -140,7 +142,7 @@ std::vector<Sommet*> Algo::_trouverMeilleursSommets(const Sommet* s, const Graph
             }
         }
 
-        meilleursSommets.push_back(graphe.getSommet(indiceDuMeilleurGain));
+        meilleursSommets.push_back(indiceDuMeilleurGain);
         gainsParMetre[indiceDuMeilleurGain] = -1.0;
     }
 

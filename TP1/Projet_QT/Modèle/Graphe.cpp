@@ -1,15 +1,20 @@
-#include "Graphe.h"
 #include <fstream>
 #include <string>
 #include <sstream>
+
+#include "Graphe.h"
+#include "Pokemon.h"
+#include "Pokestop.h"
+#include "Arene.h"
+
 using namespace std;
 
-void Graphe::Graphe(string nomFichier): _sommets
+Graphe::Graphe(string nomFichier) : _sommets()
 {
     
     string dataPoint;
     ifstream monFichier;
-    monFichier.open("nomFichier");
+    monFichier.open(nomFichier);
     int i=0;
     if (monFichier.is_open())
     {
@@ -23,26 +28,26 @@ void Graphe::Graphe(string nomFichier): _sommets
         
         while ( getline(sLigne,dataPoint, ';') )
         {
-            String[] point = dataPoint.split(",");
+            string point[] = dataPoint.split(",");
 
             
             if(point[1]=="pokemon")
             {
                 _sommets.push_back(new Pokemon);
-                _sommets[i].setNom(point[0]);
-                _sommets[i].setGain(point[2]);
+                _sommets[i]->setNom(point[0]);
+                _sommets[i]->setGain(point[2]);
             }
             else if(point[1]=="pokestop")
             {
                 _sommets.push_back(new Pokestop);
-                _sommets[i].setNom(point[0]);
-                _sommets[i].setGain(point[2]);
+                _sommets[i]->setNom(point[0]);
+                _sommets[i]->setGain(point[2]);
             }
             else if(point[1]=="arene")
             {
                 _sommets.push_back(new Arene);
-                _sommets[i].setNom(point[0]);
-                _sommets[i].setGain(point[2]);
+                _sommets[i]->setNom(point[0]);
+                _sommets[i]->setGain(point[2]);
             }
             {
                             }
@@ -53,11 +58,11 @@ void Graphe::Graphe(string nomFichier): _sommets
         {
             //trouver l'objet sommet* correspondant a point[1]
             //pour ce, boucler a travers le vecteur de sommets pour trouver l'objet sommet qui correspond au string deuxiemePoint
-            String[] point = dataPoint.split(",");
+            string point[] = dataPoint.split(",");
             int indiceDeuxiemePoint;
-            for(int i = 0; i<_sommets.size(); i++)
+            for(int i = 0; i < (int)_sommets.size(); i++)
             {
-                if(_sommets[i].getNom()==point[1])
+                if(_sommets[i]->getNom() == point[1])
                 {
                     indiceDeuxiemePoint=i;
                 }
@@ -66,17 +71,25 @@ void Graphe::Graphe(string nomFichier): _sommets
             //trouver l'objet sommet* correspondant a point[0]
             //pour ce, boucler a travers le vecteur de sommets pour trouver l'objet sommet qui correspond au string premierPoint
             int indicePremierPoint;
-            for(int i = 0; i<_sommets.size(); i++)
+            for(int i = 0; i < (int)_sommets.size(); i++)
             {
-                if(_sommets[i].getNom()==point[0])
+                if(_sommets[i]->getNom() == point[0])
                 {
                     indicePremierPoint=i;
                 }
             }
-            _sommets[indicePremierPoint].addDistance(_sommets[indiceDeuxiemePoint], point[2]);
+            _sommets[indicePremierPoint]->addDistance(_sommets[indiceDeuxiemePoint], point[2]);
 
         }
         monFichier.close();
     }
+}
+
+Sommet* Graphe::getSommet(int indiceDuSommet) {
+    return _sommets[indiceDuSommet];
+}
+
+const Sommet* Graphe::getSommet(int indiceDuSommet) const {
+    return _sommets[indiceDuSommet];
 }
 

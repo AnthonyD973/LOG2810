@@ -1,15 +1,16 @@
 #include "Sommet.h"
 
-class Arene {
+class Arene : public Sommet {
 public:
-    Arene(const std::map<Sommet, int>& distances);
-    virtual ~Arene(const std::map<Sommet, int>& distances);
+    Arene();
+    virtual ~Arene();
 
     virtual void visiter();
     virtual void diminuerDistanceAvantActif(int distance);
 
 private:
     virtual bool _estActif() const;
+    virtual int _obtenirDistanceAvantActif() const;
 
 private:
     bool _estDejaVisite;

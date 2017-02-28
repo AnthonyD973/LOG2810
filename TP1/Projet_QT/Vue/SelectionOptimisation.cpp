@@ -86,9 +86,24 @@ void SelectionOptimisation::commencerOptimisation(bool) {
     if (!_fichierCarte.isNull()) {
         if (_valeurCible >= 0) {
             switch(_typeOptimisation) {
-            case _DISTANCE_MAX: std::time tempsDebut = std::time(); qDebug() << "Optimisation distance max."; emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut); break;
-            case _GAIN_MIN    : std::time tempsDebut = std::time(); qDebug() << "Optimisation gain min.";     emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut); break;
-            default           : qDebug() << "Type d'optimisation non spécifié."; break;
+            case _DISTANCE_MAX: {
+                std::time_t tempsDebut = std::time(nullptr);
+                Chemin cheminOptimal = Chemin(std::vector<Sommet*>());
+                qDebug() << "Optimisation distance max.";
+                emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
+                break;
+            }
+            case _GAIN_MIN: {
+                std::time_t tempsDebut = std::time(nullptr);
+                Chemin cheminOptimal = Chemin(std::vector<Sommet*>());
+                qDebug() << "Optimisation gain min.";
+                emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
+                break;
+            }
+            default: {
+                qDebug() << "Type d'optimisation non spécifié.";
+                break;
+            }
             }
         }
         else {

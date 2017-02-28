@@ -2,8 +2,8 @@
 
 #include "Arene.h"
 
-Arene::Arene(const std::map<Sommet, int>& distances)
-    : _estDejaVisite(false), Sommet(distances)
+Arene::Arene()
+    : _estDejaVisite(false)
 { }
 
 Arene::~Arene() {}
@@ -22,4 +22,15 @@ void diminuerDistanceAvantActif(int distance) {}
 
 bool Arene::_estActif() const {
     return !_estDejaVisite;
+}
+
+// PRIVATE:
+
+int Arene::_obtenirDistanceAvantActif() const {
+    if (!_estDejaVisite) {
+        return 0;
+    }
+    else {
+        return INT_MAX;
+    }
 }

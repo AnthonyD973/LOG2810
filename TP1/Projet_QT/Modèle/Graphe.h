@@ -1,8 +1,17 @@
+#include <string>
 #include <vector>
-class Graphe{
+
+#include "Sommet.h"
+
+using namespace std;
+
+class Graphe {
     
 public:
-    void Graphe(string nomFichier);
+    Graphe(string nomFichier);
+
+    Sommet* getSommet(int indiceDuSommet);
+    const Sommet* getSommet(int indiceDuSommet) const;
     
 private:
     std::vector<Sommet*> _sommets;

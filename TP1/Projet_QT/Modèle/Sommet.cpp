@@ -4,8 +4,7 @@ using namespace std;
 Sommet::Sommet()
 { }
 
-Sommet::Sommet(int gain, const std::map<Sommet*, int>& distances)
-    : _gain(gain), _distances(distances)
+Sommet::Sommet()
 { }
 
 Sommet::~Sommet() {}
