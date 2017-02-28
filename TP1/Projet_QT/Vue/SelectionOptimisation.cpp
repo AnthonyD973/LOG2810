@@ -3,7 +3,8 @@
 #include <QDebug>
 
 SelectionOptimisation::SelectionOptimisation(QWidget* parent)
-    : QWidget(parent)
+    : QWidget(parent),
+      _algo(3)
 {
 
     _boutonSelectionnerFichier = new QPushButton((QString)"Sélectionner la carte.",  parent);
@@ -83,27 +84,17 @@ void SelectionOptimisation::changerValeurCible(const QString &valeur) {
 void SelectionOptimisation::commencerOptimisation(bool) {
     qDebug() << "commencerOptimisation. Type :" << (char)_typeOptimisation << " Valeur: " << _valeurCible;
 
+    bool estOkPourOptimiser = false;
+
+    typedef Chemin (Algo::*Optimisation_t) (int, const Graphe&, int) const; // Pointeur vers une méthode d'optimisation.
+    Optimisation_t methodeOptimiser;
+
     if (!_fichierCarte.isNull()) {
         if (_valeurCible >= 0) {
             switch(_typeOptimisation) {
-            case _DISTANCE_MAX: {
-                std::time_t tempsDebut = std::time(nullptr);
-                Chemin cheminOptimal;
-                qDebug() << "Optimisation distance max.";
-                emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
-                break;
-            }
-            case _GAIN_MIN: {
-                std::time_t tempsDebut = std::time(nullptr);
-                Chemin cheminOptimal;
-                qDebug() << "Optimisation gain min.";
-                emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
-                break;
-            }
-            default: {
-                qDebug() << "Type d'optimisation non spécifié.";
-                break;
-            }
+            case _DISTANCE_MAX: methodeOptimiser = &Algo::meilleurCheminPourDistanceDe; estOkPourOptimiser = true; break;
+            case _GAIN_MIN:     methodeOptimiser = &Algo::meilleurCheminPourGainDe;     estOkPourOptimiser = true; break;
+            default: qDebug() << "Type d'optimisation non spécifié."; break;
             }
         }
         else {
@@ -112,6 +103,17 @@ void SelectionOptimisation::commencerOptimisation(bool) {
     }
     else {
         qDebug() << "Aucun fichier d'entrée spécifié.";
+    }
+
+    if (estOkPourOptimiser) {
+        Graphe graphe(_fichierCarte.toStdString());
+
+        std::time_t tempsDebut = std::time(nullptr);
+
+        Chemin cheminOptimal = (_algo.*methodeOptimiser)(_valeurCible, graphe, 0);
+
+        qDebug() << "Optimisation...";
+        emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
     }
 }
 

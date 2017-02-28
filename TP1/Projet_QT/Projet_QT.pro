@@ -46,6 +46,7 @@ HEADERS  += mainwindow.h \
     Modèle/Graphe.h \
     Modèle/Pokemon.h \
     Modèle/Pokestop.h \
-    Modèle/Sommet.h
+    Modèle/Sommet.h \
+    Modèle/Depart.h
 
 FORMS    += mainwindow.ui

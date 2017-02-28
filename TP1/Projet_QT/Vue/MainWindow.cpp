@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _boitePrincipale->addWidget(solutionOptimisation);
 
     connect(selectionOptimisation,SIGNAL(optimisationTerminee(const Chemin&, std::time_t)),
-            solutionOptimisation, SLOT(afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time tempsPris)));
+            solutionOptimisation, SLOT(afficherResultatsOptimisation(const Chemin&, std::time_t)));
 
     QWidget* fenetre = new QWidget(this);
     fenetre->setLayout(_boitePrincipale);

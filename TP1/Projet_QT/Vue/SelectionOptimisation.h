@@ -35,6 +35,8 @@ public:
     // =================
 
 private:
+    Algo            _algo;
+
     QVBoxLayout*    _disposition;
 
     QPushButton*    _boutonSelectionnerFichier;
