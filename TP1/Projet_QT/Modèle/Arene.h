@@ -3,6 +3,7 @@
 class Arene : public Sommet {
 public:
     Arene();
+    virtual Sommet* newClone() const { return new Arene(*this); }
     virtual ~Arene();
 
     virtual void visiter();

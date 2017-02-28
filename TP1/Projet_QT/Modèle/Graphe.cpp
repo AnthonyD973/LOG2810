@@ -95,6 +95,18 @@ Graphe::Graphe(string nomFichier)
     }
 }
 
+Graphe::Graphe(const Graphe &graphe) {
+    for (Sommet* s : graphe._sommets) {
+        _sommets.push_back(s->newClone());
+    }
+}
+
+Graphe::~Graphe() {
+    for (Sommet* s : _sommets) {
+        delete s;
+    }
+}
+
 Sommet* Graphe::getSommet(int indiceDuSommet) {
     return _sommets[indiceDuSommet];
 }

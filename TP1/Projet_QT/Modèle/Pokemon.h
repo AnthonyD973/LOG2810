@@ -3,6 +3,7 @@
 class Pokemon : public Sommet {
 public:
     Pokemon();
+    virtual Sommet* newClone() const { return new Pokemon(*this); }
     virtual ~Pokemon();
 
     virtual void visiter();

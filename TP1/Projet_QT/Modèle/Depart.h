@@ -5,8 +5,9 @@
 
 class Depart : public Sommet {
 public:
-    Depart() {};
-    virtual ~Depart() {};
+    Depart() {}
+    virtual Sommet* newClone() const { return new Depart(*this); }
+    virtual ~Depart() {}
 
     virtual void visiter() {}
     virtual void diminuerDistanceAvantActif(int distance) {}

@@ -9,6 +9,8 @@ class Graphe {
     
 public:
     Graphe(string nomFichier);
+    Graphe(const Graphe& graphe); // Constructeur par copie
+    ~Graphe();
 
     Sommet* getSommet(int indiceDuSommet);
     const Sommet* getSommet(int indiceDuSommet) const;

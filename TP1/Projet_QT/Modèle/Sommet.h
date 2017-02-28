@@ -10,6 +10,7 @@ using namespace std;
 class Sommet {
 public:
     Sommet();
+    virtual Sommet* newClone() const = 0;
     virtual ~Sommet();
 
     int distanceA(Sommet *s);
