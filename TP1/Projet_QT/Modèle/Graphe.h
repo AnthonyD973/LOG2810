@@ -12,6 +12,8 @@ public:
 
     Sommet* getSommet(int indiceDuSommet);
     const Sommet* getSommet(int indiceDuSommet) const;
+
+    int getNumSommets() const;
     
 private:
     std::vector<Sommet*> _sommets;

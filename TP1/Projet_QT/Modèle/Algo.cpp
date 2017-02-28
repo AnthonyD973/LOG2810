@@ -2,8 +2,6 @@
 
 #include "Algo.h"
 
-#define EVER (;;)
-
 // TODO : BESOIN D'UN CONSTRUCTEUR PAR COPIE POUR LA CLASSE GRAPHE
 
 
@@ -117,17 +115,13 @@ Chemin Algo::meilleurCheminPourDistanceDe(
 std::vector<int> Algo::_trouverMeilleursSommets(Sommet* s, Graphe& graphe) const {
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
-    int indiceDuSommet = 0;
-    try {
-        for EVER {
-            Sommet* sommet = graphe.getSommet(indiceDuSommet++);
+    for (int i = 0; i < graphe.getNumSommets(); ++i) {
+        Sommet* sommet = graphe.getSommet(i);
 
-            int gain     = sommet->getGain();
-            int distance = sommet->distanceA(s);
-            gainsParMetre.push_back((double)gain/distance);
-        }
+        int gain     = sommet->getGain();
+        int distance = sommet->distanceA(s);
+        gainsParMetre.push_back((double)gain/distance);
     }
-    catch(const std::out_of_range& e) {}
 
     // Ensuite, déterminer les meilleurs sommets à partir des gains par mètre.
     std::vector<int> meilleursSommets;

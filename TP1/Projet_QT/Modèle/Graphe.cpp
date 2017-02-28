@@ -103,3 +103,6 @@ const Sommet* Graphe::getSommet(int indiceDuSommet) const {
     return _sommets[indiceDuSommet];
 }
 
+int Graphe::getNumSommets() const {
+    return (int)_sommets.size();
+}
