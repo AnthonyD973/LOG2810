@@ -114,6 +114,16 @@ void SelectionOptimisation::commencerOptimisation(bool) {
 
         qDebug() << "Optimisation...";
         emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
+        qDebug() << "Optimisation terminée. Chemin trouvé:";
+        qDebug() << "distance totale: " << cheminOptimal.distance;
+        qDebug() << "gain total     : " << cheminOptimal.gain;
+        std::string strChemin = "";
+        for (const Sommet* s : cheminOptimal.sommetsVisites) {
+            strChemin += s->getNom() + ", ";
+        }
+        strChemin = strChemin.substr(0, strChemin.size() - 2);
+        qDebug() << "solution       :" << (QString)strChemin.c_str();
+        qDebug() << "num sommets    :" << strChemin.size();
     }
 }
 

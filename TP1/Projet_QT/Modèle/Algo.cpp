@@ -2,64 +2,10 @@
 
 #include "Algo.h"
 
-// TODO : BESOIN D'UN CONSTRUCTEUR PAR COPIE POUR LA CLASSE GRAPHE
-
 
 Algo::Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
 
 Algo::~Algo() {}
-
-Chemin Algo::meilleurCheminPourGainDe(
-    int gain,
-    const Graphe& graphe,
-    int indiceDuSommetDeDepart) const
-{
-    if (gain > 0) {
-        Graphe copieDuGraphe = graphe;
-        Sommet* sommetDeDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
-
-        // D'abord, faire visiter le point courant pour modifier la copie du graphe.
-        sommetDeDepart->visiter();
-
-        // Ensuite, trouver récursivement le meilleur chemin à partir de la
-        // position courante.
-        Chemin meilleurCheminTrouve;
-        double meilleurGainParMetre = 0.0;
-
-        const std::vector<int> MEILLEURS_SOMMETS =
-            _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
-
-        for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
-            Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
-
-            Chemin cheminCourant = meilleurCheminPourGainDe(
-                cheminCourant.gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
-
-            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
-            cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
-            cheminCourant.gain     += sommetDeDepart->getGain();
-
-            double gainParMetreCourant;
-            if (cheminCourant.distance > 0) {
-                gainParMetreCourant = (double)cheminCourant.gain / cheminCourant.distance;
-            }
-            else {
-                gainParMetreCourant = 0;
-            }
-
-            if (gainParMetreCourant > meilleurGainParMetre) {
-                meilleurCheminTrouve = cheminCourant;
-                meilleurGainParMetre = gainParMetreCourant;
-            }
-        }
-        
-        // Enfin, retourner le meilleur chemin trouvé.
-        return meilleurCheminTrouve;
-    }
-    else {
-        return Chemin();
-    }
-}
 
 Chemin Algo::meilleurCheminPourDistanceDe(
     int distance,
@@ -112,15 +58,77 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     return meilleurCheminTrouve;
 }
 
-std::vector<int> Algo::_trouverMeilleursSommets(Sommet* s, Graphe& graphe) const {
+Chemin Algo::meilleurCheminPourGainDe(
+    int gain,
+    const Graphe& graphe,
+    int indiceDuSommetDeDepart) const
+{
+    if (gain > 0) {
+        Graphe copieDuGraphe = graphe;
+        Sommet* sommetDeDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
+
+        // D'abord, faire visiter le point courant pour modifier la copie du graphe.
+        sommetDeDepart->visiter();
+
+        // Ensuite, trouver récursivement le meilleur chemin à partir de la
+        // position courante.
+        Chemin meilleurCheminTrouve;
+        double meilleurGainParMetre = 0.0;
+
+        const std::vector<int> MEILLEURS_SOMMETS =
+            _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
+
+        for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
+            Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
+
+            Chemin cheminCourant = meilleurCheminPourGainDe(
+                cheminCourant.gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
+
+            cheminCourant.sommetsVisites.push_back(sommetDeDepart);
+            cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
+            cheminCourant.gain     += sommetDeDepart->getGain();
+
+            double gainParMetreCourant;
+            if (cheminCourant.distance > 0) {
+                gainParMetreCourant = (double)cheminCourant.gain / cheminCourant.distance;
+            }
+            else {
+                gainParMetreCourant = 0;
+            }
+
+            if (gainParMetreCourant > meilleurGainParMetre) {
+                meilleurCheminTrouve = cheminCourant;
+                meilleurGainParMetre = gainParMetreCourant;
+            }
+        }
+
+        // Enfin, retourner le meilleur chemin trouvé.
+        return meilleurCheminTrouve;
+    }
+    else {
+        return Chemin();
+    }
+}
+
+std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) const {
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
     for (int i = 0; i < graphe.getNumSommets(); ++i) {
-        Sommet* sommet = graphe.getSommet(i);
+        Sommet* s = graphe.getSommet(i);
 
-        int gain     = sommet->getGain();
+        int gain     = s->getGain();
         int distance = sommet->distanceA(s);
-        gainsParMetre.push_back((double)gain/distance);
+        if (distance == 0) {
+            if (gain > 0) {
+                gainsParMetre.push_back(1000000.0);
+            }
+            else {
+                gainsParMetre.push_back(0.0);
+            }
+        }
+        else {
+            gainsParMetre.push_back((double)gain/distance);
+        }
     }
 
     // Ensuite, déterminer les meilleurs sommets à partir des gains par mètre.

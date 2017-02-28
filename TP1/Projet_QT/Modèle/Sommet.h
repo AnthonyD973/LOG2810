@@ -8,19 +8,23 @@
 using namespace std;
 
 class Sommet {
+
+    friend class Graphe;
+
 public:
     Sommet();
+    Sommet(const Sommet& s);
     virtual Sommet* newClone() const = 0;
     virtual ~Sommet();
 
-    int distanceA(Sommet *s);
+    int distanceA(Sommet* s);
     inline int getGain() const { return _gain; }
     string getNom() const;
     virtual void visiter() = 0;
     virtual void diminuerDistanceAvantActif(int distance) = 0;
     void setNom(string nomSommet);
-    void setGain(string quantiteGain);
-    void addDistance(Sommet* deuxiemePoint, string distance);
+    void setGain(int quantiteGain);
+    void addDistance(Sommet* deuxiemePoint, int distance);
 
 private:
     virtual bool _estActif() const = 0;

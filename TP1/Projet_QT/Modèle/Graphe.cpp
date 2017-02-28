@@ -1,6 +1,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cstdlib>
 
 #include "Graphe.h"
 #include "Pokemon.h"
@@ -48,13 +49,18 @@ Graphe::Graphe(string nomFichier)
                 _sommets.push_back(new Depart);
             }
             _sommets.back()->setNom (point[0]);
-            _sommets.back()->setGain(point[2]);
+            _sommets.back()->setGain(stoi(point[2]));
         }
 
         string ligne2;
         getline(monFichier, ligne2);
         stringstream sLigne2(ligne2);
         
+        // La distance physique entre un point et lui-même est nulle.
+        for (Sommet* s : _sommets) {
+            s->addDistance(s, 0);
+        }
+
         while(getline(sLigne2,dataPoint, ';')) //on a fini de creer les sommets et qu'on commence maintenant a enregistrer les distances
         {
             string point[3];
@@ -88,7 +94,7 @@ Graphe::Graphe(string nomFichier)
                 }
             }
 
-            _sommets[indicePremierPoint]->addDistance(_sommets[indiceDeuxiemePoint], point[2]);
+            _sommets[indicePremierPoint]->addDistance(_sommets[indiceDeuxiemePoint], stoi(point[2]));
 
         }
         monFichier.close();
@@ -96,8 +102,21 @@ Graphe::Graphe(string nomFichier)
 }
 
 Graphe::Graphe(const Graphe &graphe) {
+    // Allouer les sommets
     for (Sommet* s : graphe._sommets) {
         _sommets.push_back(s->newClone());
+    }
+
+    // Puis assigner leurs distances
+    for (int i = 0; i < (int)_sommets.size(); ++i) {
+        Sommet* s1 = graphe._sommets[i];
+        Sommet* sommet1 =   _sommets[i];
+
+        for (int j = 0; j <= i; ++j) {
+            Sommet* s2 = graphe._sommets[j];
+            Sommet* sommet2 =   _sommets[j];
+            sommet1->addDistance(sommet2, s1->_distances.at(s2));
+        }
     }
 }
 
