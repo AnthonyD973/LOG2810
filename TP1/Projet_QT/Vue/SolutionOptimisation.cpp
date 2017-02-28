@@ -54,7 +54,7 @@ SolutionOptimisation::SolutionOptimisation(QWidget* parent)
 
 void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOptimal, std::time_t tempsPris) {
 
-    _trouveeEn->setText((QString)(int)tempsPris);
+    _trouveeEn->setText(QString::number(tempsPris) + (QString)" sec");
 
     std::string strChemin = "";
     for (const Sommet* s : cheminOptimal.sommetsVisites) {
@@ -63,6 +63,6 @@ void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOpt
     strChemin = strChemin.substr(0, strChemin.size() - 2);
     _solutionTrouvee->setText((QString)strChemin.c_str());
 
-    _distanceTotale->setText((QString)cheminOptimal.distance);
-    _gainTotal->setText((QString)cheminOptimal.gain);
+    _distanceTotale->setText(QString::number(cheminOptimal.distance));
+    _gainTotal->setText(QString::number(cheminOptimal.gain));
 }

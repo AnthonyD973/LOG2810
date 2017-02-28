@@ -30,8 +30,8 @@ Chemin Algo::meilleurCheminPourDistanceDe(
         Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
         if (sommetDeDepart->distanceA(prochainSommet) <= distance) {
-            Chemin cheminCourant = meilleurCheminPourGainDe(
-                cheminCourant.gain - sommetDeDepart->getGain(),
+            Chemin cheminCourant = meilleurCheminPourDistanceDe(
+                distance - sommetDeDepart->distanceA(prochainSommet),
                 copieDuGraphe,
                 indiceDuProchainSommet);
 
@@ -82,7 +82,9 @@ Chemin Algo::meilleurCheminPourGainDe(
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
             Chemin cheminCourant = meilleurCheminPourGainDe(
-                cheminCourant.gain - sommetDeDepart->getGain(), copieDuGraphe, indiceDuProchainSommet);
+                gain - sommetDeDepart->getGain(),
+                copieDuGraphe,
+                indiceDuProchainSommet);
 
             cheminCourant.sommetsVisites.push_back(sommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
@@ -135,7 +137,7 @@ std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) 
     std::vector<int> meilleursSommets;
     for(int i = 0; i < _N_SOMMETS_A_ESSAYER; ++i) {
         double meilleurGain = -1.0;
-        int indiceDuMeilleurGain;
+        int indiceDuMeilleurGain = -1;
         
         for (int j = 0; j < (int)gainsParMetre.size(); ++j) {
             if (gainsParMetre[j] > meilleurGain) {
