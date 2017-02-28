@@ -9,7 +9,7 @@
 
 using namespace std;
 
-Graphe::Graphe(string nomFichier) : _sommets()
+Graphe::Graphe(string nomFichier)
 {
     
     string dataPoint;
@@ -22,43 +22,48 @@ Graphe::Graphe(string nomFichier) : _sommets()
         getline(monFichier, ligne);
         stringstream sLigne(ligne);
         
-        string ligne2;
-        getline(monFichier, ligne2);
-        stringstream sLigne2(ligne2);
-        
-        while ( getline(sLigne,dataPoint, ';') )
+        while ( getline(sLigne, dataPoint, ';') )
         {
-            string point[] = dataPoint.split(",");
+            string point[3];
+            stringstream sPoint(dataPoint);
+
+            getline(sPoint, point[0], ',');
+            getline(sPoint, point[1], ',');
+            getline(sPoint, point[2], ';');
 
             
             if(point[1]=="pokemon")
             {
                 _sommets.push_back(new Pokemon);
-                _sommets[i]->setNom(point[0]);
-                _sommets[i]->setGain(point[2]);
             }
             else if(point[1]=="pokestop")
             {
                 _sommets.push_back(new Pokestop);
-                _sommets[i]->setNom(point[0]);
-                _sommets[i]->setGain(point[2]);
             }
             else if(point[1]=="arene")
             {
                 _sommets.push_back(new Arene);
-                _sommets[i]->setNom(point[0]);
-                _sommets[i]->setGain(point[2]);
             }
-            {
-                            }
+            _sommets[i]->setNom(point[0]);
+            _sommets[i]->setGain(point[2]);
             i++;
         }
+
+        string ligne2;
+        getline(monFichier, ligne2);
+        stringstream sLigne2(ligne2);
         
         while(getline(sLigne2,dataPoint, ';')) //on a finit de creer les sommets et qu'on commence maintenant a enregistrer les distances
         {
             //trouver l'objet sommet* correspondant a point[1]
             //pour ce, boucler a travers le vecteur de sommets pour trouver l'objet sommet qui correspond au string deuxiemePoint
-            string point[] = dataPoint.split(",");
+            string point[3];
+            stringstream sPoint(dataPoint);
+
+            getline(sPoint, point[0], ',');
+            getline(sPoint, point[0], ',');
+            getline(sPoint, point[0], ';');
+
             int indiceDeuxiemePoint;
             for(int i = 0; i < (int)_sommets.size(); i++)
             {

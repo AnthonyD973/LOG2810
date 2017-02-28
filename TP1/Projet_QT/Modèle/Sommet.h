@@ -12,14 +12,14 @@ public:
     Sommet();
     virtual ~Sommet();
 
-    int distanceA(const Sommet* s) const;
+    int distanceA(Sommet *s);
     inline int getGain() const { return _gain; }
+    string getNom() const;
     virtual void visiter() = 0;
     virtual void diminuerDistanceAvantActif(int distance) = 0;
-    string getNom() const;
     void setNom(string nomSommet);
     void setGain(string quantiteGain);
-    void addDistance(string deuxiemePoint, string distance);
+    void addDistance(Sommet* deuxiemePoint, string distance);
 
 private:
     virtual bool _estActif() const = 0;

@@ -57,7 +57,7 @@ void SolutionOptimisation::afficherResultatsOptimisation(const Chemin& cheminOpt
     _trouveeEn->setText((QString)(int)tempsPris);
 
     std::string strChemin = "";
-    for (const Sommet* s : cheminOptimal.pointsVisites) {
+    for (const Sommet* s : cheminOptimal.sommetsVisites) {
         strChemin += s->getNom() + ", ";
     }
     strChemin = strChemin.substr(0, strChemin.size() - 2);

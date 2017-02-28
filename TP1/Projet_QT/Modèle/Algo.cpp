@@ -114,13 +114,13 @@ Chemin Algo::meilleurCheminPourDistanceDe(
     return meilleurCheminTrouve;
 }
 
-std::vector<int> Algo::_trouverMeilleursSommets(const Sommet* s, const Graphe& graphe) const {
+std::vector<int> Algo::_trouverMeilleursSommets(Sommet* s, Graphe& graphe) const {
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
     int indiceDuSommet = 0;
     try {
         for EVER {
-            const Sommet* sommet = graphe.getSommet(indiceDuSommet++);
+            Sommet* sommet = graphe.getSommet(indiceDuSommet++);
 
             int gain     = sommet->getGain();
             int distance = sommet->distanceA(s);

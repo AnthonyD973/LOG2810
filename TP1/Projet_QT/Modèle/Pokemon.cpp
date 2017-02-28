@@ -1,7 +1,7 @@
 #include "Pokemon.h"
 
 Pokemon::Pokemon()
-    : _distAvantActif(0), Sommet(distances)
+    : _distAvantActif(0)
 { }
 
 Pokemon::~Pokemon() {}
@@ -16,10 +16,10 @@ void Pokemon::visiter() {
         DISTANCE_POUR_NORMAL   = 200,
         DISTANCE_POUR_FREQUENT = 100;
 
-    if (_gain == GAIN_POKEMON_RARE) {
+    if (getGain() == GAIN_POKEMON_RARE) {
         _distAvantActif = DISTANCE_POUR_RARE;
     }
-    else if (_gain == GAIN_POKEMON_NORMAL) {
+    else if (getGain() == GAIN_POKEMON_NORMAL) {
         _distAvantActif = DISTANCE_POUR_NORMAL;
     }
     else { // On assume que le gain est valide
@@ -27,7 +27,7 @@ void Pokemon::visiter() {
     }
 }
 
-void diminuerDistanceAvantActif(int distance) {
+void Pokemon::diminuerDistanceAvantActif(int distance) {
     if (_distAvantActif >= distance) {
         _distAvantActif -= distance;
     }
@@ -38,4 +38,8 @@ void diminuerDistanceAvantActif(int distance) {
 
 bool Pokemon::_estActif() const {
     return _distAvantActif <= 0;
+}
+
+int Pokemon::_obtenirDistanceAvantActif() const {
+    return _distAvantActif;
 }

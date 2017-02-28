@@ -88,14 +88,14 @@ void SelectionOptimisation::commencerOptimisation(bool) {
             switch(_typeOptimisation) {
             case _DISTANCE_MAX: {
                 std::time_t tempsDebut = std::time(nullptr);
-                Chemin cheminOptimal = Chemin(std::vector<Sommet*>());
+                Chemin cheminOptimal;
                 qDebug() << "Optimisation distance max.";
                 emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
                 break;
             }
             case _GAIN_MIN: {
                 std::time_t tempsDebut = std::time(nullptr);
-                Chemin cheminOptimal = Chemin(std::vector<Sommet*>());
+                Chemin cheminOptimal;
                 qDebug() << "Optimisation gain min.";
                 emit optimisationTerminee(cheminOptimal, std::time(nullptr) - tempsDebut);
                 break;
