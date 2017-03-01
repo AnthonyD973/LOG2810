@@ -1,3 +1,9 @@
+/*
+ Fichier: Algo.h
+ Auteur(s): Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ Date de creation: 12 février 2017
+ Description: Description de la classe Algo
+ */
 #include <vector>
 
 #include "Sommet.h"

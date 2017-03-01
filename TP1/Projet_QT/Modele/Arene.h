@@ -1,3 +1,9 @@
+/*
+ Fichier: Arene.h
+ Auteur(s): Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ Date de creation: 12 février 2017
+ Description: Description de la classe Arene
+ */
 #include "Sommet.h"
 
 class Arene : public Sommet {

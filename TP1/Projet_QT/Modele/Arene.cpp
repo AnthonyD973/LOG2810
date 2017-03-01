@@ -1,3 +1,9 @@
+/****************************************************************************
+ * Fichier: Arene.cpp
+ * Auteurs: Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ * Date: 12 fevrier 2017
+ * Description: Implementation de la classe Arene
+ ****************************************************************************/
 #include <stdexcept>
 
 #include "Arene.h"

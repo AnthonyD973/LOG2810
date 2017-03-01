@@ -1,3 +1,10 @@
+/****************************************************************************
+ * Fichier: Sommet.cpp
+ * Auteurs: Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ * Date: 12 fevrier 2017
+ * Description: Implementation de la classe Sommet
+ ****************************************************************************/
+
 #include "Sommet.h"
 
 using namespace std;

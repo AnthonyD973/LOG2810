@@ -1,3 +1,9 @@
+/*
+ Fichier: Depart.h
+ Auteur(s): Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ Date de creation: 12 février 2017
+ Description: Description de la classe Depart
+ */
 #ifndef DEPART_H
 #define DEPART_H
 

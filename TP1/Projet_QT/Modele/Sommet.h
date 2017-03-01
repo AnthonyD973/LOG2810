@@ -1,3 +1,10 @@
+/*
+ Fichier: Sommet.h
+ Auteur(s): Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ Date de creation: 12 février 2017
+ Description: Description de la classe Sommet
+ */
+
 #ifndef SOMMET_H
 #define SOMMET_H
 
