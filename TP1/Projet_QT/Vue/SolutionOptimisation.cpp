@@ -62,7 +62,7 @@ void SolutionOptimisation::afficherResultatsOptimisation(
     _trouveeEn->setText(QString::number(tempsPris) + (QString)" sec");
 
     std::string strChemin = "";
-    for (int i = 0; i < cheminOptimal.sommetsVisites.size(); ++i) {
+    for (int i = 0; i < (int)cheminOptimal.sommetsVisites.size(); ++i) {
         strChemin += graphe.getSommet(cheminOptimal.sommetsVisites[i])->getNom() + ", ";
     }
     strChemin = strChemin.substr(0, strChemin.size() - 2);
@@ -70,4 +70,6 @@ void SolutionOptimisation::afficherResultatsOptimisation(
 
     _distanceTotale->setText(QString::number(cheminOptimal.distance));
     _gainTotal->setText(QString::number(cheminOptimal.gain));
+
+
 }

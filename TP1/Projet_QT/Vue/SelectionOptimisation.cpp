@@ -86,7 +86,8 @@ void SelectionOptimisation::commencerOptimisation(bool) {
 
     bool estOkPourOptimiser = false;
 
-    typedef Chemin (Algo::*Optimisation_t) (int, const Graphe&, int) const; // Pointeur vers une méthode d'optimisation.
+    // Pointeur vers une méthode d'optimisation.
+    typedef Chemin (Algo::*Optimisation_t) (int, const Graphe&, int) const;
     Optimisation_t methodeOptimiser;
 
     if (!_fichierCarte.isNull()) {

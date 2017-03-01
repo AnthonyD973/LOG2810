@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QFrame* _ligneHorizontale = new QFrame(this);
     _ligneHorizontale->setFrameStyle(QFrame::HLine | QFrame::Sunken);
-    _ligneHorizontale->setLineWidth(2);
+    _ligneHorizontale->setLineWidth(1);
 
     SelectionOptimisation* selectionOptimisation = new SelectionOptimisation();
     SolutionOptimisation*  solutionOptimisation  = new SolutionOptimisation();

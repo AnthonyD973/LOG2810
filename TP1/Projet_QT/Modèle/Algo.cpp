@@ -31,9 +31,9 @@ Chemin Algo::meilleurCheminPourGainDe (
 
     Chemin meilleurChemin = _meilleurCheminPourGainDe(distance, graphe, indiceDuSommetDeDepart);
 
-    // Remettre les sommets dans le bon ordre.
+    // Remettre les sommets dans le bon ordre. (>>> Duplication de code FTW!!! <<<   *dies*)
     std::vector<int> sommetsVisites;
-    for (int i = (int)sommetsVisites.size() - 1; i >= 0; --i) {
+    for (int i = (int)meilleurChemin.sommetsVisites.size() - 1; i >= 0; --i) {
         sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
     }
     meilleurChemin.sommetsVisites = sommetsVisites;
@@ -57,7 +57,7 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
     // Ensuite, trouver récursivement le meilleur chemin à partir de la
     // position courante.
     Chemin meilleurCheminTrouve;
-    double meilleurGainParMetre = 0.0;
+    meilleurCheminTrouve.gain = -1;
 
     const std::vector<int> MEILLEURS_SOMMETS =
         _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
@@ -65,9 +65,10 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
     for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
         Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
-        if (sommetDeDepart->distanceA(prochainSommet) <= distance) {
+        int d = sommetDeDepart->distanceA(prochainSommet);
+        if (d <= distance) {
             Chemin cheminCourant = _meilleurCheminPourDistanceDe(
-                distance - sommetDeDepart->distanceA(prochainSommet),
+                distance - d,
                 copieDuGraphe,
                 indiceDuProchainSommet);
 
@@ -75,17 +76,9 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 
-            double gainParMetreCourant;
-            if (cheminCourant.distance > 0) {
-                gainParMetreCourant = (double)cheminCourant.gain / cheminCourant.distance;
-            }
-            else {
-                gainParMetreCourant = 0;
-            }
-
-            if (gainParMetreCourant > meilleurGainParMetre) {
+            // Un chemin c1 est meilleur qu'un chemin c2 si c1 a un gain plus grand que c2.
+            if (cheminCourant.gain > meilleurCheminTrouve.gain) {
                 meilleurCheminTrouve = cheminCourant;
-                meilleurGainParMetre = gainParMetreCourant;
             }
         }
     }
@@ -109,7 +102,7 @@ Chemin Algo::_meilleurCheminPourGainDe(
         // Ensuite, trouver récursivement le meilleur chemin à partir de la
         // position courante.
         Chemin meilleurCheminTrouve;
-        double meilleurGainParMetre = 0.0;
+        meilleurCheminTrouve.distance = INT_MAX/2;
 
         const std::vector<int> MEILLEURS_SOMMETS =
             _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
@@ -117,8 +110,9 @@ Chemin Algo::_meilleurCheminPourGainDe(
         for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
+            int g = sommetDeDepart->getGain();
             Chemin cheminCourant = _meilleurCheminPourGainDe(
-                gain - sommetDeDepart->getGain(),
+                gain - g,
                 copieDuGraphe,
                 indiceDuProchainSommet);
 
@@ -126,17 +120,9 @@ Chemin Algo::_meilleurCheminPourGainDe(
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
             cheminCourant.gain     += sommetDeDepart->getGain();
 
-            double gainParMetreCourant;
-            if (cheminCourant.distance > 0) {
-                gainParMetreCourant = (double)cheminCourant.gain / cheminCourant.distance;
-            }
-            else {
-                gainParMetreCourant = 0;
-            }
-
-            if (gainParMetreCourant > meilleurGainParMetre) {
+            // Un chemin c1 est meilleur qu'un chemin c2 si c1 a une distance plus petite que c2.
+            if (cheminCourant.distance < meilleurCheminTrouve.distance) {
                 meilleurCheminTrouve = cheminCourant;
-                meilleurGainParMetre = gainParMetreCourant;
             }
         }
 
@@ -144,7 +130,10 @@ Chemin Algo::_meilleurCheminPourGainDe(
         return meilleurCheminTrouve;
     }
     else {
-        return Chemin();
+        Chemin meilleurCheminTrouve;
+        meilleurCheminTrouve.gain = graphe.getSommet(indiceDuSommetDeDepart)->getGain();
+        meilleurCheminTrouve.sommetsVisites.push_back(indiceDuSommetDeDepart);
+        return meilleurCheminTrouve;
     }
 }
 

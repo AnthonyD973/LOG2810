@@ -9,7 +9,7 @@ using namespace std;
 
 class Chemin {
 public:
-    Chemin() {}
+    Chemin() : distance(0), gain(0) {}
 
     int distance;
     int gain;
