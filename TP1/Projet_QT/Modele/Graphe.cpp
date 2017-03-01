@@ -17,6 +17,12 @@
 
 using namespace std;
 
+/****************************************************************************
+ * Fonction: Graphe::Graphe
+ * Description: Constructeur de Graphe par paramètre
+ * ParamËtres:	- (string) nomFichier: le fichier qui contient les informations sur les sommets et les arcs (IN)
+ * Retour:		aucun
+ ****************************************************************************/
 Graphe::Graphe(string nomFichier)
 {
     ifstream monFichier;
@@ -107,6 +113,12 @@ Graphe::Graphe(string nomFichier)
     }
 }
 
+/****************************************************************************
+ * Fonction: Graphe::Graphe
+ * Description: Constructeur de Graphe par copie
+ * ParamËtres:	- (const Graphe) &graphe: le graphe à copier (IN/OUT)
+ * Retour:		Aucun
+ ****************************************************************************/
 Graphe::Graphe(const Graphe &graphe) {
     // Allouer les sommets
     for (Sommet* s : graphe._sommets) {

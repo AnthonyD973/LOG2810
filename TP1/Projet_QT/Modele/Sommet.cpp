@@ -17,6 +17,12 @@ Sommet::Sommet(const Sommet& s)
 
 Sommet::~Sommet() {}
 
+/****************************************************************************
+ * Fonction: Sommet::distanceA
+ * Description: Fonction qui obtient la distance au sommet entré en paramètre
+ * ParamËtres:	- (Sommet*) s: le sommet(IN)
+ * Retour:		(int) la distance entre les deux sommets
+ ****************************************************************************/
 int Sommet::distanceA(Sommet* s) {
     int ret;
 
@@ -47,6 +53,13 @@ void Sommet::setGain(int quantiteGain)
     _gain = quantiteGain;
 }
 
+/****************************************************************************
+ * Fonction: Sommet::addDistance
+ * Description: Fonction ajoute une distance entre un nouveau sommet et le sommet courant
+ * ParamËtres:	- (Sommet*) s: le nouveau sommet(IN)
+                - (int) distance: distance entre les deux sommets(IN)
+ * Retour:		Aucun
+ ****************************************************************************/
 void Sommet::addDistance(Sommet* s, int distance)
 {
     //creer une paire avec l'objet 2e point et cette distance
