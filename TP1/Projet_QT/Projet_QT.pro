@@ -28,24 +28,24 @@ SOURCES += \
     Vue/SelectionOptimisation.cpp \
     Vue/SolutionOptimisation.cpp \
     Vue/MainWindow.cpp \
-    Modèle/Algo.cpp \
-    Modèle/Arene.cpp \
-    Modèle/Graphe.cpp \
-    Modèle/Pokemon.cpp \
-    Modèle/Pokestop.cpp \
-    Modèle/Sommet.cpp
+    Modele/Algo.cpp \
+    Modele/Arene.cpp \
+    Modele/Graphe.cpp \
+    Modele/Pokemon.cpp \
+    Modele/Pokestop.cpp \
+    Modele/Sommet.cpp
 
 HEADERS  += mainwindow.h \
     Vue/SelectionOptimisation.h \
     Vue/SolutionOptimisation.h \
     Vue/MainWindow.h \
-    Modèle/Algo.h \
-    Modèle/Arene.h \
-    Modèle/Chemin.h \
-    Modèle/Graphe.h \
-    Modèle/Pokemon.h \
-    Modèle/Pokestop.h \
-    Modèle/Sommet.h \
-    Modèle/Depart.h
+    Modele/Algo.h \
+    Modele/Arene.h \
+    Modele/Chemin.h \
+    Modele/Graphe.h \
+    Modele/Pokemon.h \
+    Modele/Pokestop.h \
+    Modele/Sommet.h \
+    Modele/Depart.h
 
 FORMS    += mainwindow.ui

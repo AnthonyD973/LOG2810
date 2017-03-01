@@ -1,6 +1,6 @@
 #include "SolutionOptimisation.h"
 
-#include "Modèle/Graphe.h"
+#include "Modele/Graphe.h"
 
 #include <string>
 

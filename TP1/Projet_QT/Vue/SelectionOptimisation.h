@@ -14,8 +14,8 @@
 
 #include <ctime>
 
-#include "Modèle/Algo.h"
-#include "Modèle/Chemin.h"
+#include "Modele/Algo.h"
+#include "Modele/Chemin.h"
 
 class SelectionOptimisation : public QWidget
 {

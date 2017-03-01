@@ -9,8 +9,8 @@
 
 #include <ctime>
 
-#include "Modèle/Chemin.h"
-#include "Modèle/Graphe.h"
+#include "Modele/Chemin.h"
+#include "Modele/Graphe.h"
 
 class SolutionOptimisation : public QWidget
 {
