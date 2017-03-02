@@ -13,12 +13,22 @@ Algo::Algo(int nSommetsAEssayer) : _N_SOMMETS_A_ESSAYER(nSommetsAEssayer) {}
 
 Algo::~Algo() {}
 
+/****************************************************************************
+ * Fonction: Algo::meilleurCheminPourDistanceDe
+ * Description: Détermine le chemin optimal pour une distance max donnée.
+ * ParamËtres:  - (int) distance: distance maximale à parcourir(IN)
+ *              - (const Graphe&) graphe: Graphe sur lequel optimiser.
+ *              - (int) indiceDuSommetDeDepart: indiceDuSommetDeDepart :)
+ * Retour:		Le chemin optimal
+ ****************************************************************************/
+
 Chemin Algo::meilleurCheminPourDistanceDe (
         int distance,
         const Graphe &graphe,
-        int indiceDuSommetDeDepart) const {
+        int indiceDuSommetDeDepart) const
+{
 
-    Chemin meilleurChemin = _meilleurCheminPourDistanceDe(distance, graphe, indiceDuSommetDeDepart, 0);
+    Chemin meilleurChemin = _meilleurCheminPourDistanceDe(distance, graphe, indiceDuSommetDeDepart, 0, 0);
 
     // Remettre les sommets dans le bon ordre.
     std::vector<int> sommetsVisites;
@@ -30,12 +40,22 @@ Chemin Algo::meilleurCheminPourDistanceDe (
     return meilleurChemin;
 }
 
-Chemin Algo::meilleurCheminPourGainDe (
-        int distance,
-        const Graphe &graphe,
-        int indiceDuSommetDeDepart) const {
+/****************************************************************************
+ * Fonction: Algo::meilleurCheminPourGainDe
+ * Description: Détermine le chemin optimal pour un gain minimal donné.
+ * ParamËtres:  - (int) gain: gain minimal à obtenir(IN)
+ *              - (const Graphe&) graphe: Graphe sur lequel optimiser.
+ *              - (int) indiceDuSommetDeDepart: indiceDuSommetDeDepart :)
+ * Retour:		Le chemin optimal
+ ****************************************************************************/
 
-    Chemin meilleurChemin = _meilleurCheminPourGainDe(distance, graphe, indiceDuSommetDeDepart, 0);
+Chemin Algo::meilleurCheminPourGainDe (
+        int gain,
+        const Graphe &graphe,
+        int indiceDuSommetDeDepart) const
+{
+
+    Chemin meilleurChemin = _meilleurCheminPourGainDe(gain, graphe, indiceDuSommetDeDepart, 0, 0);
 
     // Remettre les sommets dans le bon ordre.
     std::vector<int> sommetsVisites;
@@ -49,11 +69,23 @@ Chemin Algo::meilleurCheminPourGainDe (
 
 // PRIVATE:
 
+/****************************************************************************
+ * Fonction: Algo::_meilleurCheminPourDistanceDe
+ * Description: Détermine le chemin optimal pour une distance max donnée.
+ * ParamËtres:  - (int) distance: Distance maximale à parcourir(IN)
+ *              - (const Graphe&) graphe: Graphe sur lequel optimiser.
+ *              - (int) indiceDuSommetDeDepart: indiceDuSommetDeDepart :)
+ *              - (int) distanceVersSommet: Distance du dernier point visité au sommetDeDepart.
+ *              - (int) profondeurRecursion: Profondeur de la récursion pour cet appel.
+ * Retour:		Le chemin optimal
+ ****************************************************************************/
+
 Chemin Algo::_meilleurCheminPourDistanceDe (
     int distance,
     const Graphe& graphe,
     int indiceDuSommetDeDepart,
-    int distanceVersSommet) const
+    int distanceVersSommet,
+    int profondeurRecursion) const
 {
     Graphe copieDuGraphe = graphe;
     Sommet* sommetDeDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
@@ -69,8 +101,9 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
     Chemin meilleurCheminTrouve;
     meilleurCheminTrouve.gain = -1;
 
+    int numMeilleursSommets = (profondeurRecursion <= 10) ? _N_SOMMETS_A_ESSAYER : 1;
     const std::vector<int> MEILLEURS_SOMMETS =
-        _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
+        _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe, numMeilleursSommets);
 
     for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
         Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
@@ -81,7 +114,8 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
                 distance - d,
                 copieDuGraphe,
                 indiceDuProchainSommet,
-                d);
+                d,
+                profondeurRecursion + 1);
 
             cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
@@ -98,11 +132,23 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
     return meilleurCheminTrouve;
 }
 
+/****************************************************************************
+ * Fonction: Algo::_meilleurCheminPourGainDe
+ * Description: Détermine le chemin optimal pour un gain minimum donné.
+ * ParamËtres:  - (int) gain: Gain minimal à obtenir(IN)
+ *              - (const Graphe&) graphe: Graphe sur lequel optimiser.
+ *              - (int) indiceDuSommetDeDepart: indiceDuSommetDeDepart :)
+ *              - (int) distanceVersSommet: Distance du dernier point visité au sommetDeDepart.
+ *              - (int) profondeurRecursion: Profondeur de la récursion pour cet appel.
+ * Retour:		Le chemin optimal
+ ****************************************************************************/
+
 Chemin Algo::_meilleurCheminPourGainDe(
     int gain,
     const Graphe& graphe,
     int indiceDuSommetDeDepart,
-    int distanceVersSommet) const
+    int distanceVersSommet,
+    int profondeurRecursion) const
 {
     //     vvvvvvvvvvvvvvvvvvvvvvvvvv
     // >>> Duplication de code FTW!!! <<<   *dies*
@@ -123,8 +169,9 @@ Chemin Algo::_meilleurCheminPourGainDe(
         Chemin meilleurCheminTrouve;
         meilleurCheminTrouve.distance = INT_MAX/2;
 
+        int numMeilleursSommets = (profondeurRecursion <= 10) ? _N_SOMMETS_A_ESSAYER : 1;
         const std::vector<int> MEILLEURS_SOMMETS =
-            _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe);
+            _trouverMeilleursSommets(sommetDeDepart, copieDuGraphe, numMeilleursSommets);
 
         for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
@@ -135,7 +182,8 @@ Chemin Algo::_meilleurCheminPourGainDe(
                 gain - g,
                 copieDuGraphe,
                 indiceDuProchainSommet,
-                d);
+                d,
+                profondeurRecursion + 1);
 
             cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
@@ -158,7 +206,21 @@ Chemin Algo::_meilleurCheminPourGainDe(
     }
 }
 
-std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) const {
+/****************************************************************************
+ * Fonction: Algo::_trouverMeilleursSommets
+ * Description: Détermine les sommets optimums vers lesquels on devrait aller.
+ *              Le choix est fait selon le gain par mètre.
+ * ParamËtres:  - (Sommet*) sommet: Sommet de départ.
+                - (Graphe&) graphe: Graphe duquel sont tirés les sommets.
+                - (int) numMeilleursSommets: Nombre de sommets optimums désiré.
+ * Retour:		Les numMeilleursSommets meilleurs sommets à visiter.
+ ****************************************************************************/
+
+std::vector<int> Algo::_trouverMeilleursSommets(
+        Sommet* sommet,
+        Graphe& graphe,
+        int numMeilleursSommets) const
+{
     // D'abord, créer un vecteur des gains par mètre pour chaque sommet.
     std::vector<double> gainsParMetre;
     for (int i = 0; i < graphe.getNumSommets(); ++i) {
@@ -181,7 +243,7 @@ std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) 
 
     // Ensuite, déterminer les meilleurs sommets à partir des gains par mètre.
     std::vector<int> meilleursSommets;
-    for(int i = 0; i < _N_SOMMETS_A_ESSAYER; ++i) {
+    for(int i = 0; i < numMeilleursSommets; ++i) {
         double meilleurGain = -1.0;
         int indiceDuMeilleurGain = -1;
         
@@ -197,45 +259,4 @@ std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) 
     }
 
     return meilleursSommets;
-}
-
-Chemin Algo::_getBoucleInfinie(const Chemin& chemin, const Graphe& graphe) {
-
-    // Chercher une boucle contenant le dernier sommet visité
-    int indiceCherche = chemin.sommetsVisites.back();
-    int indiceEgaux = chemin.sommetsVisites.size() - 2;
-    bool boucleTrouvee = (chemin.sommetsVisites[indiceEgaux] == indiceCherche);
-
-    while (indiceEgaux >= 0 && !boucleTrouvee) {
-        boucleTrouvee = (chemin.sommetsVisites[indiceEgaux] == indiceCherche);
-        --indiceEgaux;
-    }
-
-    // Chercher si cette boucle a été parcourue deux fois d'affilée,
-    // auquel cas la boucle sera parcourue à l'infini
-    Chemin boucleInfinie;
-
-    int tailleBoucle = chemin.sommetsVisites.size() - 1 - indiceEgaux;
-    int tailleRestante = indiceEgaux;
-    if (boucleTrouvee && tailleRestante >= tailleBoucle) {
-        Graphe copieDuGraphe = graphe;
-        for (int j = indiceEgaux - tailleBoucle; j < indiceEgaux; ++j) {
-            if (chemin.sommetsVisites[j] == chemin.sommetsVisites[j+1]) {
-                Sommet* sCourant = copieDuGraphe.getSommet(chemin.sommetsVisites[j]);
-                Sommet* sSuivant = copieDuGraphe.getSommet(chemin.sommetsVisites[j+1]);
-
-                boucleInfinie.distance += sCourant->distanceA(sSuivant);
-                boucleInfinie.gain     += sSuivant->getGain();
-                boucleInfinie.sommetsVisites.push_back(chemin.sommetsVisites[j+1]);
-
-                sCourant->visiter();
-            }
-            else {
-                boucleInfinie = Chemin();
-                break;
-            }
-        }
-    }
-
-    return boucleInfinie;
 }

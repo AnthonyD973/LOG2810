@@ -17,12 +17,16 @@ using namespace std;
 class Graphe {
     
 public:
+    Graphe();
     Graphe(string nomFichier);
     Graphe(const Graphe& graphe); // Constructeur par copie
     ~Graphe();
 
+    Graphe& operator=(const Graphe& graphe);
+
     Sommet* getSommet(int indiceDuSommet);
     const Sommet* getSommet(int indiceDuSommet) const;
+    int getIndice(std::string nom) const;
 
     int getNumSommets() const;
 

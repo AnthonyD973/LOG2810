@@ -8,10 +8,17 @@ SelectionOptimisation::SelectionOptimisation(QWidget* parent)
 {
 
     _boutonSelectionnerFichier = new QPushButton((QString)"Sélectionner la carte.",  parent);
+    _boiteDeroulanteSommets    = new QComboBox(parent);
+    _boiteDeroulanteSommets->setDisabled(true);
     _groupeTypeOptimisation    = new QGroupBox  ((QString)"Type d'optimisation",     parent);
     _valeurCherchee            = new QLineEdit  ((QString)"Valeur cible",            parent);
     _boutonOptimiser           = new QPushButton((QString)"OPTIMISER",               parent);
+    _boutonOptimiser->setDisabled(true);
 
+
+    _dispoFichierSommet        = new QHBoxLayout(parent);
+    _dispoFichierSommet->addWidget(_boutonSelectionnerFichier);
+    _dispoFichierSommet->addWidget(_boiteDeroulanteSommets);
 
     QLabel* etiquetteTypeOptimisation = new QLabel((QString)"Optimiser pour:",       parent);
     QRadioButton* boutonDistMax = new QRadioButton((QString)"Une distance maximale", parent);
@@ -26,7 +33,7 @@ SelectionOptimisation::SelectionOptimisation(QWidget* parent)
 
 
     _disposition = new QVBoxLayout(parent);
-    _disposition->addWidget(_boutonSelectionnerFichier);
+    _disposition->addLayout(_dispoFichierSommet);
     _disposition->addWidget(_groupeTypeOptimisation);
     _disposition->addWidget(_valeurCherchee);
     _disposition->addWidget(_boutonOptimiser);
@@ -35,10 +42,12 @@ SelectionOptimisation::SelectionOptimisation(QWidget* parent)
     setLayout(_disposition);
 
     connect(_boutonSelectionnerFichier, SIGNAL(clicked(bool)), SLOT(selectionFichierCarte(bool)));
+    connect(_boiteDeroulanteSommets,    SIGNAL(currentIndexChanged(const QString&)), SLOT(changerIndiceSommetDepart(const QString&)));
     connect(_boutonOptimiser,           SIGNAL(clicked(bool)), SLOT(commencerOptimisation(bool)));
     connect(boutonDistMax,              SIGNAL(clicked(bool)), SLOT(selectionnerDistanceMaximale(bool)));
     connect(boutonGainMin,              SIGNAL(clicked(bool)), SLOT(selectionnerGainMinimal(bool)));
     connect(_valeurCherchee,            SIGNAL(textChanged(const QString&)), SLOT(changerValeurCible(const QString&)));
+    connect(this, SIGNAL(etatBoutonOptimisationDoitEtreChange()), SLOT(changerEtatBoutonOptimisation()));
 }
 
 // =================
@@ -54,6 +63,16 @@ void SelectionOptimisation::selectionFichierCarte(bool) {
 
     if (!cheminFichier.isNull()) {
         _fichierCarte = cheminFichier;
+        _graphe = Graphe(_fichierCarte.toStdString());
+
+        for (int i = 0; i < _graphe.getNumSommets(); ++i) {
+            _boiteDeroulanteSommets->addItem((QString)_graphe.getSommet(i)->getNom().c_str());
+        }
+        _boiteDeroulanteSommets->setDisabled(false);
+        _indiceSommetDepart = 0;
+
+        _carteOk = true;
+        emit etatBoutonOptimisationDoitEtreChange();
     }
 }
 
@@ -75,9 +94,31 @@ void SelectionOptimisation::changerValeurCible(const QString &valeur) {
 
     if (entreeEstProbablementOk) {
         _valeurCible = valeur.toInt(Q_NULLPTR, 0);
+        _valeurCibleOk = true;
     }
     else {
         _valeurCible = -1;
+        _valeurCibleOk = false;
+    }
+
+    emit etatBoutonOptimisationDoitEtreChange();
+}
+
+void SelectionOptimisation::changerIndiceSommetDepart(const QString& nom) {
+    try {
+        _indiceSommetDepart = _graphe.getIndice(nom.toStdString());
+    }
+    catch(const std::runtime_error& e) {
+        qDebug() << e.what();
+    }
+}
+
+void SelectionOptimisation::changerEtatBoutonOptimisation() {
+    if (_carteOk && _typeOptimisationOk && _valeurCibleOk) {
+        _boutonOptimiser->setDisabled(false);
+    }
+    else {
+        _boutonOptimiser->setDisabled(true);
     }
 }
 
@@ -107,22 +148,24 @@ void SelectionOptimisation::commencerOptimisation(bool) {
     }
 
     if (estOkPourOptimiser) {
-        Graphe graphe(_fichierCarte.toStdString());
-
         std::time_t tempsDebut = std::time(nullptr);
 
-        Chemin cheminOptimal = (_algo.*methodeOptimiser)(_valeurCible, graphe, 0);
-
         qDebug() << "Optimisation...";
-        emit optimisationTerminee(cheminOptimal, graphe, std::time(nullptr) - tempsDebut);
+        Chemin cheminOptimal = (_algo.*methodeOptimiser)(_valeurCible, _graphe, _indiceSommetDepart);
         qDebug() << "Optimisation terminée.";
+
+        emit optimisationTerminee(cheminOptimal, _graphe, std::time(nullptr) - tempsDebut);
     }
 }
 
 void SelectionOptimisation::selectionnerDistanceMaximale(bool) {
     _typeOptimisation = _TypeOptimisation::_DISTANCE_MAX;
+    _typeOptimisationOk = true;
+    emit etatBoutonOptimisationDoitEtreChange();
 }
 
 void SelectionOptimisation::selectionnerGainMinimal(bool) {
     _typeOptimisation = _TypeOptimisation::_GAIN_MIN;
+    _typeOptimisationOk = true;
+    emit etatBoutonOptimisationDoitEtreChange();
 }

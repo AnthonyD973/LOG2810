@@ -19,9 +19,15 @@ using namespace std;
 
 /****************************************************************************
  * Fonction: Graphe::Graphe
+ * Description: Constructeur de Graphe par défaut
+ ****************************************************************************/
+
+Graphe::Graphe() { }
+
+/****************************************************************************
+ * Fonction: Graphe::Graphe
  * Description: Constructeur de Graphe par paramètre
  * ParamËtres:	- (string) nomFichier: le fichier qui contient les informations sur les sommets et les arcs (IN)
- * Retour:		aucun
  ****************************************************************************/
 Graphe::Graphe(string nomFichier)
 {
@@ -144,12 +150,57 @@ Graphe::~Graphe() {
     }
 }
 
+Graphe& Graphe::operator=(const Graphe& graphe) {
+    if (&graphe != this) {
+        // Désallouer les anciens sommets
+        for (Sommet* s : _sommets) {
+            delete s;
+        }
+
+        // Allouer les nouveaux sommets
+        for (Sommet* s : graphe._sommets) {
+            _sommets.push_back(s->newClone());
+        }
+
+        // Puis assigner leurs distances
+        for (int i = 0; i < (int)_sommets.size(); ++i) {
+            Sommet* s1 = graphe._sommets[i];
+            Sommet* sommet1 =   _sommets[i];
+
+            for (int j = 0; j <= i; ++j) {
+                Sommet* s2 = graphe._sommets[j];
+                Sommet* sommet2 =   _sommets[j];
+                sommet1->addDistance(sommet2, s1->_distances.at(s2));
+            }
+        }
+    }
+
+    return *this;
+}
+
 Sommet* Graphe::getSommet(int indiceDuSommet) {
     return _sommets[indiceDuSommet];
 }
 
 const Sommet* Graphe::getSommet(int indiceDuSommet) const {
     return _sommets[indiceDuSommet];
+}
+
+int Graphe::getIndice(std::string nom) const {
+    int ret = -1;
+
+    for (int i = 0; i < (int)_sommets.size() - 1; ++i) {
+        if (_sommets[i]->getNom() == nom) {
+            ret = i;
+            break;
+        }
+    }
+
+    if (ret < 0) {
+        throw std::runtime_error("Sommet non trouvé dans le graphe.");
+    }
+
+    return ret;
 }
 
 int Graphe::getNumSommets() const {

@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QFileDialog>
+#include <QComboBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QGroupBox>
@@ -36,10 +37,15 @@ public:
 
 private:
     Algo            _algo;
+    Graphe          _graphe;
+    int             _indiceSommetDepart;
 
     QVBoxLayout*    _disposition;
 
+    QHBoxLayout*    _dispoFichierSommet;
     QPushButton*    _boutonSelectionnerFichier;
+    QComboBox*      _boiteDeroulanteSommets;
+
     QGroupBox*      _groupeTypeOptimisation;
     QLineEdit*      _valeurCherchee;
     QPushButton*    _boutonOptimiser;
@@ -49,12 +55,18 @@ private:
 
     _TypeOptimisation _typeOptimisation = _NUM_TYPES_OPTIMISATION;
 
+    bool
+        _carteOk            = false,
+        _typeOptimisationOk = false,
+        _valeurCibleOk      = false;
+
     // =================
     // =    SIGNAUX    =
     // =================
 
 signals:
     void optimisationTerminee(const Chemin& cheminOptimal, const Graphe& graphe, std::time_t tempsPris);
+    void etatBoutonOptimisationDoitEtreChange();
 
     // =================
     // =     SLOTS     =
@@ -63,6 +75,8 @@ signals:
 public slots:
     void selectionFichierCarte(bool);
     void changerValeurCible(const QString& valeur);
+    void changerIndiceSommetDepart(const QString& nom);
+    void changerEtatBoutonOptimisation();
     void commencerOptimisation(bool);
 
     void selectionnerDistanceMaximale(bool);
