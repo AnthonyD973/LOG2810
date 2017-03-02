@@ -34,7 +34,8 @@ int Sommet::distanceA(Sommet* s) {
         
         bool distEstInfinie = (daa >= INT_MAX - 1);
         if (!distEstInfinie) {
-            ret = daa + _distances.at(s);
+            int d = _distances.at(s);
+            ret = (daa > d) ? daa - d : d;
         }
         else {
             ret = daa;

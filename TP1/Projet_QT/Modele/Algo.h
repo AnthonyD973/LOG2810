@@ -31,14 +31,18 @@ private:
     Chemin _meilleurCheminPourDistanceDe(
         int distance,
         const Graphe& graphe,
-        int indiceDuSommetDeDepart) const;
+        int indiceDuSommetDeDepart,
+        int distanceVersSommet) const;
 
     Chemin _meilleurCheminPourGainDe(
         int gain,
         const Graphe& graphe,
-        int indiceDuSommetDeDepart) const;
+        int indiceDuSommetDeDepart,
+        int distanceVersSommet) const;
 
     std::vector<int> _trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) const;
+
+    Chemin _getBoucleInfinie(const Chemin& chemin, const Graphe& graphe);
 
 private:
     const int _N_SOMMETS_A_ESSAYER;

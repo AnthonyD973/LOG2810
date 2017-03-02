@@ -25,6 +25,8 @@ public:
     const Sommet* getSommet(int indiceDuSommet) const;
 
     int getNumSommets() const;
+
+    void diminuerDistanceAvantActif(int distance);
     
 private:
     std::vector<Sommet*> _sommets;

@@ -155,3 +155,9 @@ const Sommet* Graphe::getSommet(int indiceDuSommet) const {
 int Graphe::getNumSommets() const {
     return (int)_sommets.size();
 }
+
+void Graphe::diminuerDistanceAvantActif(int distance) {
+    for (Sommet* s : _sommets) {
+        s->diminuerDistanceAvantActif(distance);
+    }
+}

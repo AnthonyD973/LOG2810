@@ -18,7 +18,7 @@ Chemin Algo::meilleurCheminPourDistanceDe (
         const Graphe &graphe,
         int indiceDuSommetDeDepart) const {
 
-    Chemin meilleurChemin = _meilleurCheminPourDistanceDe(distance, graphe, indiceDuSommetDeDepart);
+    Chemin meilleurChemin = _meilleurCheminPourDistanceDe(distance, graphe, indiceDuSommetDeDepart, 0);
 
     // Remettre les sommets dans le bon ordre.
     std::vector<int> sommetsVisites;
@@ -35,9 +35,9 @@ Chemin Algo::meilleurCheminPourGainDe (
         const Graphe &graphe,
         int indiceDuSommetDeDepart) const {
 
-    Chemin meilleurChemin = _meilleurCheminPourGainDe(distance, graphe, indiceDuSommetDeDepart);
+    Chemin meilleurChemin = _meilleurCheminPourGainDe(distance, graphe, indiceDuSommetDeDepart, 0);
 
-    // Remettre les sommets dans le bon ordre. (>>> Duplication de code FTW!!! <<<   *dies*)
+    // Remettre les sommets dans le bon ordre.
     std::vector<int> sommetsVisites;
     for (int i = (int)meilleurChemin.sommetsVisites.size() - 1; i >= 0; --i) {
         sommetsVisites.push_back(meilleurChemin.sommetsVisites[i]);
@@ -52,10 +52,14 @@ Chemin Algo::meilleurCheminPourGainDe (
 Chemin Algo::_meilleurCheminPourDistanceDe (
     int distance,
     const Graphe& graphe,
-    int indiceDuSommetDeDepart) const
+    int indiceDuSommetDeDepart,
+    int distanceVersSommet) const
 {
     Graphe copieDuGraphe = graphe;
     Sommet* sommetDeDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
+
+    // On vient de se déplacer vers le sommet de départ.
+    copieDuGraphe.diminuerDistanceAvantActif(distanceVersSommet);
 
     // D'abord, faire visiter le point courant pour modifier la copie du graphe.
     sommetDeDepart->visiter();
@@ -76,7 +80,8 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
             Chemin cheminCourant = _meilleurCheminPourDistanceDe(
                 distance - d,
                 copieDuGraphe,
-                indiceDuProchainSommet);
+                indiceDuProchainSommet,
+                d);
 
             cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
@@ -96,11 +101,19 @@ Chemin Algo::_meilleurCheminPourDistanceDe (
 Chemin Algo::_meilleurCheminPourGainDe(
     int gain,
     const Graphe& graphe,
-    int indiceDuSommetDeDepart) const
+    int indiceDuSommetDeDepart,
+    int distanceVersSommet) const
 {
+    //     vvvvvvvvvvvvvvvvvvvvvvvvvv
+    // >>> Duplication de code FTW!!! <<<   *dies*
+    //     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
     if (gain > 0) {
         Graphe copieDuGraphe = graphe;
         Sommet* sommetDeDepart = copieDuGraphe.getSommet(indiceDuSommetDeDepart);
+
+        // On vient de se déplacer vers le sommet de départ.
+        copieDuGraphe.diminuerDistanceAvantActif(distanceVersSommet);
 
         // D'abord, faire visiter le point courant pour modifier la copie du graphe.
         sommetDeDepart->visiter();
@@ -116,11 +129,13 @@ Chemin Algo::_meilleurCheminPourGainDe(
         for(int indiceDuProchainSommet : MEILLEURS_SOMMETS) {
             Sommet* prochainSommet = copieDuGraphe.getSommet(indiceDuProchainSommet);
 
+            int d = sommetDeDepart->distanceA(prochainSommet);
             int g = sommetDeDepart->getGain();
             Chemin cheminCourant = _meilleurCheminPourGainDe(
                 gain - g,
                 copieDuGraphe,
-                indiceDuProchainSommet);
+                indiceDuProchainSommet,
+                d);
 
             cheminCourant.sommetsVisites.push_back(indiceDuSommetDeDepart);
             cheminCourant.distance += sommetDeDepart->distanceA(prochainSommet);
@@ -182,4 +197,45 @@ std::vector<int> Algo::_trouverMeilleursSommets(Sommet* sommet, Graphe& graphe) 
     }
 
     return meilleursSommets;
+}
+
+Chemin Algo::_getBoucleInfinie(const Chemin& chemin, const Graphe& graphe) {
+
+    // Chercher une boucle contenant le dernier sommet visité
+    int indiceCherche = chemin.sommetsVisites.back();
+    int indiceEgaux = chemin.sommetsVisites.size() - 2;
+    bool boucleTrouvee = (chemin.sommetsVisites[indiceEgaux] == indiceCherche);
+
+    while (indiceEgaux >= 0 && !boucleTrouvee) {
+        boucleTrouvee = (chemin.sommetsVisites[indiceEgaux] == indiceCherche);
+        --indiceEgaux;
+    }
+
+    // Chercher si cette boucle a été parcourue deux fois d'affilée,
+    // auquel cas la boucle sera parcourue à l'infini
+    Chemin boucleInfinie;
+
+    int tailleBoucle = chemin.sommetsVisites.size() - 1 - indiceEgaux;
+    int tailleRestante = indiceEgaux;
+    if (boucleTrouvee && tailleRestante >= tailleBoucle) {
+        Graphe copieDuGraphe = graphe;
+        for (int j = indiceEgaux - tailleBoucle; j < indiceEgaux; ++j) {
+            if (chemin.sommetsVisites[j] == chemin.sommetsVisites[j+1]) {
+                Sommet* sCourant = copieDuGraphe.getSommet(chemin.sommetsVisites[j]);
+                Sommet* sSuivant = copieDuGraphe.getSommet(chemin.sommetsVisites[j+1]);
+
+                boucleInfinie.distance += sCourant->distanceA(sSuivant);
+                boucleInfinie.gain     += sSuivant->getGain();
+                boucleInfinie.sommetsVisites.push_back(chemin.sommetsVisites[j+1]);
+
+                sCourant->visiter();
+            }
+            else {
+                boucleInfinie = Chemin();
+                break;
+            }
+        }
+    }
+
+    return boucleInfinie;
 }
