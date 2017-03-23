@@ -2,9 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVBoxLayout>
 
-#include "DispositionChoixLexique.h"
-#include "DispositionEditeur.h"
+#include "ChoixLexique.h"
+#include "Editeur.h"
 
 namespace Ui {
 class MainWindow;
@@ -21,10 +22,9 @@ public:
 private:
     Ui::MainWindow *ui;
 
-
-    QVBoxLayout*                _dispoEditeur;
-    DispositionChoixLexique*    _dispoChoixLexique;
+    ChoixLexique*   _choixLexique;
+    Editeur*        _editeur;
 
 };
 
-#endif // MAINWINDOW_H
+#endif // !MAINWINDOW_H

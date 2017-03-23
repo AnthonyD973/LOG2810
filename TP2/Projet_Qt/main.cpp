@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "Vue/MainWindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])

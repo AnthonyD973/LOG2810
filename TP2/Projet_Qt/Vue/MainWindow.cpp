@@ -7,10 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    _dispoChoixLexique  = new DispositionChoixLexique(parent);
+    _choixLexique  = new ChoixLexique(parent);
+    _editeur       = new Editeur     (parent);
 
-    _dispoEditeur       = new QVBoxLayout (parent);
-
+    setCentralWidget(_choixLexique);
+    setFixedSize(800, 600);
 }
 
 MainWindow::~MainWindow()

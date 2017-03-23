@@ -6,11 +6,13 @@
 #include <QProgressBar>
 #include <QLabel>
 
-class DispositionChoixLexique : public QVBoxLayout {
+class ChoixLexique : public QWidget {
 public:
-    DispositionChoixLexique::DispositionChoixLexique(QWidget* parent);
+    ChoixLexique(QWidget* parent = Q_NULLPTR);
 
 private:
+    QVBoxLayout*    _disposition;
+
     QPushButton*    _btnChoixLexique;
     QPushButton*    _btnStart;
 
