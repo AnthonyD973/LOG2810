@@ -25,12 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
     Vue/DispositionChoixLexique.cpp \
-    Vue/mainwindow.cpp \
-    Vue/dispositionediteur.cpp
+    Vue/MainWindow.cpp \
+    Vue/DispositionEditeur.cpp
 
 HEADERS  += \
     Vue/DispositionChoixLexique.h \
-    Vue/mainwindow.h \
-    Vue/dispositionediteur.h
+    Vue/MainWindow.h \
+    Vue/DispositionEditeur.h
 
 FORMS    += mainwindow.ui
