@@ -21,13 +21,18 @@ public:
 
 private:
     void _connecter();
+    void _montrerChoixLexique();
+    void _montrerEditeur();
 
 private:
     Ui::MainWindow *ui;
 
+    ChoixLexique*   _choixLexique;
+    Editeur*        _editeur;
+
 public slots:
-    void allerAuChoixLexique();
-    void allerAEditeur();
+    void montrerChoixLexique();
+    void montrerEditeur();
 
 };
 
