@@ -12,14 +12,23 @@
 
 class Editeur : public QWidget
 {
+
+    Q_OBJECT
+
 public:
     Editeur(QWidget* parent);
+    virtual ~Editeur() {}
+
+    inline QPushButton* getBtnRetour() const { return _btnRetour; }
+
+private:
+    void _connecter();
 
 private:
     QVBoxLayout*    _disposition;
 
     QPushButton*    _btnRetour;
-    QTextEdit*      _editeur;
+    QTextEdit*      _boiteTexte;
 
     QGroupBox*      _groupeTypeCorrection;
     QCheckBox*      _caseAutoCompletion;
@@ -27,6 +36,19 @@ private:
 
     QMessageBox*    _boiteSuggestions;
 
+    QString         _motEcrit;
+
+    bool            _autoCompletionActif;
+    bool            _autoCorrectionActif;
+
+public slots:
+    void reactionChangementDeTexte();
+    void basculerEtatAutoCompletion(int etat);
+    void basculerEtatAutoCorrection(int etat);
+
+signals:
+    void motTermine(QString);
+    void caractereAjoute(QString);
 
 };
 

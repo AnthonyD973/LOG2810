@@ -6,9 +6,14 @@
 #include <QProgressBar>
 #include <QLabel>
 
-class ChoixLexique : public QWidget {
+class ChoixLexique : public QWidget
+{
+
+    Q_OBJECT
+
 public:
     ChoixLexique(QWidget* parent = Q_NULLPTR);
+    virtual ~ChoixLexique() {}
 
 private:
     QVBoxLayout*    _disposition;

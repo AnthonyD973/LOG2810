@@ -7,14 +7,32 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    _choixLexique  = new ChoixLexique(parent);
-    _editeur       = new Editeur     (parent);
+    _connecter();
 
-    setCentralWidget(_choixLexique);
-    setFixedSize(800, 600);
+    allerAuChoixLexique();
+    allerAEditeur();
+
+    _choixLexique  = new ChoixLexique(parent);
+    allerAuChoixLexique();
+
+
+    resize(800, 600);
+    setWindowTitle("Polypad++");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::_connecter() {
+    connect(_editeur->getBtnRetour(), SIGNAL(clicked(bool)), SLOT(allerAuChoixLexique()));
+}
+
+void MainWindow::allerAuChoixLexique() {
+    setCentralWidget(_choixLexique);
+}
+
+void MainWindow::allerAEditeur() {
+    setCentralWidget(_editeur);
 }

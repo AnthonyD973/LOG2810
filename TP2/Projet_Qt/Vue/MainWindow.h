@@ -20,10 +20,14 @@ public:
     ~MainWindow();
 
 private:
+    void _connecter();
+
+private:
     Ui::MainWindow *ui;
 
-    ChoixLexique*   _choixLexique;
-    Editeur*        _editeur;
+public slots:
+    void allerAuChoixLexique();
+    void allerAEditeur();
 
 };
 
