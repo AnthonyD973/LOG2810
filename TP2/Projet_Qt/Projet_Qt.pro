@@ -26,11 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
     Vue/MainWindow.cpp \
     Vue/ChoixLexique.cpp \
-    Vue/Editeur.cpp
+    Vue/Editeur.cpp \
+    Vue/BoiteAutoCompletion.cpp
 
 HEADERS  += \
     Vue/MainWindow.h \
     Vue/ChoixLexique.h \
-    Vue/Editeur.h
+    Vue/Editeur.h \
+    Vue/BoiteAutoCompletion.h
 
 FORMS    += mainwindow.ui

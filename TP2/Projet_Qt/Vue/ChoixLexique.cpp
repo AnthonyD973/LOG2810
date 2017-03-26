@@ -64,7 +64,7 @@ void ChoixLexique::_terminerInitialisation() {
 }
 
 void ChoixLexique::_testerBarreEtat() {
-    qDebug() << "testerBarreEtat";
+    qDebug() << "_testerBarreEtat";
 
     _barreEtat->show();
     _demarrerCreationLexique();

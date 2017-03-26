@@ -8,7 +8,11 @@
 #include <QTextEdit>
 #include <QGroupBox>
 #include <QCheckBox>
-#include <QMessageBox>
+#include <QDialog>
+
+#include <vector>
+
+#include "BoiteAutoCompletion.h"
 
 class Editeur : public QWidget
 {
@@ -17,12 +21,15 @@ class Editeur : public QWidget
 
 public:
     Editeur(QWidget* parent);
-    virtual ~Editeur() {}
 
     inline QPushButton* getBtnRetour() const { return _btnRetour; }
 
 private:
-    void _connecter();
+    void _connecter() const;
+    void _motTermine(QString);
+    void _caractereAjoute(QString);
+
+    int _getDebutMot(int posFin) const;
 
 private:
     QVBoxLayout*    _disposition;
@@ -34,22 +41,22 @@ private:
     QCheckBox*      _caseAutoCompletion;
     QCheckBox*      _caseAutoCorrection;
 
-    QMessageBox*    _boiteSuggestions;
-
-    QString         _motEcrit;
+    BoiteAutoCompletion* _boiteAutoCompletion;
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
+
+signals:
+    void retourDemande();
 
 public slots:
     void reactionChangementDeTexte();
     void basculerEtatAutoCompletion(int etat);
     void basculerEtatAutoCorrection(int etat);
+    void transmettreDemandeRetour();
 
-signals:
-    void motTermine(QString);
-    void caractereAjoute(QString);
-
+private slots:
+    void _accepterSuggestion(QString suggestion);
 };
 
 #endif // !DISPOSITION_EDITEUR_H
