@@ -10,17 +10,17 @@ Editeur::Editeur(QWidget* parent)
     _autoCompletionActif = false;
     _autoCorrectionActif = false;
 
-    _btnRetour = new QPushButton("Retour", parent);
+    _btnRetour = new QPushButton("&Retour", parent);
 
     _boiteTexte = new QTextEdit(parent);
 
-    _caseAutoCompletion     = new QCheckBox("Activer l'autocomplétion", parent);
-    _caseAutoCorrection     = new QCheckBox("Activer l'autocorrection", parent);
+    _caseAutoCompletion     = new QCheckBox("Activer l'autoco&mplétion", parent);
+    _caseAutoCorrection     = new QCheckBox("Activer l'autocorr&ection", parent);
     QVBoxLayout* dispoGroupeTypeCorrection = new QVBoxLayout(parent);
     dispoGroupeTypeCorrection->addWidget(_caseAutoCompletion);
     dispoGroupeTypeCorrection->addWidget(_caseAutoCorrection);
 
-    _groupeTypeCorrection   = new QGroupBox(parent);
+    _groupeTypeCorrection   = new QGroupBox("Options de l'éditeur", parent);
     _groupeTypeCorrection->setLayout(dispoGroupeTypeCorrection);
 
     _boiteSuggestions = new QMessageBox(parent);

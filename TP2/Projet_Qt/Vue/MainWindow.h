@@ -13,6 +13,7 @@ class MainWindow;
 
 class MainWindow : public QMainWindow
 {
+
     Q_OBJECT
 
 public:
@@ -27,8 +28,8 @@ private:
 private:
     Ui::MainWindow *ui;
 
-    ChoixLexique*   _choixLexique;
-    Editeur*        _editeur;
+    ChoixLexique*       _choixLexique;
+    Editeur*            _editeur;
 
 public slots:
     void montrerChoixLexique();

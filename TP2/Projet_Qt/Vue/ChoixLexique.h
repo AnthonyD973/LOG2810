@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QProgressBar>
 #include <QLabel>
+#include <QFileDialog>
 
 class ChoixLexique : public QWidget
 {
@@ -18,6 +19,12 @@ public:
 private:
     void _connecter();
 
+    void _demarrerCreationLexique();
+    void _demarrerSimplificationLexique();
+    void _terminerInitialisation();
+
+    void _testerBarreEtat();
+
 private:
     QVBoxLayout*    _disposition;
 
@@ -28,16 +35,17 @@ private:
     QProgressBar*   _barreEtat;
     QLabel*         _etqQuelEtat;
 
+    QString         _lexique;
+    bool            _lexiqueConstruit;
+
 signals:
     void initialisationTerminee();
 
 public slots:
+    void choisirLexique();
+    void initialiserLexique();
     void changerProgressionBarreEtat(int progression);
-    void demarrerCreationLexique();
-    void demarrerSimplificationLexique();
-    void terminerInitialisation();
 
-    void testerBarreEtat();
 };
 
 #endif // !DISPOSITION_CHOIX_LEXIQUE_H

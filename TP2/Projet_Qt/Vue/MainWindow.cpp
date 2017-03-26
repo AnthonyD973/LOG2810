@@ -14,8 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _connecter();
     _montrerChoixLexique();
-    resize(800, 600);
-    setWindowTitle("Polypad++");
+    setWindowTitle("Polypad");
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +32,7 @@ void MainWindow::_montrerChoixLexique() {
     QWidget* cw = centralWidget();
     cw->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
 
+    resize(300, 180);
     setCentralWidget(_choixLexique);
 }
 
@@ -41,6 +41,7 @@ void MainWindow::_montrerEditeur() {
     cw->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
 
     connect(_editeur->getBtnRetour(), SIGNAL(clicked(bool)), SLOT(montrerChoixLexique()));
+    resize(800, 600);
     setCentralWidget(_editeur);
 }
 
