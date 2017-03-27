@@ -49,7 +49,6 @@ void Editeur::_connecter() const {
 }
 
 void Editeur::_motTermine(QString mot) {
-    qDebug() << mot;
     _boiteAutoCompletion->fermer();
 
     if (_autoCorrectionActif && mot != "") {
@@ -119,6 +118,7 @@ void Editeur::reactionChangementDeTexte() {
         }
         else {
             fctAAppeler = &Editeur::_motTermine;
+            --posFin;
         }
 
         int posBeg = _getDebutMot(posFin);
