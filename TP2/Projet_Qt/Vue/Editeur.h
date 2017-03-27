@@ -24,6 +24,16 @@ public:
 
     inline QPushButton* getBtnRetour() const { return _btnRetour; }
 
+    void activer();
+
+signals:
+    void retourDemande();
+
+public slots:
+    void basculerEtatAutoCompletion(int etat);
+    void basculerEtatAutoCorrection(int etat);
+    void transmettreDemandeRetour();
+
 private:
     void _connecter() const;
     void _motTermine(QString);
@@ -42,23 +52,15 @@ private:
     QCheckBox*      _caseAutoCompletion;
     QCheckBox*      _caseAutoCorrection;
 
-    BoiteAutoCompletion* _boiteAutoCompletion;
+    QListWidget*    _suggestions;
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
 
-signals:
-    void retourDemande();
-
-public slots:
-    void reactionChangementDeTexte();
-    void basculerEtatAutoCompletion(int etat);
-    void basculerEtatAutoCorrection(int etat);
-    void transmettreDemandeRetour();
-
 private slots:
-    void _accepterSuggestion(const QString &suggestion);
-    void _corrigerMot(const QString &motCorrige);
+    void _reactionChangementDeTexte();
+    void _accepterSuggestion(QListWidgetItem *suggestionChoisie);
+    void _corrigerMot(const QString& motCorrige);
 };
 
 #endif // !DISPOSITION_EDITEUR_H
