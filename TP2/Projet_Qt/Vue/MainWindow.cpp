@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _editeur      = new Editeur(parent);
 
     _connecter();
-    _montrerEditeur();
+    _montrerChoixLexique();
     setWindowTitle("Polypad");
 }
 

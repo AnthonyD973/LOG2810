@@ -27,8 +27,8 @@ private:
 signals:
     void suggestionChoisie(QString suggestion);
 
-private slots:
-    void _fermer(QListWidgetItem* itemSuggestion);
+public slots:
+    void fermer(QListWidgetItem* itemSuggestion = Q_NULLPTR);
 
 };
 

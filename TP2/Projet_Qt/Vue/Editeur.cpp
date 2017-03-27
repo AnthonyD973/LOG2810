@@ -49,8 +49,11 @@ void Editeur::_connecter() const {
 }
 
 void Editeur::_motTermine(QString mot) {
-    if (_autoCorrectionActif) {
-        "chuck_norris";
+    qDebug() << mot;
+    _boiteAutoCompletion->fermer();
+
+    if (_autoCorrectionActif && mot != "") {
+        _corrigerMot("Chuck_Norris");
     }
 }
 
@@ -81,6 +84,25 @@ int Editeur::_getDebutMot(int posFin) const {
     return posBeg;
 }
 
+void Editeur::_changerMotCourant(const QString& mot, QTextCursor& curseur) {
+    _boiteTexte->setReadOnly(true); // Empêcher l'utilisateur d'écrire pendant
+                                    // qu'on modifie le texte.
+
+    int posFin = curseur.position() - 1;
+    int posBeg = _getDebutMot(posFin);
+
+    curseur.setPosition(posFin+1, QTextCursor::MoveAnchor);
+    curseur.setPosition(posBeg, QTextCursor::KeepAnchor);
+    curseur.removeSelectedText();
+
+    _boiteTexte->blockSignals(true); // Ne pas émettre le signal textChanged()
+
+    curseur.insertText(mot);
+
+    _boiteTexte->blockSignals(false);
+    _boiteTexte->setReadOnly(false);
+}
+
 // PUBLIC SLOTS:
 
 void Editeur::reactionChangementDeTexte() {
@@ -88,8 +110,8 @@ void Editeur::reactionChangementDeTexte() {
             motEcrit;
     int posFin = _boiteTexte->textCursor().position() - 1;
 
-    // Cas où la boîte est n'est pas vide
-    if (posFin >= 0) {
+    bool boiteEstVide = (posFin < 0);
+    if (!boiteEstVide) {
         void (Editeur::*fctAAppeler)(QString);
 
         if (islower(texteEcrit.at(posFin).toLatin1())) {
@@ -130,25 +152,19 @@ void Editeur::transmettreDemandeRetour() {
 
 // PRIVATE SLOTS:
 
-void Editeur::_accepterSuggestion(QString suggestion) {
-    qDebug() << "accepterSuggestion" << suggestion;
-
-    _boiteTexte->setReadOnly(true); // Empêcher l'utilisateur d'écrire pendant
-                                    // qu'on modifie le texte.
+void Editeur::_accepterSuggestion(const QString& suggestion) {
+    qDebug() << "_accepterSuggestion" << suggestion;
 
     QTextCursor curseur = _boiteTexte->textCursor();
+    _changerMotCourant(suggestion, curseur);
+}
 
-    int posFin = curseur.position() - 1;
-    int posBeg = _getDebutMot(posFin);
+void Editeur::_corrigerMot(const QString& motCorrige) {
+    qDebug() << "_corrigerMot" << motCorrige;
 
-    curseur.setPosition(posFin+1, QTextCursor::MoveAnchor);
-    curseur.setPosition(posBeg, QTextCursor::KeepAnchor);
-    curseur.removeSelectedText();
 
-    _boiteTexte->blockSignals(true); // Ne pas émettre le signal textChanged()
+    QTextCursor curseur = _boiteTexte->textCursor();
+    curseur.setPosition(curseur.position() - 1);
 
-    curseur.insertText(suggestion);
-
-    _boiteTexte->blockSignals(false);
-    _boiteTexte->setReadOnly(false);
+    _changerMotCourant(motCorrige, curseur);
 }

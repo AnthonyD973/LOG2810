@@ -19,23 +19,18 @@ void BoiteAutoCompletion::setItems(const QStringList& listeSuggestions) {
 }
 
 void BoiteAutoCompletion::viderItems() {
-    int ligne = 0;
-    QListWidgetItem* suggestion = _listeSuggestions->takeItem(ligne++);
-    while (suggestion != Q_NULLPTR) {
-        delete suggestion;
-        suggestion = _listeSuggestions->takeItem(ligne++);
-    }
+    _listeSuggestions->clear();
 }
 
 // PRIVATE:
 
 void BoiteAutoCompletion::_connecter() const {
-    connect(_listeSuggestions, SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_fermer(QListWidgetItem*)));
+    connect(_listeSuggestions, SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(fermer(QListWidgetItem*)));
 }
 
-// PRIVATE SLOTS:
+// PUBLIC SLOTS:
 
-void BoiteAutoCompletion::_fermer(QListWidgetItem* itemSuggestion) {
+void BoiteAutoCompletion::fermer(QListWidgetItem* itemSuggestion) {
     if (itemSuggestion != Q_NULLPTR) {
         QString suggestion = itemSuggestion->text();
         emit suggestionChoisie(suggestion);
