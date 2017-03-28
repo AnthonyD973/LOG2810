@@ -31,19 +31,16 @@ void MainWindow::_connecter() {
 }
 
 void MainWindow::_montrerChoixLexique() {
-    QWidget* cw = centralWidget();
-    cw->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
-
-    resize(300, 150);
+    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
     setCentralWidget(_choixLexique);
+    resize(300, 150);
 }
 
 void MainWindow::_montrerEditeur() {
-    QWidget* cw = centralWidget();
-    cw->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
-
-    resize(800, 600);
+    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
+    _editeur->activer();
     setCentralWidget(_editeur);
+    resize(800, 600);
 }
 
 // PUBLIC SLOTS:
