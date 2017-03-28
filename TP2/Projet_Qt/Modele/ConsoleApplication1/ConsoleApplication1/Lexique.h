@@ -17,31 +17,43 @@ class Lexique
 	class Noeud
 	{
 	public:
-		Noeud(bool estFinal, char lettreAssociee);
-		void addEnfant(Noeud* noeud);
-		Noeud* getEnfant(char lettreAssociee); //retourne nullptr si enfant n'existe pas
+        Noeud(char lettreAssociee);
+        ~Noeud();
+
+        Noeud* addEnfant(char lettreAssociee); // Si l'enfant existe déjà, addEnfant est équivalent à getEnfant.
+        Noeud* getEnfant(char lettreAssociee); // Retourne nullptr si enfant n'existe pas
+
+        void addValide(const string& sousMot);
+        bool estValide(const string& sousMot);
+
+        inline char getLettreAssociee() const { return _lettreAssociee; }
+
 	private:
 		vector<Noeud*> _enfants;
-		bool _estFinal;
+        vector<string> _sousMotsValides;
 		char _lettreAssociee;
 	};
 
 public:
 	~Lexique();
-	bool existe(string mot);
+    bool existe(const string& mot);
 	vector<string>motsSuggeres;
-	static void creerLexique(string & fichier);
-	static Lexique* getInstance() ;
 
+    static void creerLexique(const string& fichier, int longueurMax);
+    static Lexique* getInstance();
 
 
 private:
-	Lexique();
-	string lexique[_TOTALELEMENTS];
-	static Lexique* _instance;
-	static void _construireLexique(const string& fichier, Lexique& lexique);
-	void _minimiserLexique();
-	Noeud* _racine;
+    Lexique(int longueurMax);
+
+    static void _construireLexique(const string& fichier);
+    static void _minimiserLexique();
+
+    const int _LONGUEUR_MAX;
+    string lexique[_TOTALELEMENTS];
+    Noeud* _racine;
+
+    static Lexique* _instance;
 
 };
 

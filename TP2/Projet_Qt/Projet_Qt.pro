@@ -27,12 +27,14 @@ SOURCES += main.cpp\
     Vue/MainWindow.cpp \
     Vue/ChoixLexique.cpp \
     Vue/Editeur.cpp \
-    Vue/BoiteAutoCompletion.cpp
+    Modele/ConsoleApplication1/ConsoleApplication1/Correction.cpp \
+    Modele/ConsoleApplication1/ConsoleApplication1/Lexique.cpp
 
 HEADERS  += \
     Vue/MainWindow.h \
     Vue/ChoixLexique.h \
     Vue/Editeur.h \
-    Vue/BoiteAutoCompletion.h
+    Modele/ConsoleApplication1/ConsoleApplication1/Correction.h \
+    Modele/ConsoleApplication1/ConsoleApplication1/Lexique.h
 
 FORMS    += mainwindow.ui
