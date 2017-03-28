@@ -17,18 +17,18 @@ public:
     void setItems(const QStringList& listeSuggestions);
     void viderItems();
 
+signals:
+    void suggestionChoisie(QString suggestion);
+
+public slots:
+    void fermer(QListWidgetItem* itemSuggestion = Q_NULLPTR);
+
 private:
     void _connecter() const;
 
 private:
     QVBoxLayout*    _disposition;
     QListWidget*    _listeSuggestions;
-
-signals:
-    void suggestionChoisie(QString suggestion);
-
-public slots:
-    void fermer(QListWidgetItem* itemSuggestion = Q_NULLPTR);
 
 };
 
