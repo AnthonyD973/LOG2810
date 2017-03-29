@@ -23,6 +23,7 @@ class Editeur : public QWidget
 
 public:
     Editeur(QWidget* parent);
+    virtual ~Editeur() { }
 
     inline QPushButton* getBtnRetour() const { return _btnRetour; }
 
@@ -58,8 +59,6 @@ private:
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
-
-    Correction      _correcteur;
 
 private slots:
     void _reactionChangementDeTexte();

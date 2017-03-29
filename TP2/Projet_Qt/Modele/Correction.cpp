@@ -8,8 +8,18 @@ Correction::Correction()
 Correction::~Correction()
 { }
 
-std::vector<string> Correction::corrigerMot(string mot) 
+vector<string> Correction::suggerer(string mot) {
+    vector<string> suggestions;
+
+
+
+    return suggestions;
+}
+
+vector<string> Correction::corrigerMot(string mot)
 {
+    vector<string> motsCorriges;
+
 	if (Lexique::getInstance()->existe(mot))
 	{
         motsCorriges.push_back(mot);
@@ -50,8 +60,7 @@ void Correction::construireCorrection(const string& nomLexique) {
 void Correction::_connecter() {
     connect(Lexique::getInstance(), SIGNAL(progressionConstruction(int)), _instance, SLOT(_progressionConstruction(int)));
     connect(Lexique::getInstance(), SIGNAL(progressionMinimisation(int)), _instance, SLOT(_progressionMinimisation(int)));
-    connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       _instance, SLOT(_constructionTerminee(int)));
-    connect(Lexique::getInstance(), SIGNAL(minimisationTerminee()),       _instance, SLOT(_minimisationTerminee(int)));
+    connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       _instance, SLOT(_constructionTerminee()));
 }
 
 
@@ -67,8 +76,4 @@ void Correction::_progressionMinimisation(int progressionPourcent) {
 
 void Correction::_constructionTerminee() {
     emit constructionTerminee();
-}
-
-void Correction::_minimisationTerminee() {
-    emit minimisationTerminee();
 }

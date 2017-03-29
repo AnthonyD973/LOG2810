@@ -12,18 +12,17 @@ class Correction : public QObject
     Q_OBJECT
 
 public:
-    Correction();
-    virtual ~Correction();
-
-    vector<string> motsSuggeres;
-    vector<string> motsCorriges;
-	std::vector<string> corrigerMot(string mot);
+    vector<string> suggerer(string mot);
+    vector<string> corrigerMot(string mot);
 
     static void creerCorrection();
     static void construireCorrection(const string& nomLexique);
     inline static Correction* getInstance() { return _instance; }
 
 private:
+    Correction();
+    virtual ~Correction();
+
     static void _connecter();
 
 private:
@@ -34,11 +33,9 @@ signals:
     void progressionConstruction(int progressionPourcent);
     void progressionMinimisation(int progressionPourcent);
     void constructionTerminee();
-    void minimisationTerminee();
 
 private slots:
     void _progressionConstruction(int progressionPourcent);
     void _progressionMinimisation(int progressionPourcent);
     void _constructionTerminee();
-    void _minimisationTerminee();
 };

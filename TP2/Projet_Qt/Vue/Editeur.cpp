@@ -1,6 +1,9 @@
-#include <cctype>
 #include <QDebug>
 #include <QListWidget>
+
+#include <cctype>
+#include <vector>
+#include <string>
 
 #include "Editeur.h"
 
@@ -121,6 +124,8 @@ void Editeur::_motTermine(QString mot) {
 
 void Editeur::_caractereAjoute(QString mot) {
     if (_autoCompletionActif) {
+        std::vector<std::string> listeStd;
+
         QStringList liste;
         liste.append("un");
         liste.append("deux");

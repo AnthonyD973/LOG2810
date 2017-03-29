@@ -42,16 +42,14 @@ void ChoixLexique::_connecter() const {
 void ChoixLexique::_connecterAuCorrecteur() const {
     connect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), SLOT(_changerProgressionBarreEtat(int)));
     connect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), SLOT(_changerProgressionBarreEtat(int)));
-    connect(Correction::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_demarrerSimplificationLexique()));
-    connect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       SLOT(_terminerInitialisation()));
+    connect(Correction::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_terminerInitialisation()));
 }
 
 void ChoixLexique::_deconnecterDuCorrecteur() const {
     if (Correction::getInstance() != nullptr) {
         disconnect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
         disconnect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), this, SLOT(_changerProgressionBarreEtat(int)));
-        disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_demarrerSimplificationLexique()));
-        disconnect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       this, SLOT(_terminerInitialisation()));
+        disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_terminerInitialisation()));
     }
 }
 

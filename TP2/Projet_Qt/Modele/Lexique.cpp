@@ -28,7 +28,6 @@ void Lexique::creerLexique(int longueurMax)
 
 void Lexique::construireLexique(const string &fichier) {
     _construireLexique(fichier);
-    _minimiserLexique();
 }
 
 void Lexique::_construireLexique(const string& fichier)
@@ -78,8 +77,7 @@ void Lexique::_construireLexique(const string& fichier)
                 progressionPourcent  = nouvelleProgression;
                 emit _instance->progressionConstruction(progressionPourcent);
             }
-		}
-        Noeud* foo = _instance->_racine;
+        }
 
         donnees.close(); // on ferme le fichier
 	}
@@ -89,13 +87,7 @@ void Lexique::_construireLexique(const string& fichier)
     emit _instance->constructionTerminee();
 }
 
-void Lexique::_minimiserLexique()
-{
-    emit _instance->progressionMinimisation(100);
-    emit _instance->minimisationTerminee();
-}
-
-bool Lexique::existe(const string& mot)
+bool Lexique::existe(const string& mot) const
 {
     bool peutExister = true;
 

@@ -1,16 +1,15 @@
 #pragma once
+
 #include <QObject>
-#include<stdio.h>
-#include<stdlib.h>
-#include<string>
-#include<iostream>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>
 #include <fstream>
 #include <vector>
 
 using namespace std;
-
-const int _TOTALELEMENTS = 22000;
-
 
 class Lexique : public QObject
 {
@@ -37,9 +36,7 @@ class Lexique : public QObject
 	};
 
 public:
-    virtual ~Lexique();
-    bool existe(const string& mot);
-	vector<string>motsSuggeres;
+    bool existe(const string& mot) const;
 
     static void creerLexique(int longueurMax);
     static void construireLexique(const string& fichier);
@@ -47,12 +44,11 @@ public:
 
 private:
     Lexique(int longueurMax);
+    virtual ~Lexique();
 
     static void _construireLexique(const string& fichier);
-    static void _minimiserLexique();
 
     const int _LONGUEUR_MAX;
-    string lexique[_TOTALELEMENTS];
     Noeud* _racine;
 
     static Lexique* _instance;
@@ -62,7 +58,6 @@ signals:
     void progressionConstruction(int progressionPourcent);
     void progressionMinimisation(int progressionPourcent);
     void constructionTerminee();
-    void minimisationTerminee();
 };
 
 
