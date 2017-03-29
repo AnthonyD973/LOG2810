@@ -122,16 +122,16 @@ void Editeur::_motTermine(QString mot) {
 void Editeur::_caractereAjoute(QString mot) {
     if (_autoCompletionActif) {
         QStringList liste;
-        liste.append("un"    );
-        liste.append("deux"  );
-        liste.append("trois" );
+        liste.append("un");
+        liste.append("deux");
+        liste.append("trois");
         liste.append("quatre");
-        liste.append("cinq"  );
-        liste.append("six"   );
-        liste.append("sept"  );
-        liste.append("huit"  );
-        liste.append("neuf"  );
-        liste.append("dix"   );
+        liste.append("cinq");
+        liste.append("six");
+        liste.append("sept");
+        liste.append("huit");
+        liste.append("neuf");
+        liste.append("dix");
 
         _suggestions->clear();
         _suggestions->addItems(liste);

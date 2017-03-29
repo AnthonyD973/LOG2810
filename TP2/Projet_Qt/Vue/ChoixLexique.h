@@ -17,11 +17,9 @@ public:
     ChoixLexique(QWidget* parent = Q_NULLPTR);
 
 private:
-    void _connecter();
-
-    void _demarrerCreationLexique();
-    void _demarrerSimplificationLexique();
-    void _terminerInitialisation();
+    void _connecter() const;
+    void _connecterAuCorrecteur() const;
+    void _deconnecterDuCorrecteur() const;
 
     void _testerBarreEtat();
 
@@ -35,16 +33,19 @@ private:
     QProgressBar*   _barreEtat;
     QLabel*         _etqQuelEtat;
 
-    QString         _lexique;
+    QString         _fichierLexique;
     bool            _lexiqueConstruit;
 
 signals:
     void initialisationTerminee();
 
-public slots:
-    void choisirLexique();
-    void initialiserLexique();
-    void changerProgressionBarreEtat(int progression);
+private slots:
+    void _choisirLexique();
+    void _initialiserLexique();
+    void _changerProgressionBarreEtat(int progression);
+    void _demarrerCreationLexique();
+    void _demarrerSimplificationLexique();
+    void _terminerInitialisation();
 
 };
 

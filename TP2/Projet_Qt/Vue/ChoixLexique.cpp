@@ -1,6 +1,7 @@
 #include <QDebug>
 
 #include "ChoixLexique.h"
+#include "Modele/Correction.h"
 
 
 // PUBLIC:
@@ -33,15 +34,89 @@ ChoixLexique::ChoixLexique(QWidget* parent)
 
 // PRIVATE:
 
-void ChoixLexique::_connecter() {
-    connect(_btnChoixLexique, SIGNAL(clicked(bool)), SLOT(choisirLexique()));
-    connect(_btnStart, SIGNAL(clicked(bool)), SLOT(initialiserLexique()));
+void ChoixLexique::_connecter() const {
+    connect(_btnChoixLexique,          SIGNAL(clicked(bool)),                SLOT(_choisirLexique()));
+    connect(_btnStart,                 SIGNAL(clicked(bool)),                SLOT(_initialiserLexique()));
+
+}
+
+void ChoixLexique::_connecterAuCorrecteur() const {
+    connect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), SLOT(_changerProgressionBarreEtat(int)));
+    connect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), SLOT(_changerProgressionBarreEtat(int)));
+    connect(Correction::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_demarrerSimplificationLexique()));
+    connect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       SLOT(_terminerInitialisation()));
+}
+
+void ChoixLexique::_deconnecterDuCorrecteur() const {
+    disconnect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
+    disconnect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), this, SLOT(_changerProgressionBarreEtat(int)));
+    disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_demarrerSimplificationLexique()));
+    disconnect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       this, SLOT(_terminerInitialisation()));
+}
+
+void ChoixLexique::_testerBarreEtat() {
+    qDebug() << "_testerBarreEtat";
+
+    _barreEtat->show();
+    _demarrerCreationLexique();
+    for (int i = 1; i <= 99; ++i) {
+        _changerProgressionBarreEtat(i);
+        system("sleep 0.02");
+    }
+    system("sleep 1"); // haha, le fameux blocage à 99%
+    _changerProgressionBarreEtat(100);
+
+    system("sleep 1");
+
+    _demarrerSimplificationLexique();
+    for (int i = 1; i <= 99; ++i) {
+        _changerProgressionBarreEtat(i);
+        system("sleep 0.02");
+    }
+    system("sleep 1"); // :-)
+    _changerProgressionBarreEtat(100);
+    _terminerInitialisation();
+}
+
+
+// PRIVATE SLOTS:
+
+void ChoixLexique::_choisirLexique() {
+    QString cheminLexique = QFileDialog::getOpenFileName(this, "Choisir le lexique", QDir::currentPath() + "/..", "Fichiers texte (*.txt)");
+
+    if (!cheminLexique.isNull() && cheminLexique != _fichierLexique) {
+        _fichierLexique = cheminLexique;
+        _lexiqueConstruit = false;
+        _btnStart->setDisabled(false);
+    }
+
+    qDebug() << "choisirLexique" << _fichierLexique;
+}
+
+void ChoixLexique::_initialiserLexique() {
+    qDebug() << "initialiserLexique";
+
+    if (!_lexiqueConstruit) {
+        _deconnecterDuCorrecteur();
+        Correction::creerCorrection(_fichierLexique.toStdString());
+        _connecterAuCorrecteur();
+    }
+    else {
+        _etqQuelEtat->setText("LEXIQUE DÉJÀ CONSTRUIT");
+        _terminerInitialisation();
+    }
+}
+
+void ChoixLexique::_changerProgressionBarreEtat(int progression) {
+    qDebug() << "changerProgressionBarreEtat" << progression;
+
+    _barreEtat->setValue(progression);
 }
 
 void ChoixLexique::_demarrerCreationLexique() {
     qDebug() << "demarrerCreationLexique";
 
-    changerProgressionBarreEtat(0);
+    _changerProgressionBarreEtat(0);
     _etqQuelEtat->setText("Étape 1/2: Création du lexique");
     _btnChoixLexique->setDisabled(true);
     _btnStart->setDisabled(true);
@@ -50,7 +125,7 @@ void ChoixLexique::_demarrerCreationLexique() {
 void ChoixLexique::_demarrerSimplificationLexique() {
     qDebug() << "demarrerSimplificationLexique";
 
-    changerProgressionBarreEtat(0);
+    _changerProgressionBarreEtat(0);
     _etqQuelEtat->setText("Étape 2/2: Simplification du lexique");
 }
 
@@ -61,60 +136,4 @@ void ChoixLexique::_terminerInitialisation() {
     _btnChoixLexique->setDisabled(false);
     _btnStart->setDisabled(false);
     emit initialisationTerminee();
-}
-
-void ChoixLexique::_testerBarreEtat() {
-    qDebug() << "_testerBarreEtat";
-
-    _barreEtat->show();
-    _demarrerCreationLexique();
-    for (int i = 1; i <= 99; ++i) {
-        changerProgressionBarreEtat(i);
-        system("sleep 0.02");
-    }
-    system("sleep 1"); // haha, le fameux blocage à 99%
-    changerProgressionBarreEtat(100);
-
-    system("sleep 1");
-
-    _demarrerSimplificationLexique();
-    for (int i = 1; i <= 99; ++i) {
-        changerProgressionBarreEtat(i);
-        system("sleep 0.02");
-    }
-    system("sleep 1"); // :-)
-    changerProgressionBarreEtat(100);
-    _terminerInitialisation();
-}
-
-
-// PUBLIC SLOTS:
-
-void ChoixLexique::choisirLexique() {
-    QString cheminLexique = QFileDialog::getOpenFileName(this, "Choisir le lexique", QDir::currentPath() + "/..", "Fichiers texte (*.txt)");
-
-    if (!cheminLexique.isNull() && cheminLexique != _lexique) {
-        _lexique = cheminLexique;
-        _lexiqueConstruit = false;
-        _btnStart->setDisabled(false);
-    }
-
-    qDebug() << "choisirLexique" << _lexique;
-}
-
-void ChoixLexique::initialiserLexique() {
-    qDebug() << "initialiserLexique";
-
-    if (!_lexiqueConstruit) {
-        _testerBarreEtat();
-    }
-    else {
-        _terminerInitialisation();
-    }
-}
-
-void ChoixLexique::changerProgressionBarreEtat(int progression) {
-    qDebug() << "changerProgressionBarreEtat" << progression;
-
-    _barreEtat->setValue(progression);
 }

@@ -19,7 +19,8 @@ Lexique::~Lexique()
 {
 	delete _racine;
 }
-void Lexique::creerLexique(const string & fichier, int longueurMax)
+
+void Lexique::creerLexique(const string& fichier, int longueurMax)
 {
 	delete _instance;
     _instance = new Lexique(longueurMax);
@@ -56,21 +57,21 @@ void Lexique::_construireLexique(const string& fichier)
 			donnees >> mot;
 
             Noeud* noeudCourant = _instance->_racine;
-            const int MAX_ITERATIONS = std::min(mot.size(), _instance->_LONGUEUR_MAX);
+            const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
             for(int i = 0; i < MAX_ITERATIONS; i++) // boucler sur les lettres du mot
             {
                 Noeud* enfant = noeudCourant->addEnfant(mot[i]);
                 noeudCourant = enfant;
 			}
 
-            noeudCourant->addMotValide(mot.substr(MAX_ITERATIONS-1, string::npos));
+            noeudCourant->addValide(mot.substr(MAX_ITERATIONS-1, string::npos));
 
             // Avertir la vue de la progression
             ++nombreDeMotsTraites;
             int nouvelleProgression  = 100 * (nombreDeMotsTraites / nombreDeMots);
             if (progressionPourcent != nouvelleProgression) {
                 progressionPourcent  = nouvelleProgression;
-                emit progressionConstruction(progressionPourcent);
+                emit _instance->progressionConstruction(progressionPourcent);
             }
 		}
 
@@ -79,13 +80,13 @@ void Lexique::_construireLexique(const string& fichier)
 	else  // sinon
         qDebug() << "Impossible d'ouvrir le fichier !" << endl;
 
-    emit constructionTerminee();
+    emit _instance->constructionTerminee();
 }
 
 void Lexique::_minimiserLexique()
 {
-    emit progressionMinimisation(100);
-    emit minimisationTerminee();
+    emit _instance->progressionMinimisation(100);
+    emit _instance->minimisationTerminee();
 }
 
 bool Lexique::existe(const string& mot)
@@ -93,7 +94,7 @@ bool Lexique::existe(const string& mot)
     bool peutExister = true;
 
     Noeud* noeudCourant = _instance->_racine;
-    const int MAX_ITERATIONS = std::min(mot.size(), _instance->_LONGUEUR_MAX);
+    const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
     for (int i = 0; i < MAX_ITERATIONS && peutExister; ++i) {
         Noeud* enfant = noeudCourant->addEnfant(mot[i]);
         noeudCourant = enfant;
@@ -131,22 +132,22 @@ Lexique::Noeud::~Noeud() {
 }
 
 
-Noeud* Lexique::Noeud::addEnfant(char lettreAssociee) {
-    Node* enfant = getEnfant(lettreAssociee);
+Lexique::Noeud* Lexique::Noeud::addEnfant(char lettreAssociee) {
+    Noeud* enfant = getEnfant(lettreAssociee);
 
     if (enfant != nullptr) {
         enfant = new Noeud(lettreAssociee);
         _enfants.push_back(enfant);
     }
     else {
-        delete noeud;
+        delete enfant;
     }
 
     return enfant;
 }
 
-Noeud* Lexique::Noeud::getEnfant(char lettreAssociee) {
-    Noeud enfant = nullptr;
+Lexique::Noeud* Lexique::Noeud::getEnfant(char lettreAssociee) {
+    Noeud* enfant = nullptr;
 
     for (Noeud* e : _enfants) {
         if (e->getLettreAssociee() == lettreAssociee) {

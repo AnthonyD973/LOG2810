@@ -1,5 +1,5 @@
 #pragma once
-#include <QWidget>
+#include <QObject>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string>
@@ -12,7 +12,7 @@ using namespace std;
 const int _TOTALELEMENTS = 22000;
 
 
-class Lexique
+class Lexique : public QObject
 {
     Q_OBJECT
 
@@ -37,7 +37,7 @@ class Lexique
 	};
 
 public:
-	~Lexique();
+    virtual ~Lexique();
     bool existe(const string& mot);
 	vector<string>motsSuggeres;
 

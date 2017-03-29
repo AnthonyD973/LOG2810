@@ -9,10 +9,12 @@
 #include <QGroupBox>
 #include <QCheckBox>
 #include <QDialog>
+#include <QListWidget>
 
 #include <vector>
 
-#include "BoiteAutoCompletion.h"
+#include "Modele/Correction.h"
+
 
 class Editeur : public QWidget
 {
@@ -56,6 +58,8 @@ private:
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
+
+    Correction      _correcteur;
 
 private slots:
     void _reactionChangementDeTexte();
