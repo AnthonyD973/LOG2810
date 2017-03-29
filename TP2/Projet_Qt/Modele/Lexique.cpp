@@ -20,13 +20,15 @@ Lexique::~Lexique()
 	delete _racine;
 }
 
-void Lexique::creerLexique(const string& fichier, int longueurMax)
+void Lexique::creerLexique(int longueurMax)
 {
-	delete _instance;
+    delete _instance;
     _instance = new Lexique(longueurMax);
+}
 
+void Lexique::construireLexique(const string &fichier) {
     _construireLexique(fichier);
-	_minimiserLexique();		
+    _minimiserLexique();
 }
 
 void Lexique::_construireLexique(const string& fichier)

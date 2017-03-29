@@ -24,7 +24,7 @@ public:
     inline static Correction* getInstance() { return _instance; }
 
 private:
-    void _connecter() const;
+    static void _connecter();
 
 private:
     static Correction* _instance;

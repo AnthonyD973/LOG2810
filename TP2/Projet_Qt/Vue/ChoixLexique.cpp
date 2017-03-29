@@ -101,10 +101,12 @@ void ChoixLexique::_initialiserLexique() {
         _deconnecterDuCorrecteur();
         Correction::creerCorrection();
         _connecterAuCorrecteur();
+
+        _barreEtat->show();
         Correction::construireCorrection(_fichierLexique.toStdString());
     }
     else {
-        _etqQuelEtat->setText("LEXIQUE DÉJÀ CONSTRUIT");
+        _etqQuelEtat->setText("Lexique déjà construit");
         _terminerInitialisation();
     }
 }
@@ -137,5 +139,7 @@ void ChoixLexique::_terminerInitialisation() {
     _lexiqueConstruit = true;
     _btnChoixLexique->setDisabled(false);
     _btnStart->setDisabled(false);
+    _etqQuelEtat->setText("Terminé");
+
     emit initialisationTerminee();
 }

@@ -16,7 +16,7 @@ std::vector<string> Correction::corrigerMot(string mot)
 	}
 	else
 	{
-        for (int i = 0; i < mot.size(); i++)
+        for (unsigned int i = 0; i < mot.size(); i++)
 		{
 			char reserve = mot[i];
             for (int j = 0; j < 26; j++)
@@ -39,17 +39,19 @@ void Correction::creerCorrection() {
 }
 
 void Correction::construireCorrection(const string& nomLexique) {
-    Lexique::creerLexique(nomLexique, 100);
+    Lexique::creerLexique(100);
+    _connecter();
+    Lexique::construireLexique(nomLexique);
 }
 
 
 // PRIVATE:
 
-void Correction::_connecter() const {
-    connect(Lexique::getInstance(), SIGNAL(progressionConstruction(int)), SLOT(_progressionConstruction(int)));
-    connect(Lexique::getInstance(), SIGNAL(progressionMinimisation(int)), SLOT(_progressionMinimisation(int)));
-    connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_constructionTerminee(int)));
-    connect(Lexique::getInstance(), SIGNAL(minimisationTerminee()),       SLOT(_minimisationTerminee(int)));
+void Correction::_connecter() {
+    connect(Lexique::getInstance(), SIGNAL(progressionConstruction(int)), _instance, SLOT(_progressionConstruction(int)));
+    connect(Lexique::getInstance(), SIGNAL(progressionMinimisation(int)), _instance, SLOT(_progressionMinimisation(int)));
+    connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       _instance, SLOT(_constructionTerminee(int)));
+    connect(Lexique::getInstance(), SIGNAL(minimisationTerminee()),       _instance, SLOT(_minimisationTerminee(int)));
 }
 
 

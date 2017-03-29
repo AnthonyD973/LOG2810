@@ -41,7 +41,8 @@ public:
     bool existe(const string& mot);
 	vector<string>motsSuggeres;
 
-    static void creerLexique(const string& fichier, int longueurMax);
+    static void creerLexique(int longueurMax);
+    static void construireLexique(const string& fichier);
     static Lexique* getInstance();
 
 private:
