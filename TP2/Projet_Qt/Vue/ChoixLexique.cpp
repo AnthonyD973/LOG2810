@@ -35,9 +35,8 @@ ChoixLexique::ChoixLexique(QWidget* parent)
 // PRIVATE:
 
 void ChoixLexique::_connecter() const {
-    connect(_btnChoixLexique,          SIGNAL(clicked(bool)),                SLOT(_choisirLexique()));
-    connect(_btnStart,                 SIGNAL(clicked(bool)),                SLOT(_initialiserLexique()));
-
+    connect(_btnChoixLexique, SIGNAL(clicked(bool)), SLOT(_choisirLexique()));
+    connect(_btnStart,        SIGNAL(clicked(bool)), SLOT(_initialiserLexique()));
 }
 
 void ChoixLexique::_connecterAuCorrecteur() const {
@@ -48,10 +47,12 @@ void ChoixLexique::_connecterAuCorrecteur() const {
 }
 
 void ChoixLexique::_deconnecterDuCorrecteur() const {
-    disconnect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
-    disconnect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), this, SLOT(_changerProgressionBarreEtat(int)));
-    disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_demarrerSimplificationLexique()));
-    disconnect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       this, SLOT(_terminerInitialisation()));
+    if (Correction::getInstance() != nullptr) {
+        disconnect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
+        disconnect(Correction::getInstance(), SIGNAL(progressionMinimisation(int)), this, SLOT(_changerProgressionBarreEtat(int)));
+        disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_demarrerSimplificationLexique()));
+        disconnect(Correction::getInstance(), SIGNAL(minimisationTerminee()),       this, SLOT(_terminerInitialisation()));
+    }
 }
 
 void ChoixLexique::_testerBarreEtat() {
@@ -98,8 +99,9 @@ void ChoixLexique::_initialiserLexique() {
 
     if (!_lexiqueConstruit) {
         _deconnecterDuCorrecteur();
-        Correction::creerCorrection(_fichierLexique.toStdString());
+        Correction::creerCorrection();
         _connecterAuCorrecteur();
+        Correction::construireCorrection(_fichierLexique.toStdString());
     }
     else {
         _etqQuelEtat->setText("LEXIQUE DÉJÀ CONSTRUIT");

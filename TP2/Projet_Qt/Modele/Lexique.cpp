@@ -39,19 +39,20 @@ void Lexique::_construireLexique(const string& fichier)
         // Compter le nombre de mots afin de pouvoir déterminer la
         // progression de la création de l'automate.
         int nombreDeMots = 0;
-        string mot;
-        while (donnees >> mot) {
+        string motPantin;
+        while (donnees >> motPantin) {
             ++nombreDeMots;
         }
 
-        donnees.seekg(ios::beg); // Se remettre au début du fichier
+        donnees.clear();
+        donnees.seekg(0); // Se remettre au début du fichier
 
         int nombreDeMotsTraites = 0;
         int progressionPourcent = -1;
 
 		// instructions
 		while (!donnees.eof())
-		{
+        {
             // Lire donnees
 			string mot;
 			donnees >> mot;
@@ -64,7 +65,9 @@ void Lexique::_construireLexique(const string& fichier)
                 noeudCourant = enfant;
 			}
 
-            noeudCourant->addValide(mot.substr(MAX_ITERATIONS-1, string::npos));
+            if (mot != "") {
+                noeudCourant->addValide(mot.substr(MAX_ITERATIONS, string::npos));
+            }
 
             // Avertir la vue de la progression
             ++nombreDeMotsTraites;
@@ -74,6 +77,7 @@ void Lexique::_construireLexique(const string& fichier)
                 emit _instance->progressionConstruction(progressionPourcent);
             }
 		}
+        Noeud* foo = _instance->_racine;
 
         donnees.close(); // on ferme le fichier
 	}
@@ -108,7 +112,7 @@ bool Lexique::existe(const string& mot)
         existe = false;
     }
 
-    return peutExister;
+    return existe;
 }
 
 Lexique* Lexique::getInstance()
@@ -135,12 +139,9 @@ Lexique::Noeud::~Noeud() {
 Lexique::Noeud* Lexique::Noeud::addEnfant(char lettreAssociee) {
     Noeud* enfant = getEnfant(lettreAssociee);
 
-    if (enfant != nullptr) {
+    if (enfant == nullptr) {
         enfant = new Noeud(lettreAssociee);
         _enfants.push_back(enfant);
-    }
-    else {
-        delete enfant;
     }
 
     return enfant;
@@ -167,7 +168,7 @@ void Lexique::Noeud::addValide(const string& sousMot) {
 bool Lexique::Noeud::estValide(const string& sousMot) {
     bool estValide = false;
 
-    for (int i = 0; i < _sousMotsValides.size() && !estValide; ++i) {
+    for (unsigned int i = 0; i < _sousMotsValides.size() && !estValide; ++i) {
         if (_sousMotsValides[i] == sousMot) {
             estValide = true;
         }

@@ -33,8 +33,13 @@ std::vector<string> Correction::corrigerMot(string mot)
 
 }
 
-void Correction::creerCorrection(const string& nomFichier) {
-    Lexique::creerLexique(nomFichier, 7);
+void Correction::creerCorrection() {
+    delete _instance;
+    _instance = new Correction();
+}
+
+void Correction::construireCorrection(const string& nomLexique) {
+    Lexique::creerLexique(nomLexique, 100);
 }
 
 

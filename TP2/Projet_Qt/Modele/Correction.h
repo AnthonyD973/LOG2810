@@ -19,7 +19,8 @@ public:
     vector<string> motsCorriges;
 	std::vector<string> corrigerMot(string mot);
 
-    static void creerCorrection(const string& nomFichier);
+    static void creerCorrection();
+    static void construireCorrection(const string& nomLexique);
     inline static Correction* getInstance() { return _instance; }
 
 private:
