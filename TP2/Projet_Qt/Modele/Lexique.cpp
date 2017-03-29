@@ -1,3 +1,10 @@
+/****************************************************************************
+ * Fichier: Lexique.cpp
+ * Auteurs: Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ * Date: 28 mars 2017
+ * Description: Implémentation de la classe Lexique
+ ****************************************************************************/
+
 #include <QDebug>
 
 #include "Lexique.h"

@@ -1,3 +1,10 @@
+/****************************************************************************
+ * Fichier: Lexique.h
+ * Auteurs: Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ * Date: 28 mars 2017
+ * Description: Description de la classe Lexique
+ ****************************************************************************/
+
 #pragma once
 #include <QObject>
 #include<stdio.h>

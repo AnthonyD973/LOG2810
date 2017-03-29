@@ -1,3 +1,9 @@
+/****************************************************************************
+ * Fichier: Correction.cpp
+ * Auteurs: Philippe Courtemanche, Anthony Dentinger et Marc-Gaël Hounto
+ * Date: 28 mars 2017
+ * Description: Implémentation de la classe Correction
+ ****************************************************************************/
 #include "Correction.h"
 
 Correction* Correction::_instance = nullptr;
