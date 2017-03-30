@@ -40,11 +40,13 @@ class Lexique : public QObject
 		vector<Noeud*> _enfants;
         vector<string> _sousMotsValides;
 		char _lettreAssociee;
+        void rechercherSousChainesValidesPourMot(string mot, int &nombreRestantATrouver, vector<string> &suggestions);
+
 	};
 
 public:
     bool existe(const string& mot) const;
-
+    vector<string> suggererMot(string mot, int nombreRestantATrouver);
     static void creerLexique(int longueurMax);
     static void construireLexique(const string& fichier);
     static Lexique* getInstance();
@@ -52,13 +54,14 @@ public:
 private:
     Lexique(int longueurMax);
     virtual ~Lexique();
-
+     
     static void _construireLexique(const string& fichier);
 
     const int _LONGUEUR_MAX;
     Noeud* _racine;
 
     static Lexique* _instance;
+    
 
 // Pour la barre de progression de la vue
 signals:

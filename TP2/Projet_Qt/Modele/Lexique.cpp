@@ -177,3 +177,53 @@ bool Lexique::Noeud::estValide(const string& sousMot) {
 
     return estValide;
 }
+
+
+
+vector<string> Lexique::suggererMot(string mot, int nombreRestantATrouver){
+
+    //se rendre au noeud du lexique qui correspond au mot tape
+    //utilisation du code dans la premiere partie de la methode: existe
+    int nbRestant=10;
+    Noeud* noeudCourant;
+    while(nbRestant>0 && noeudCourant!=nullptr )
+    {
+
+        bool peutExister = true;
+        vector<string> suggestions;
+        noeudCourant = _instance->_racine;
+        const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
+        for (int i = 0; i < MAX_ITERATIONS && peutExister; ++i) {
+            Noeud* enfant = noeudCourant->addEnfant(mot[i]);
+            noeudCourant = enfant; 
+            noeudCourant -> rechercherSousChainesValidesPourMot(mot, nombreRestantATrouver, suggestions);
+        }
+
+    }
+ 
+    
+
+    //appeller methode qui visite les sous-chaines du noeud courant
+    
+
+    //appeller meme methode sur les enfants de ce noeud
+        //changer noeudCourant pour le prochain enfant
+        //appeller methode
+
+        
+   
+}
+//appeller methode qui visite les sous-chaines d'un noeud
+void Lexique::rechercherSousChainesValidesPourMot( string mot, int &nombreRestantATrouver, vector<string> &suggestions)
+{
+    //TODO: visiter les sous-chaines pour le noeud courant et les placer dans le vecteur "suggestions"
+    for(int i =0; i<this->_sousMotsValides.size();i++)
+        {   
+            mot+=_sousMotsValides[i];
+            suggestions.pushback(mot);
+            nombreRestantATrouver--;
+            mot-=_sousMotsValides
+            
+        }
+
+}
