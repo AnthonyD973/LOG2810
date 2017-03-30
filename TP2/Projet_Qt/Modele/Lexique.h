@@ -63,7 +63,6 @@ private:
 // Pour la barre de progression de la vue
 signals:
     void progressionConstruction(int progressionPourcent);
-    void progressionMinimisation(int progressionPourcent);
     void constructionTerminee();
 };
 

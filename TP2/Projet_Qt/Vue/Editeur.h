@@ -21,6 +21,13 @@ class Editeur : public QWidget
 
     Q_OBJECT
 
+private:
+    enum class EtatCorrecteur : unsigned char {
+        SUGGESTION = 0,
+        CORRECTION_AUTO,
+        CORRECTION_CHOIX
+    };
+
 public:
     Editeur(QWidget* parent);
     virtual ~Editeur() { }
@@ -39,8 +46,10 @@ public slots:
 
 private:
     void _connecter() const;
-    void _motTermine(QString);
     void _caractereAjoute(QString);
+    void _motTermine(QString);
+
+    void _accepter(const QString &suggestion);
 
     int  _getDebutMot(int posFin) const;
     void _changerMotCourant(const QString& mot, QTextCursor &curseur);
@@ -55,15 +64,19 @@ private:
     QCheckBox*      _caseAutoCompletion;
     QCheckBox*      _caseAutoCorrection;
 
-    QListWidget*    _suggestions;
+    QListWidget*    _boiteCorrecteur;
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
 
+    EtatCorrecteur  _etatCorrecteur  = EtatCorrecteur::SUGGESTION;
+    const int       _NUM_MOTS_CORRECTEUR_MAX = 10;
+
 private slots:
     void _reactionChangementDeTexte();
-    void _accepterSuggestion(QListWidgetItem *suggestionChoisie);
-    void _corrigerMot(const QString& motCorrige);
+    void _accepter(QListWidgetItem *suggestionChoisie);
+//    void _accepterSuggestion(const QString& motCorrige);
+//    void _accepterCorrection(const QString& motCorrige);
 };
 
 #endif // !DISPOSITION_EDITEUR_H

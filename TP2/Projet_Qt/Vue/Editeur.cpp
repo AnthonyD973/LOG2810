@@ -29,12 +29,12 @@ Editeur::Editeur(QWidget* parent)
     _groupeTypeCorrection->setLayout(dispoGroupeTypeCorrection);
     _groupeTypeCorrection->setFixedHeight(100);
 
-    _suggestions = new QListWidget(parent);
-    _suggestions->setFixedSize(300, 150);
+    _boiteCorrecteur = new QListWidget(parent);
+    _boiteCorrecteur->setFixedSize(300, 150);
 
     QHBoxLayout* dispoGroupeEtSuggestions = new QHBoxLayout(parent);
     dispoGroupeEtSuggestions->addWidget(_groupeTypeCorrection);
-    dispoGroupeEtSuggestions->addWidget(_suggestions);
+    dispoGroupeEtSuggestions->addWidget(_boiteCorrecteur);
 
     QWidget* groupeEtSuggestions = new QWidget(parent);
     groupeEtSuggestions->setLayout(dispoGroupeEtSuggestions);
@@ -59,8 +59,8 @@ void Editeur::activer() {
 // PUBLIC SLOTS:
 
 void Editeur::_reactionChangementDeTexte() {
-    QString texteEcrit = _boiteTexte->toPlainText(),
-            motEcrit;
+    QString texteEcrit = _boiteTexte->toPlainText();
+    QString motEcrit;
     int posFin = _boiteTexte->textCursor().position() - 1;
 
     bool boiteEstVide = (posFin < 0);
@@ -101,7 +101,7 @@ void Editeur::basculerEtatAutoCorrection(int etat) {
 
 void Editeur::transmettreDemandeRetour() {
     _boiteTexte->clear();
-    _suggestions->clear();
+    _boiteCorrecteur->clear();
     emit retourDemande();
 }
 
@@ -109,39 +109,80 @@ void Editeur::transmettreDemandeRetour() {
 // PRIVATE:
 
 void Editeur::_connecter() const {
-    connect(_boiteTexte,          SIGNAL(textChanged()),     SLOT(_reactionChangementDeTexte()));
-    connect(_suggestions,         SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_accepterSuggestion(QListWidgetItem*)));
-    connect(_caseAutoCompletion,  SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCompletion(int)));
-    connect(_caseAutoCorrection,  SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCorrection(int)));
-    connect(_btnRetour,           SIGNAL(clicked(bool)),     SLOT(transmettreDemandeRetour()));
+    connect(_boiteTexte,         SIGNAL(textChanged()),     SLOT(_reactionChangementDeTexte()));
+    connect(_boiteCorrecteur,    SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_accepter(QListWidgetItem*)));
+    connect(_caseAutoCompletion, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCompletion(int)));
+    connect(_caseAutoCorrection, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCorrection(int)));
+    connect(_btnRetour,          SIGNAL(clicked(bool)),     SLOT(transmettreDemandeRetour()));
+}
+
+
+void Editeur::_caractereAjoute(QString mot) {
+    _boiteCorrecteur->clear();
+
+    if (_autoCompletionActif) {
+
+        std::vector<std::string> listeStd = Correction::getInstance()->suggerer(mot.toStdString());
+
+        QStringList liste;
+
+        const int MAX_ITERATIONS = std::min((int)listeStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
+        for (unsigned int i = 0; i < MAX_ITERATIONS; ++i) {
+            liste.append(QString::fromStdString(listeStd[i]));
+        }
+
+        _etatCorrecteur = EtatCorrecteur::SUGGESTION;
+        _boiteCorrecteur->addItems(liste);
+    }
 }
 
 void Editeur::_motTermine(QString mot) {
+    // DUPLICATION DE CODE!!! WOOOO
+    _boiteCorrecteur->clear();
+
     if (_autoCorrectionActif && mot != "") {
-        _corrigerMot("chucknorris");
+
+        std::vector<std::string> motsCorrigesStd = Correction::getInstance()->corriger(mot.toStdString());
+
+        if (motsCorrigesStd.size() > 1) {
+
+            QStringList motsCorriges;
+
+            const int MAX_ITERATIONS = std::min((int)motsCorrigesStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
+            for (unsigned int i = 0; i < MAX_ITERATIONS; ++i) {
+                motsCorriges.append(QString::fromStdString(motsCorrigesStd[i]));
+            }
+
+            _boiteCorrecteur->addItems(motsCorriges);
+            _etatCorrecteur = EtatCorrecteur::CORRECTION_CHOIX;
+        }
+        else if (motsCorrigesStd.size() == 1) {
+            _etatCorrecteur = EtatCorrecteur::CORRECTION_AUTO;
+            _accepter(QString::fromStdString(motsCorrigesStd[0]));
+        }
     }
 }
 
-void Editeur::_caractereAjoute(QString mot) {
-    if (_autoCompletionActif) {
-        std::vector<std::string> listeStd;
 
-        QStringList liste;
-        liste.append("un");
-        liste.append("deux");
-        liste.append("trois");
-        liste.append("quatre");
-        liste.append("cinq");
-        liste.append("six");
-        liste.append("sept");
-        liste.append("huit");
-        liste.append("neuf");
-        liste.append("dix");
+void Editeur::_accepter(const QString& suggestion) {
+    _boiteCorrecteur->clear();
 
-        _suggestions->clear();
-        _suggestions->addItems(liste);
+    int offsetCurseur;
+    QString suffixe;
+    switch(_etatCorrecteur) {
+    case EtatCorrecteur::SUGGESTION:       offsetCurseur = -1; suffixe = " "; break;
+    case EtatCorrecteur::CORRECTION_AUTO:  offsetCurseur = -1; suffixe = "" ; break;
+    case EtatCorrecteur::CORRECTION_CHOIX: offsetCurseur = -2; suffixe = " "; break;
     }
+
+    QTextCursor curseur = _boiteTexte->textCursor();
+    curseur.setPosition(curseur.position() + offsetCurseur);
+
+    _changerMotCourant(suggestion + suffixe, curseur);
+
+    _boiteCorrecteur->clear();
 }
+
 
 int Editeur::_getDebutMot(int posFin) const {
     int posBeg = posFin;
@@ -178,22 +219,31 @@ void Editeur::_changerMotCourant(const QString& mot, QTextCursor& curseur) {
 
 // PRIVATE SLOTS:
 
-void Editeur::_accepterSuggestion(QListWidgetItem* suggestionChoisie) {
-    QString suggestion = suggestionChoisie->text();
-    QTextCursor curseur = _boiteTexte->textCursor();
-    _changerMotCourant(suggestion + " ", curseur);
-
-    _suggestions->clear();
-
-    qDebug() << "_accepterSuggestion" << suggestion;
+void Editeur::_accepter(QListWidgetItem* suggestionChoisie) {
+    _accepter(suggestionChoisie->text());
 }
 
-void Editeur::_corrigerMot(const QString& motCorrige) {
-    qDebug() << "_corrigerMot" << motCorrige;
+//void Editeur::_accepterSuggestion(const QString& motCorrige) {
+//    QString suggestion = motCorrige->text();
+//    QTextCursor curseur = _boiteTexte->textCursor();
+//    _changerMotCourant(suggestion + " ", curseur);
 
-    QTextCursor curseur = _boiteTexte->textCursor();
-    curseur.setPosition(curseur.position() - 1);
-    _changerMotCourant(motCorrige, curseur);
+//    _boiteCorrecteur->clear();
+//}
 
-    _suggestions->clear();
-}
+//void Editeur::_accepterCorrection(const QString& motCorrige) {
+//    int offsetCurseur;
+//    switch(_etatCorrecteur) {
+//    case EtatCorrecteur::SUGGESTION:       offsetCurseur = -1; break;
+//    case EtatCorrecteur::CORRECTION_AUTO:  offsetCurseur = -1; break;
+//    case EtatCorrecteur::CORRECTION_CHOIX: offsetCurseur = -2; break;
+//    default: break;
+//    }
+
+//    QTextCursor curseur = _boiteTexte->textCursor();
+
+//    curseur.setPosition(curseur.position() + offsetCurseur);
+//    _changerMotCourant(motCorrige, curseur);
+
+//    _boiteCorrecteur->clear();
+//}

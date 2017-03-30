@@ -20,7 +20,7 @@ class Correction : public QObject
 
 public:
     vector<string> suggerer(string mot);
-    vector<string> corrigerMot(string mot);
+    vector<string> corriger(string mot);
 
     static void creerCorrection();
     static void construireCorrection(const string& nomLexique);
@@ -38,11 +38,9 @@ private:
 // Pour la barre de progression de la vue
 signals:
     void progressionConstruction(int progressionPourcent);
-    void progressionMinimisation(int progressionPourcent);
     void constructionTerminee();
 
 private slots:
     void _progressionConstruction(int progressionPourcent);
-    void _progressionMinimisation(int progressionPourcent);
     void _constructionTerminee();
 };

@@ -17,13 +17,24 @@ Correction::~Correction()
 vector<string> Correction::suggerer(string mot) {
     vector<string> suggestions;
 
+    suggestions.push_back("un");
+//    suggestions.push_back("deux");
+//    suggestions.push_back("trois");
+//    suggestions.push_back("quatre");
+//    suggestions.push_back("cinq");
+//    suggestions.push_back("six");
+//    suggestions.push_back("sept");
+//    suggestions.push_back("huit");
+//    suggestions.push_back("neuf");
+//    suggestions.push_back("dix");
 
 
     return suggestions;
 }
 
-vector<string> Correction::corrigerMot(string mot)
+vector<string> Correction::corriger(string mot)
 {
+
     vector<string> motsCorriges;
 
 	if (Lexique::getInstance()->existe(mot))
@@ -45,8 +56,8 @@ vector<string> Correction::corrigerMot(string mot)
 		}
 		
 	}
-	return motsCorriges;
 
+    return motsCorriges;
 }
 
 void Correction::creerCorrection() {
@@ -65,7 +76,6 @@ void Correction::construireCorrection(const string& nomLexique) {
 
 void Correction::_connecter() {
     connect(Lexique::getInstance(), SIGNAL(progressionConstruction(int)), _instance, SLOT(_progressionConstruction(int)));
-    connect(Lexique::getInstance(), SIGNAL(progressionMinimisation(int)), _instance, SLOT(_progressionMinimisation(int)));
     connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       _instance, SLOT(_constructionTerminee()));
 }
 
@@ -74,10 +84,6 @@ void Correction::_connecter() {
 
 void Correction::_progressionConstruction(int progressionPourcent) {
     emit progressionConstruction(progressionPourcent);
-}
-
-void Correction::_progressionMinimisation(int progressionPourcent) {
-    emit progressionMinimisation(progressionPourcent);
 }
 
 void Correction::_constructionTerminee() {

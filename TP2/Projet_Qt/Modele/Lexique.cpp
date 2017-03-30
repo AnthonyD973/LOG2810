@@ -58,6 +58,9 @@ void Lexique::_construireLexique(const string& fichier)
         int nombreDeMotsTraites = 0;
         int progressionPourcent = -1;
 
+
+        Noeud* racine = _instance->_racine;
+
 		// instructions
 		while (!donnees.eof())
         {
@@ -79,7 +82,7 @@ void Lexique::_construireLexique(const string& fichier)
 
             // Avertir la vue de la progression
             ++nombreDeMotsTraites;
-            int nouvelleProgression  = 100 * (nombreDeMotsTraites / nombreDeMots);
+            int nouvelleProgression  = (100 * nombreDeMotsTraites) / nombreDeMots;
             if (progressionPourcent != nouvelleProgression) {
                 progressionPourcent  = nouvelleProgression;
                 emit _instance->progressionConstruction(progressionPourcent);
@@ -101,13 +104,13 @@ bool Lexique::existe(const string& mot) const
     Noeud* noeudCourant = _instance->_racine;
     const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
     for (int i = 0; i < MAX_ITERATIONS && peutExister; ++i) {
-        Noeud* enfant = noeudCourant->addEnfant(mot[i]);
-        noeudCourant = enfant;
+        noeudCourant = noeudCourant->getEnfant(mot[i]);
+        peutExister = (noeudCourant != nullptr);
     }
 
     bool existe;
     if (peutExister) {
-         existe = noeudCourant->estValide(mot.substr(MAX_ITERATIONS-1, string::npos));
+         existe = noeudCourant->estValide(mot.substr(MAX_ITERATIONS, string::npos));
     }
     else {
         existe = false;
