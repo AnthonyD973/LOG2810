@@ -122,12 +122,11 @@ void Editeur::_caractereAjoute(QString mot) {
 
     if (_autoCompletionActif) {
 
-        std::vector<std::string> listeStd = Correction::getInstance()->suggerer(mot.toStdString());
+        std::vector<std::string> listeStd =
+                Correction::getInstance()->suggerer(mot.toStdString(), _NUM_MOTS_CORRECTEUR_MAX);
 
         QStringList liste;
-
-        const int MAX_ITERATIONS = std::min((int)listeStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
-        for (unsigned int i = 0; i < MAX_ITERATIONS; ++i) {
+        for (unsigned int i = 0; i < listeStd.size(); ++i) {
             liste.append(QString::fromStdString(listeStd[i]));
         }
 
@@ -148,7 +147,7 @@ void Editeur::_motTermine(QString mot) {
 
             QStringList motsCorriges;
 
-            const int MAX_ITERATIONS = std::min((int)motsCorrigesStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
+            const unsigned int MAX_ITERATIONS = std::min((unsigned int)motsCorrigesStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
             for (unsigned int i = 0; i < MAX_ITERATIONS; ++i) {
                 motsCorriges.append(QString::fromStdString(motsCorrigesStd[i]));
             }
@@ -222,28 +221,3 @@ void Editeur::_changerMotCourant(const QString& mot, QTextCursor& curseur) {
 void Editeur::_accepter(QListWidgetItem* suggestionChoisie) {
     _accepter(suggestionChoisie->text());
 }
-
-//void Editeur::_accepterSuggestion(const QString& motCorrige) {
-//    QString suggestion = motCorrige->text();
-//    QTextCursor curseur = _boiteTexte->textCursor();
-//    _changerMotCourant(suggestion + " ", curseur);
-
-//    _boiteCorrecteur->clear();
-//}
-
-//void Editeur::_accepterCorrection(const QString& motCorrige) {
-//    int offsetCurseur;
-//    switch(_etatCorrecteur) {
-//    case EtatCorrecteur::SUGGESTION:       offsetCurseur = -1; break;
-//    case EtatCorrecteur::CORRECTION_AUTO:  offsetCurseur = -1; break;
-//    case EtatCorrecteur::CORRECTION_CHOIX: offsetCurseur = -2; break;
-//    default: break;
-//    }
-
-//    QTextCursor curseur = _boiteTexte->textCursor();
-
-//    curseur.setPosition(curseur.position() + offsetCurseur);
-//    _changerMotCourant(motCorrige, curseur);
-
-//    _boiteCorrecteur->clear();
-//}

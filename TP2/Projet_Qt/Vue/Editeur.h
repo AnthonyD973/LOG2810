@@ -70,7 +70,7 @@ private:
     bool            _autoCorrectionActif;
 
     EtatCorrecteur  _etatCorrecteur  = EtatCorrecteur::SUGGESTION;
-    const int       _NUM_MOTS_CORRECTEUR_MAX = 10;
+    const unsigned int _NUM_MOTS_CORRECTEUR_MAX = 10;
 
 private slots:
     void _reactionChangementDeTexte();

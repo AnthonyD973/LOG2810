@@ -19,8 +19,8 @@ class Correction : public QObject
     Q_OBJECT
 
 public:
-    vector<string> suggerer(string mot);
-    vector<string> corriger(string mot);
+    vector<string> suggerer(const string& mot, int numMotsMax);
+    vector<string> corriger(const string& mot);
 
     static void creerCorrection();
     static void construireCorrection(const string& nomLexique);

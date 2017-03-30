@@ -14,73 +14,34 @@ Correction::Correction()
 Correction::~Correction()
 { }
 
-vector<string> Correction::suggerer(string mot) {
-    vector<string> suggestions;
-	int nbSuggestions=0;
-	Node* racineI=Lexique::getInstance()->_racine;
-	while(nbSuggestions<10)
-	{
-		for(int i=0; i<mot.size();i++)
-			{
-				if(Lexique::getInstance()->_racine->getEnfant(mot[i])!=nullptr)
-					{
-						for(int j=0;j<Lexique::getInstance()->_racine->getEnfant(mot[i])->_sousMotsValides.size();j++)
-							{
-								string mot=Lexique::getInstance()-> _racine->_lettreAssociee + Lexique::getInstance()-> _racine->getEnfant(mot[i])->_lettreAssociee + Lexique::getInstance()->_racine->getEnfant(mot[i])-> _sousMotsValides[i];
-								suggestions.pushback(mot);
-								nbSuggestions++;
-
-							}
-					}
-				else
-					{
-						Lexique::getInstance()->_racine=racineI;
-						return suggestions;
-					}
-
-				Lexique::getInstance()->_racine=mot[i];
-			}
-	}
-
-    suggestions.push_back("un");
-//    suggestions.push_back("deux");
-//    suggestions.push_back("trois");
-//    suggestions.push_back("quatre");
-//    suggestions.push_back("cinq");
-//    suggestions.push_back("six");
-//    suggestions.push_back("sept");
-//    suggestions.push_back("huit");
-//    suggestions.push_back("neuf");
-//    suggestions.push_back("dix");
-
-	Lexique::getInstance()->_racine=racineI;
-    return suggestions;
+vector<string> Correction::suggerer(const string& mot, int numMotsMax) {
+    return Lexique::getInstance()->suggerer(mot, numMotsMax);
 }
 
-vector<string> Correction::corriger(string mot)
+vector<string> Correction::corriger(const string& mot)
 {
-
+    string motCopie = mot;
     vector<string> motsCorriges;
 
-	if (Lexique::getInstance()->existe(mot))
-	{
-        motsCorriges.push_back(mot);
-	}
-	else
-	{
-        for (unsigned int i = 0; i < mot.size(); i++)
-		{
-			char reserve = mot[i];
+    if (Lexique::getInstance()->existe(motCopie))
+    {
+        motsCorriges.push_back(motCopie);
+    }
+    else
+    {
+        for (unsigned int i = 0; i < motCopie.size(); i++)
+        {
+            char reserve = motCopie[i];
             for (int j = 0; j < 26; j++)
-			{
-				mot[i] = alphabet[j];
-				if (Lexique::getInstance()->existe(mot))
-					motsCorriges.push_back(mot);
-			}
-			mot[i] = reserve;
-		}
-		
-	}
+            {
+                motCopie[i] = alphabet[j];
+                if (Lexique::getInstance()->existe(motCopie))
+                    motsCorriges.push_back(motCopie);
+            }
+            motCopie[i] = reserve;
+        }
+
+    }
 
     return motsCorriges;
 }
@@ -91,7 +52,7 @@ void Correction::creerCorrection() {
 }
 
 void Correction::construireCorrection(const string& nomLexique) {
-    Lexique::creerLexique(100);
+    Lexique::creerLexique(3);
     _connecter();
     Lexique::construireLexique(nomLexique);
 }
