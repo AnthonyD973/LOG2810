@@ -16,9 +16,34 @@ Correction::~Correction()
 
 vector<string> Correction::suggerer(string mot) {
     vector<string> suggestions;
+	int nbSuggestions=0;
+	Node* racineI=Lexique::getInstance()->_racine;
+	while(nbSuggestions<10)
+	{
+		for(int i=0; i<mot.size();i++)
+			{
+				if(Lexique::getInstance()->_racine->getEnfant(mot[i])!=nullptr)
+					{
+						for(int j=0;j<Lexique::getInstance()->_racine->getEnfant(mot[i])->_sousMotsValides.size();j++)
+							{
+								string mot=Lexique::getInstance()-> _racine->_lettreAssociee + Lexique::getInstance()-> _racine->getEnfant(mot[i])->_lettreAssociee + Lexique::getInstance()->_racine->getEnfant(mot[i])-> _sousMotsValides[i];
+								suggestions.pushback(mot);
+								nbSuggestions++;
+
+							}
+					}
+				else
+					{
+						Lexique::getInstance()->_racine=racineI;
+						return suggestions;
+					}
+
+				Lexique::getInstance()->_racine=mot[i];
+			}
+	}
 
 
-
+	Lexique::getInstance()->_racine=racineI;
     return suggestions;
 }
 
