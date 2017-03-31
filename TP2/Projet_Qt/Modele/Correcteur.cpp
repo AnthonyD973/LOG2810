@@ -4,21 +4,21 @@
  * Date: 28 mars 2017
  * Description: Implémentation de la classe Correction
  ****************************************************************************/
-#include "Correction.h"
+#include "Correcteur.h"
 
-Correction* Correction::_instance = nullptr;
+Correcteur* Correcteur::_instance = nullptr;
 
-Correction::Correction()
+Correcteur::Correcteur()
 { }
 
-Correction::~Correction()
+Correcteur::~Correcteur()
 { }
 
-vector<string> Correction::suggerer(const string& mot, int numMotsMax) {
+vector<string> Correcteur::suggerer(const string& mot, int numMotsMax) {
     return Lexique::getInstance()->suggerer(mot, numMotsMax);
 }
 
-vector<string> Correction::corriger(const string& mot)
+vector<string> Correcteur::corriger(const string& mot)
 {
     string motCopie = mot;
     vector<string> motsCorriges;
@@ -46,12 +46,12 @@ vector<string> Correction::corriger(const string& mot)
     return motsCorriges;
 }
 
-void Correction::creerCorrection() {
+void Correcteur::creerCorrection() {
     delete _instance;
-    _instance = new Correction();
+    _instance = new Correcteur();
 }
 
-void Correction::construireCorrection(const string& nomLexique) {
+void Correcteur::construireCorrection(const string& nomLexique) {
     Lexique::creerLexique(3);
     _connecter();
     Lexique::construireLexique(nomLexique);
@@ -60,7 +60,7 @@ void Correction::construireCorrection(const string& nomLexique) {
 
 // PRIVATE:
 
-void Correction::_connecter() {
+void Correcteur::_connecter() {
     connect(Lexique::getInstance(), SIGNAL(progressionConstruction(int)), _instance, SLOT(_progressionConstruction(int)));
     connect(Lexique::getInstance(), SIGNAL(constructionTerminee()),       _instance, SLOT(_constructionTerminee()));
 }
@@ -68,10 +68,10 @@ void Correction::_connecter() {
 
 // PRIVATE SLOTS:
 
-void Correction::_progressionConstruction(int progressionPourcent) {
+void Correcteur::_progressionConstruction(int progressionPourcent) {
     emit progressionConstruction(progressionPourcent);
 }
 
-void Correction::_constructionTerminee() {
+void Correcteur::_constructionTerminee() {
     emit constructionTerminee();
 }

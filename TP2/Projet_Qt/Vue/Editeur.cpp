@@ -59,33 +59,71 @@ void Editeur::activer() {
 // PUBLIC SLOTS:
 
 void Editeur::_reactionChangementDeTexte() {
-    QString texteEcrit = _boiteTexte->toPlainText();
-    QString motEcrit;
-    int posFin = _boiteTexte->textCursor().position() - 1;
+    _curseurSurDernierMot = _boiteTexte->textCursor();
+    int posEnd = _curseurSurDernierMot.position();
+    int posBeg = posEnd;
 
-    bool boiteEstVide = (posFin < 0);
-    if (!boiteEstVide) {
-        void (Editeur::*fctAAppeler)(QString);
+    void (Editeur::*fctAAppeler)() = &Editeur::_caractereAjoute;
+    QString motSelectionne;
 
-        if (islower(texteEcrit.at(posFin).toLatin1())) {
-            fctAAppeler = &Editeur::_caractereAjoute;
+    // Déterminer la fin du mot sur lequel se trouve le curseur.
+    if (!_curseurSurDernierMot.atEnd()) {
+        _curseurSurDernierMot.setPosition(++posEnd, QTextCursor::KeepAnchor);
+        motSelectionne = _curseurSurDernierMot.selectedText();
+
+        while (!_curseurSurDernierMot.atEnd() &&
+               islower(motSelectionne.at(motSelectionne.size() - 1).toLatin1())) {
+
+            _curseurSurDernierMot.setPosition(++posEnd, QTextCursor::KeepAnchor);
+            motSelectionne = _curseurSurDernierMot.selectedText();
         }
-        else {
+
+        if (!islower(motSelectionne.at(motSelectionne.size() - 1).toLatin1())) {
+            _curseurSurDernierMot.setPosition(--posEnd, QTextCursor::KeepAnchor);
+            motSelectionne = _curseurSurDernierMot.selectedText();
+        }
+    }
+
+    _curseurSurDernierMot.setPosition(posEnd, QTextCursor::MoveAnchor);
+    _curseurSurDernierMot.setPosition(posBeg, QTextCursor::KeepAnchor);
+    motSelectionne = _curseurSurDernierMot.selectedText();
+
+    // Déterminer le début du mot sur lequel se trouve le curseur.
+    if (!_curseurSurDernierMot.atStart()) {
+        _curseurSurDernierMot.setPosition(--posBeg, QTextCursor::KeepAnchor);
+        motSelectionne = _curseurSurDernierMot.selectedText();
+
+        // Ignorer le dernier caractère écrit s'il ne s'agit pas d'un caractère
+        // d'un mot et que le curseur n'est pas déjà au début d'un mot.
+        bool auDebutDuMot = (posBeg + 1 != posEnd);
+        if (!auDebutDuMot && !islower(motSelectionne.at(0).toLatin1())) {
             fctAAppeler = &Editeur::_motTermine;
-            --posFin;
+
+            _curseurSurDernierMot.setPosition(  posBeg, QTextCursor::MoveAnchor);
+            _curseurSurDernierMot.setPosition(--posBeg, QTextCursor::KeepAnchor);
+            motSelectionne = _curseurSurDernierMot.selectedText();
         }
 
-        int posBeg = _getDebutMot(posFin);
+        while (!_curseurSurDernierMot.atStart() &&
+               islower(motSelectionne.at(0).toLatin1())) {
 
-        motEcrit = texteEcrit.mid(posBeg, posFin - posBeg + 1);
+            _curseurSurDernierMot.setPosition(--posBeg, QTextCursor::KeepAnchor);
+            motSelectionne = _curseurSurDernierMot.selectedText();
+        }
 
-        (this->*fctAAppeler)(motEcrit);
+        if (!islower(motSelectionne.at(0).toLatin1())) {
+            _curseurSurDernierMot.setPosition(++posBeg, QTextCursor::KeepAnchor);
+            motSelectionne = _curseurSurDernierMot.selectedText();
+        }
     }
-    else {
-        motEcrit = "";
-        _motTermine(motEcrit);
+    else if (motSelectionne.isEmpty()) {
+        fctAAppeler = &Editeur::_motTermine;
+        _curseurSurDernierMot = _boiteTexte->textCursor();
     }
-    qDebug() << "reactionChangementDeTexte" << motEcrit;
+
+    (this->*fctAAppeler)();
+
+    qDebug() << "reactionChangementDeTexte" << motSelectionne;
 
 }
 
@@ -110,76 +148,77 @@ void Editeur::transmettreDemandeRetour() {
 
 void Editeur::_connecter() const {
     connect(_boiteTexte,         SIGNAL(textChanged()),     SLOT(_reactionChangementDeTexte()));
-    connect(_boiteCorrecteur,    SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_accepter(QListWidgetItem*)));
+    connect(_boiteCorrecteur,    SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_remplacerDernierMot(QListWidgetItem*)));
     connect(_caseAutoCompletion, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCompletion(int)));
     connect(_caseAutoCorrection, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCorrection(int)));
     connect(_btnRetour,          SIGNAL(clicked(bool)),     SLOT(transmettreDemandeRetour()));
 }
 
 
-void Editeur::_caractereAjoute(QString mot) {
+void Editeur::_caractereAjoute() {
     _boiteCorrecteur->clear();
 
-    if (_autoCompletionActif) {
+    QString mot = _curseurSurDernierMot.selectedText();
 
-        std::vector<std::string> listeStd =
-                Correction::getInstance()->suggerer(mot.toStdString(), _NUM_MOTS_CORRECTEUR_MAX);
+    if (_autoCompletionActif && !mot.isEmpty()) {
+        QString mot = _curseurSurDernierMot.selectedText();
 
-        QStringList liste;
-        for (unsigned int i = 0; i < listeStd.size(); ++i) {
-            liste.append(QString::fromStdString(listeStd[i]));
+        std::vector<std::string> suggestionsStd =
+            Correcteur::getInstance()->suggerer(
+                mot.toStdString(),
+                _NUM_MOTS_CORRECTEUR_MAX);
+
+        QStringList suggestions;
+        for (unsigned int i = 0; i < suggestionsStd.size(); ++i) {
+            suggestions.append(QString::fromStdString(suggestionsStd[i]));
         }
 
-        _etatCorrecteur = EtatCorrecteur::SUGGESTION;
-        _boiteCorrecteur->addItems(liste);
+        _boiteCorrecteur->addItems(suggestions);
     }
 }
 
-void Editeur::_motTermine(QString mot) {
+void Editeur::_motTermine() {
     // DUPLICATION DE CODE!!! WOOOO
     _boiteCorrecteur->clear();
 
-    if (_autoCorrectionActif && mot != "") {
+    QString mot = _curseurSurDernierMot.selectedText();
 
-        std::vector<std::string> motsCorrigesStd = Correction::getInstance()->corriger(mot.toStdString());
+    if (_autoCorrectionActif && !mot.isEmpty()) {
+        std::vector<std::string> motsCorrigesStd =
+            Correcteur::getInstance()->corriger(mot.toStdString());
 
         if (motsCorrigesStd.size() > 1) {
 
             QStringList motsCorriges;
 
-            const unsigned int MAX_ITERATIONS = std::min((unsigned int)motsCorrigesStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
-            for (unsigned int i = 0; i < MAX_ITERATIONS; ++i) {
+            const unsigned int NUM_MOTS =
+                std::min((unsigned int)motsCorrigesStd.size(), _NUM_MOTS_CORRECTEUR_MAX);
+
+            for (unsigned int i = 0; i < NUM_MOTS; ++i) {
                 motsCorriges.append(QString::fromStdString(motsCorrigesStd[i]));
             }
 
             _boiteCorrecteur->addItems(motsCorriges);
-            _etatCorrecteur = EtatCorrecteur::CORRECTION_CHOIX;
         }
         else if (motsCorrigesStd.size() == 1) {
-            _etatCorrecteur = EtatCorrecteur::CORRECTION_AUTO;
-            _accepter(QString::fromStdString(motsCorrigesStd[0]));
+            _remplacerDernierMot(QString::fromStdString(motsCorrigesStd[0]));
         }
     }
 }
 
 
-void Editeur::_accepter(const QString& suggestion) {
+void Editeur::_remplacerDernierMot(const QString& motRemplacement) {
     _boiteCorrecteur->clear();
 
-    int offsetCurseur;
-    QString suffixe;
-    switch(_etatCorrecteur) {
-    case EtatCorrecteur::SUGGESTION:       offsetCurseur = -1; suffixe = " "; break;
-    case EtatCorrecteur::CORRECTION_AUTO:  offsetCurseur = -1; suffixe = "" ; break;
-    case EtatCorrecteur::CORRECTION_CHOIX: offsetCurseur = -2; suffixe = " "; break;
-    }
+    _boiteTexte->setReadOnly(true); // Empêcher l'utilisateur d'écrire pendant
+                                    // qu'on modifie le texte.
+    _boiteTexte->blockSignals(true); // Ne pas émettre le signal textChanged().
 
-    QTextCursor curseur = _boiteTexte->textCursor();
-    curseur.setPosition(curseur.position() + offsetCurseur);
+    _curseurSurDernierMot.removeSelectedText();
+    _curseurSurDernierMot.insertText(motRemplacement);
 
-    _changerMotCourant(suggestion + suffixe, curseur);
-
-    _boiteCorrecteur->clear();
+    _boiteTexte->blockSignals(false);
+    _boiteTexte->setReadOnly(false);
 }
 
 
@@ -196,28 +235,9 @@ int Editeur::_getDebutMot(int posFin) const {
     return posBeg;
 }
 
-void Editeur::_changerMotCourant(const QString& mot, QTextCursor& curseur) {
-    _boiteTexte->setReadOnly(true); // Empêcher l'utilisateur d'écrire pendant
-                                    // qu'on modifie le texte.
-
-    int posFin = curseur.position() - 1;
-    int posBeg = _getDebutMot(posFin);
-
-    _boiteTexte->blockSignals(true); // Ne pas émettre le signal textChanged().
-
-    curseur.setPosition(posFin+1, QTextCursor::MoveAnchor);
-    curseur.setPosition(posBeg,   QTextCursor::KeepAnchor);
-    curseur.removeSelectedText();
-
-    curseur.insertText(mot);
-
-    _boiteTexte->blockSignals(false);
-    _boiteTexte->setReadOnly(false);
-}
-
 
 // PRIVATE SLOTS:
 
-void Editeur::_accepter(QListWidgetItem* suggestionChoisie) {
-    _accepter(suggestionChoisie->text());
+void Editeur::_remplacerDernierMot(QListWidgetItem* suggestionChoisie) {
+    _remplacerDernierMot(suggestionChoisie->text() + " ");
 }

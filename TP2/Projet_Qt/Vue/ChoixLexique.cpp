@@ -1,7 +1,7 @@
 #include <QDebug>
 
 #include "ChoixLexique.h"
-#include "Modele/Correction.h"
+#include "Modele/Correcteur.h"
 
 
 // PUBLIC:
@@ -40,14 +40,14 @@ void ChoixLexique::_connecter() const {
 }
 
 void ChoixLexique::_connecterAuCorrecteur() const {
-    connect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), SLOT(_changerProgressionBarreEtat(int)));
-    connect(Correction::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_terminerConstruction()));
+    connect(Correcteur::getInstance(), SIGNAL(progressionConstruction(int)), SLOT(_changerProgressionBarreEtat(int)));
+    connect(Correcteur::getInstance(), SIGNAL(constructionTerminee()),       SLOT(_terminerConstruction()));
 }
 
 void ChoixLexique::_deconnecterDuCorrecteur() const {
-    if (Correction::getInstance() != nullptr) {
-        disconnect(Correction::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
-        disconnect(Correction::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_terminerConstruction()));
+    if (Correcteur::getInstance() != nullptr) {
+        disconnect(Correcteur::getInstance(), SIGNAL(progressionConstruction(int)), this, SLOT(_changerProgressionBarreEtat(int)));
+        disconnect(Correcteur::getInstance(), SIGNAL(constructionTerminee()),       this, SLOT(_terminerConstruction()));
     }
 }
 
@@ -82,7 +82,7 @@ void ChoixLexique::_testerBarreEtat() {
 void ChoixLexique::_choisirLexique() {
     QString cheminLexique = QFileDialog::getOpenFileName(this, "Choisir le lexique", QDir::currentPath() + "/..", "Fichiers texte (*.txt)");
 
-    if (!cheminLexique.isNull() && cheminLexique != _fichierLexique) {
+    if (!cheminLexique.isEmpty() && cheminLexique != _fichierLexique) {
         _fichierLexique = cheminLexique;
         _lexiqueConstruit = false;
         _btnStart->setDisabled(false);
@@ -96,11 +96,11 @@ void ChoixLexique::_initialiserLexique() {
 
     if (!_lexiqueConstruit) {
         _deconnecterDuCorrecteur();
-        Correction::creerCorrection();
+        Correcteur::creerCorrection();
         _connecterAuCorrecteur();
 
         _barreEtat->show();
-        Correction::construireCorrection(_fichierLexique.toStdString());
+        Correcteur::construireCorrection(_fichierLexique.toStdString());
     }
     else {
         _etqQuelEtat->setText("Lexique déjà construit!");

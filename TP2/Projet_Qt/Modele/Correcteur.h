@@ -14,7 +14,7 @@
 const char alphabet[] =  "qwertyuiopasdfghjklzxcvbnm";
 
 
-class Correction : public QObject
+class Correcteur : public QObject
 {
     Q_OBJECT
 
@@ -24,16 +24,16 @@ public:
 
     static void creerCorrection();
     static void construireCorrection(const string& nomLexique);
-    inline static Correction* getInstance() { return _instance; }
+    inline static Correcteur* getInstance() { return _instance; }
 
 private:
-    Correction();
-    virtual ~Correction();
+    Correcteur();
+    virtual ~Correcteur();
 
     static void _connecter();
 
 private:
-    static Correction* _instance;
+    static Correcteur* _instance;
 
 // Pour la barre de progression de la vue
 signals:

@@ -13,7 +13,7 @@
 
 #include <vector>
 
-#include "Modele/Correction.h"
+#include "Modele/Correcteur.h"
 
 
 class Editeur : public QWidget
@@ -22,11 +22,6 @@ class Editeur : public QWidget
     Q_OBJECT
 
 private:
-    enum class EtatCorrecteur : unsigned char {
-        SUGGESTION = 0,
-        CORRECTION_AUTO,
-        CORRECTION_CHOIX
-    };
 
 public:
     Editeur(QWidget* parent);
@@ -46,13 +41,12 @@ public slots:
 
 private:
     void _connecter() const;
-    void _caractereAjoute(QString);
-    void _motTermine(QString);
+    void _caractereAjoute();
+    void _motTermine();
 
-    void _accepter(const QString &suggestion);
+    void _remplacerDernierMot(const QString& motRemplacement);
 
     int  _getDebutMot(int posFin) const;
-    void _changerMotCourant(const QString& mot, QTextCursor &curseur);
 
 private:
     QVBoxLayout*    _disposition;
@@ -69,12 +63,12 @@ private:
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
 
-    EtatCorrecteur  _etatCorrecteur  = EtatCorrecteur::SUGGESTION;
+    QTextCursor     _curseurSurDernierMot;
     const unsigned int _NUM_MOTS_CORRECTEUR_MAX = 10;
 
 private slots:
     void _reactionChangementDeTexte();
-    void _accepter(QListWidgetItem *suggestionChoisie);
+    void _remplacerDernierMot(QListWidgetItem *suggestionChoisie);
 //    void _accepterSuggestion(const QString& motCorrige);
 //    void _accepterCorrection(const QString& motCorrige);
 };
