@@ -147,7 +147,7 @@ void Editeur::transmettreDemandeRetour() {
 // PRIVATE:
 
 void Editeur::_connecter() const {
-    connect(_boiteTexte,         SIGNAL(textChanged()),     SLOT(_reactionChangementDeTexte()));
+    connect(_boiteTexte,         SIGNAL(cursorPositionChanged()), SLOT(_reactionChangementDeTexte()));
     connect(_boiteCorrecteur,    SIGNAL(itemDoubleClicked(QListWidgetItem*)), SLOT(_remplacerDernierMot(QListWidgetItem*)));
     connect(_caseAutoCompletion, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCompletion(int)));
     connect(_caseAutoCorrection, SIGNAL(stateChanged(int)), SLOT(basculerEtatAutoCorrection(int)));
