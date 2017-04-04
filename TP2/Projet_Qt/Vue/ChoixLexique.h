@@ -21,6 +21,8 @@ private:
     void _connecterAuCorrecteur() const;
     void _deconnecterDuCorrecteur() const;
 
+    void _terminerInitialisation();
+
     void _testerBarreEtat();
 
 private:
@@ -44,8 +46,7 @@ private slots:
     void _initialiserLexique();
     void _changerProgressionBarreEtat(int progression);
     void _demarrerCreationLexique();
-    void _demarrerSimplificationLexique();
-    void _terminerInitialisation();
+    void _terminerConstruction();
 
 };
 

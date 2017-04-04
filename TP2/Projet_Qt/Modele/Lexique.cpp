@@ -16,17 +16,6 @@
 
 Lexique* Lexique::_instance = nullptr;
 
-Lexique::Lexique(int longueurMax)
-    : _LONGUEUR_MAX(longueurMax)
-{
-    _racine = new Noeud('\0');
-}
-
-Lexique::~Lexique()
-{
-	delete _racine;
-}
-
 void Lexique::creerLexique(int longueurMax)
 {
     delete _instance;
@@ -36,6 +25,70 @@ void Lexique::creerLexique(int longueurMax)
 void Lexique::construireLexique(const string &fichier) {
     _construireLexique(fichier);
 }
+
+Lexique* Lexique::getInstance()
+{
+    return _instance;
+}
+
+
+bool Lexique::existe(const string& mot) const
+{
+    bool peutExister = true;
+
+    Noeud* noeudCourant = _instance->_racine;
+    const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
+    for (int i = 0; i < MAX_ITERATIONS && peutExister; ++i) {
+        noeudCourant = noeudCourant->getEnfant(mot[i]);
+        peutExister = (noeudCourant != nullptr);
+    }
+
+    bool existe;
+    if (peutExister) {
+         existe = noeudCourant->estValide(mot.substr(MAX_ITERATIONS, string::npos));
+    }
+    else {
+        existe = false;
+    }
+
+    return existe;
+}
+
+vector<string> Lexique::suggerer(const string& mot, int nombreATrouver) {
+
+    //se rendre au noeud du lexique qui correspond au mot tape
+    //utilisation du code dans la premiere partie de la methode: existe
+    Noeud* noeudCourant = _racine;
+
+    const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
+    int hauteur;
+    for (hauteur = 0; hauteur < MAX_ITERATIONS && noeudCourant != nullptr; ++hauteur) {
+        noeudCourant = noeudCourant->getEnfant(mot[hauteur]);
+    }
+
+    vector<string> suggestions;
+    if (noeudCourant != nullptr) {
+        suggestions = noeudCourant->recherchePrefixe(mot, hauteur, nombreATrouver);
+    }
+
+    return suggestions;
+
+}
+
+
+// PRIVATE:
+
+Lexique::Lexique(int longueurMax)
+    : _LONGUEUR_MAX(longueurMax)
+{
+    _racine = new Noeud('\0');
+}
+
+Lexique::~Lexique()
+{
+    delete _racine;
+}
+
 
 void Lexique::_construireLexique(const string& fichier)
 {
@@ -58,6 +111,7 @@ void Lexique::_construireLexique(const string& fichier)
         int nombreDeMotsTraites = 0;
         int progressionPourcent = -1;
 
+
 		// instructions
 		while (!donnees.eof())
         {
@@ -79,7 +133,7 @@ void Lexique::_construireLexique(const string& fichier)
 
             // Avertir la vue de la progression
             ++nombreDeMotsTraites;
-            int nouvelleProgression  = 100 * (nombreDeMotsTraites / nombreDeMots);
+            int nouvelleProgression  = (100 * nombreDeMotsTraites) / nombreDeMots;
             if (progressionPourcent != nouvelleProgression) {
                 progressionPourcent  = nouvelleProgression;
                 emit _instance->progressionConstruction(progressionPourcent);
@@ -92,33 +146,6 @@ void Lexique::_construireLexique(const string& fichier)
         qDebug() << "Impossible d'ouvrir le fichier !" << endl;
 
     emit _instance->constructionTerminee();
-}
-
-bool Lexique::existe(const string& mot) const
-{
-    bool peutExister = true;
-
-    Noeud* noeudCourant = _instance->_racine;
-    const int MAX_ITERATIONS = std::min((int)mot.size(), _instance->_LONGUEUR_MAX);
-    for (int i = 0; i < MAX_ITERATIONS && peutExister; ++i) {
-        Noeud* enfant = noeudCourant->addEnfant(mot[i]);
-        noeudCourant = enfant;
-    }
-
-    bool existe;
-    if (peutExister) {
-         existe = noeudCourant->estValide(mot.substr(MAX_ITERATIONS-1, string::npos));
-    }
-    else {
-        existe = false;
-    }
-
-    return existe;
-}
-
-Lexique* Lexique::getInstance()
-{
-	return _instance;
 }
 
 
@@ -176,4 +203,54 @@ bool Lexique::Noeud::estValide(const string& sousMot) {
     }
 
     return estValide;
+}
+
+vector<string> Lexique::Noeud::recherchePrefixe(
+        const string& mot,
+        int hauteurCourante,
+        int nombreATrouver) {
+
+    vector<string> suggestions =
+            _rechercherChainesValides(
+                mot.substr(0, hauteurCourante),
+                mot.substr(hauteurCourante, string::npos),
+                nombreATrouver);
+
+    for (Noeud* enfant : _enfants) {
+        string motEnfant =
+            (hauteurCourante == mot.size()) ? mot + enfant->getLettreAssociee() : mot;
+
+        vector<string> nouveauxMots =
+            enfant->recherchePrefixe(
+                motEnfant,
+                hauteurCourante + 1,
+                nombreATrouver - suggestions.size());
+
+        suggestions.reserve(suggestions.size() + nouveauxMots.size());
+        std::move(
+            nouveauxMots.begin(),
+            nouveauxMots.end(),
+            std::inserter(suggestions, suggestions.end()));
+    }
+
+    return suggestions;
+}
+
+
+// PRIVATE:
+
+vector<string> Lexique::Noeud::_rechercherChainesValides(const string& debutMot, const string& finMot, int nombreATrouver) {
+    vector<string> motsValides;
+
+    unsigned int i = 0;
+    while(i < _sousMotsValides.size() && (int)motsValides.size() < nombreATrouver) {
+        // N'ajouter que les sous-chaînes qui commence par la fin du mot
+        if (_sousMotsValides[i].substr(0, finMot.size()) == finMot) {
+            motsValides.push_back(debutMot + _sousMotsValides[i]);
+        }
+
+        ++i;
+    }
+
+    return motsValides;
 }

@@ -13,13 +13,15 @@
 
 #include <vector>
 
-#include "Modele/Correction.h"
+#include "Modele/Correcteur.h"
 
 
 class Editeur : public QWidget
 {
 
     Q_OBJECT
+
+private:
 
 public:
     Editeur(QWidget* parent);
@@ -39,11 +41,12 @@ public slots:
 
 private:
     void _connecter() const;
-    void _motTermine(QString);
-    void _caractereAjoute(QString);
+    void _caractereAjoute();
+    void _motTermine();
+
+    void _remplacerDernierMot(const QString& motRemplacement);
 
     int  _getDebutMot(int posFin) const;
-    void _changerMotCourant(const QString& mot, QTextCursor &curseur);
 
 private:
     QVBoxLayout*    _disposition;
@@ -55,15 +58,19 @@ private:
     QCheckBox*      _caseAutoCompletion;
     QCheckBox*      _caseAutoCorrection;
 
-    QListWidget*    _suggestions;
+    QListWidget*    _boiteCorrecteur;
 
     bool            _autoCompletionActif;
     bool            _autoCorrectionActif;
 
+    QTextCursor     _curseurSurDernierMot;
+    const unsigned int _NUM_MOTS_CORRECTEUR_MAX = 10;
+
 private slots:
     void _reactionChangementDeTexte();
-    void _accepterSuggestion(QListWidgetItem *suggestionChoisie);
-    void _corrigerMot(const QString& motCorrige);
+    void _remplacerDernierMot(QListWidgetItem *suggestionChoisie);
+//    void _accepterSuggestion(const QString& motCorrige);
+//    void _accepterCorrection(const QString& motCorrige);
 };
 
 #endif // !DISPOSITION_EDITEUR_H

@@ -27,17 +27,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::_connecter() {
     connect(_choixLexique, SIGNAL(initialisationTerminee()), SLOT(montrerEditeur()));
-    connect(_editeur,      SIGNAL(retourDemande()), SLOT(montrerChoixLexique()));
+    connect(_editeur,      SIGNAL(retourDemande()),          SLOT(montrerChoixLexique()));
 }
 
 void MainWindow::_montrerChoixLexique() {
-    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
+    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer le widget central
     setCentralWidget(_choixLexique);
     resize(300, 150);
 }
 
 void MainWindow::_montrerEditeur() {
-    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer cw en changeant de widget central
+    centralWidget()->setParent(Q_NULLPTR); // Ne pas supprimmer le widget central
     _editeur->activer();
     setCentralWidget(_editeur);
     resize(800, 600);
