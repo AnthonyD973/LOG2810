@@ -31,7 +31,12 @@ Lexique* Lexique::getInstance()
     return _instance;
 }
 
-
+/****************************************************************************
+ * Fonction: Lexique::existe
+ * Description: Verifie si un mot est present dans le lexique
+ * Parametres:	- (const string&) mot: le mot a verifier(IN)
+ * Retour:		(bool) vrai si le mot est present
+ ****************************************************************************/
 bool Lexique::existe(const string& mot) const
 {
     bool peutExister = true;
@@ -54,6 +59,13 @@ bool Lexique::existe(const string& mot) const
     return existe;
 }
 
+/****************************************************************************
+ * Fonction: Lexique::suggerer
+ * Description: Suggere des mots pour completer les lettres ecrites par l'utilisateur
+ * Parametres:	- (const string&) mot: les premieres lettres ecrites(IN)
+                - (int) nombreATrouver: nombre de suggestions a trouver(IN)
+ * Retour:		(vector<string>) la liste des mots suggeres
+ ****************************************************************************/
 vector<string> Lexique::suggerer(const string& mot, int nombreATrouver) {
 
     //se rendre au noeud du lexique qui correspond au mot tape
@@ -89,7 +101,12 @@ Lexique::~Lexique()
     delete _racine;
 }
 
-
+/****************************************************************************
+ * Fonction: Lexique::_construireLexique
+ * Description: Construit le lexique a partir du fichier .txt
+ * Parametres:	- (const string&) fichier: le nom du fichier .txt (IN)
+ * Retour:		aucun
+ ****************************************************************************/
 void Lexique::_construireLexique(const string& fichier)
 {
 
@@ -163,7 +180,12 @@ Lexique::Noeud::~Noeud() {
     }
 }
 
-
+/****************************************************************************
+ * Fonction: Lexique::Noeud::addEnfant
+ * Description: Ajoute un enfant au noeud
+ * Parametres:	- (char) lettreAssociee: la lettre associee au noeud(IN)
+ * Retour:		(Noeud*) le noeud ajoute
+ ****************************************************************************/
 Lexique::Noeud* Lexique::Noeud::addEnfant(char lettreAssociee) {
     Noeud* enfant = getEnfant(lettreAssociee);
 
@@ -175,6 +197,12 @@ Lexique::Noeud* Lexique::Noeud::addEnfant(char lettreAssociee) {
     return enfant;
 }
 
+/****************************************************************************
+ * Fonction: Lexique::Noeud::getEnfant
+ * Description: Accede a l'enfant d'un noeud
+ * Parametres:	- (char) lettreAssociee: la lettre associee au noeud(IN)
+ * Retour:		(Noeud*) le noeud correspondant a la lettre
+ ****************************************************************************/
 Lexique::Noeud* Lexique::Noeud::getEnfant(char lettreAssociee) {
     Noeud* enfant = nullptr;
 
@@ -188,11 +216,22 @@ Lexique::Noeud* Lexique::Noeud::getEnfant(char lettreAssociee) {
     return enfant;
 }
 
-
+/****************************************************************************
+ * Fonction: Lexique::Noeud::addValide
+ * Description: Ajoute un sous-mot valide au vecteur de sous-mots valides
+ * Parametres:	- (const string&) sousMot: le sous-mot a ajouter(IN)
+ * Retour:		aucun
+ ****************************************************************************/
 void Lexique::Noeud::addValide(const string& sousMot) {
     _sousMotsValides.push_back(sousMot);
 }
 
+/****************************************************************************
+ * Fonction: Lexique::Noeud::estValide
+ * Description: Verifie si un sous-mot est dans le vecteur de sous-mots valides
+ * Parametres:	- (const string&) sousMot: le sous-mot qu'il faut verifier(IN)
+ * Retour:		(bool) vrai si le sous-mot est present dans le vecteur
+ ****************************************************************************/
 bool Lexique::Noeud::estValide(const string& sousMot) {
     bool estValide = false;
 
@@ -205,6 +244,14 @@ bool Lexique::Noeud::estValide(const string& sousMot) {
     return estValide;
 }
 
+/****************************************************************************
+ * Fonction: Lexique::Noeud::recherchePrefixe
+ * Description: Parcours l'arbre de maniere prefixe pour la methode suggerer
+ * Parametres:	- (const string&) mot: le mot qu'on recherche(IN)
+                - (int) hauteurCourante: la hauteur courante dans l'arbre(IN)
+                - (int) nombreATrouver: le nombre de suggestions qu'il reste a trouver(IN)
+ * Retour:		(vector<string>) la liste des mots trouves
+ ****************************************************************************/
 vector<string> Lexique::Noeud::recherchePrefixe(
         const string& mot,
         int hauteurCourante,
@@ -239,6 +286,14 @@ vector<string> Lexique::Noeud::recherchePrefixe(
 
 // PRIVATE:
 
+/****************************************************************************
+ * Fonction: Lexique::Noeud::_rechercherChainesValides
+ * Description: Compare les sous-mots avec avec le sous-mot ecrit par l'usager
+ * Parametres:	- (const string&) debutMot: le debut du mot(IN)
+                - (const string&) finMot: la fin du mot(IN)
+                - (int) nombreATrouver: le nombre de suggestions qu'il reste a trouver(IN)
+ * Retour:		(vector<string>) la liste des mots trouves
+ ****************************************************************************/
 vector<string> Lexique::Noeud::_rechercherChainesValides(const string& debutMot, const string& finMot, int nombreATrouver) {
     vector<string> motsValides;
 
